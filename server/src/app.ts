@@ -18,7 +18,7 @@ app.get("/groupmembers", (req: express.Request, res: express.Response) => {
     res.status(200).send(group);
 })
 
-app.get("/groupmembers?=:name", (req: express.Request, res: express.Response) => {
+app.get("/groupmembers?name=:name", (req: express.Request, res: express.Response) => {
     let name = req.params.name;
     res.status(200).send(name == 'teo' ? group[0] : name == 'soji' ? group[1]: "Not Found");
 })
