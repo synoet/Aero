@@ -3,8 +3,12 @@ import * as http from 'http';
 const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
-const port = 5000
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+const port = process.env.PORT;
 app.get("/", (req: express.Request, res: express.Response) => {
     res.status(200).send("Aero Server Running!")
 

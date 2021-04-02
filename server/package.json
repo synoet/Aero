@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node ./dist/app.js",
-    "tsc": "tsct"
+    "start": "node ./dist/app.js",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
   "keywords": [],
   "author": "Teo Nys <teosnys@gmail.com>",
