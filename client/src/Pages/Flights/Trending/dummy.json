@@ -1,0 +1,26 @@
+[
+    {
+        "departure_location": "NWK",
+        "arrival_location": "LND",
+        "airline": "Jet Blue",
+        "departure_time": "22:00"
+    },
+    {
+        "departure_location": "NWK",
+        "arrival_location": "LND",
+        "airline": "Jet Blue",
+        "departure_time": "22:00"
+    },
+    {
+        "departure_location": "NWK",
+        "arrival_location": "LND",
+        "airline": "Jet Blue",
+        "departure_time": "22:00"
+    },
+    {
+        "departure_location": "NWK",
+        "arrival_location": "LND",
+        "airline": "Jet Blue",
+        "departure_time": "22:00"
+    }
+]
