@@ -4,24 +4,26 @@ const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
 
+const routes: any = [];
+
 import dotenv from 'dotenv';
+import { BaseRoutesConfig } from './base/base.routes.config';
+import { FlightRoutes } from './routes/flight.routes';
 dotenv.config();
-const group = [{name: "Teo", Nationality: "Russian", Age: "20", Email: "teonys@nyu.edu"}, {name: "Soji", Nationality: "American", Age: "21", Email: "asa699@nyu.edu"}]
-
-const port = process.env.PORT;
-app.get("/", (req: express.Request, res: express.Response) => {
-    res.status(200).send("Aero Server Running!")
-
-})
-
-app.get("/groupmembers", (req: express.Request, res: express.Response) => {
-    res.status(200).send(group);
-})
 
 app.use(express.json());
+const port = process.env.PORT;
+app.use(express.urlencoded());
+
+routes.push(new FlightRoutes(app));
+
+
 
 server.listen(port, () => {
     console.log(`Server Running at port ${port}`)
+    routes.forEach((route: BaseRoutesConfig) => {
+        console.log(`Routes configured for ${route.getName()}`);
+    });
 })
 
 export default app;
