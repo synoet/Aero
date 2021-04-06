@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Box, Heading, Flex, Text, Button, chakra, Center } from "@chakra-ui/react";
+import { Box, Heading, Flex, Button, chakra, Center } from "@chakra-ui/react";
 import logotype from '../../images/logotype.svg';
 
 
