@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const purchase_info_Schema = new mongoose.Schema({
+const PurchaseInfoSchema = new mongoose.Schema({
     ticket_ID: String,
     purchase_ID: String,
     sold_price: Number,
@@ -16,5 +16,5 @@ const purchase_info_Schema = new mongoose.Schema({
     }
 
 });
-const Purchase_info = MongooseService.getInstance().getMongoose().model('Purchase_info', purchase_info_Schema);
-export default Purchase_info;
+const PurchaseInfo = MongooseService.getInstance().getMongoose().model('PurchaseInfo', PurchaseInfoSchema);
+export default PurchaseInfo;

@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const staff_phone_Schema = new mongoose.Schema({
+const StaffPhoneNumberSchema = new mongoose.Schema({
     username: String,
-    phone_Number: Number
+    phone_number: Number
 
 });
-const Staff_phone = MongooseService.getInstance().getMongoose().model('Airplane', staff_phone_Schema);
-export default Staff_phone;
+const StaffPhoneNumber = MongooseService.getInstance().getMongoose().model('StaffPhoneNumber', StaffPhoneNumberSchema);
+export default StaffPhoneNumber;

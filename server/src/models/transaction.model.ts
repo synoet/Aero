@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const transactionSchema = new mongoose.Schema({
-    ticket_ID: String,
+const TransactionSchema = new mongoose.Schema({
+    ticket_id: String,
     customer_email: String,
     booking_agent_email:{
         type: String,
@@ -9,5 +9,5 @@ const transactionSchema = new mongoose.Schema({
     }
 
 });
-const Transaction = MongooseService.getInstance().getMongoose().model('Transaction', transactionSchema);
+const Transaction = MongooseService.getInstance().getMongoose().model('Transaction', TransactionSchema);
 export default Transaction;

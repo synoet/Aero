@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const ticketSchema = new mongoose.Schema({
-    ticket_ID: String,
+const TicketSchema = new mongoose.Schema({
+    ticket_id: String,
     email: String,
-    flight_Number: Number
+    flight_number: Number
 
 });
-const Ticket = MongooseService.getInstance().getMongoose().model('Ticket', ticketSchema);
+const Ticket = MongooseService.getInstance().getMongoose().model('Ticket', TicketSchema);
 export default Ticket;
