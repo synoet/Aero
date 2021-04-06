@@ -58,4 +58,5 @@ export default FlightList;
 const Title = styled.h1`
     font-size: 1.3rem;
     font-weight: 600;
+    margin-bottom: 1rem;
 `;

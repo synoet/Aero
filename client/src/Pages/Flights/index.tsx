@@ -7,8 +7,10 @@ import Navbar from '../../Components/Navbar'
 const Flights = () => {
     return (
         <VStack>
-            <Navbar></Navbar>
             <Wrap spacing = {"3rem"} direction = "column">
+                <WrapItem>
+                    <Navbar></Navbar>
+                </WrapItem>
                 <WrapItem>
                     <Trending></Trending>
                 </WrapItem>

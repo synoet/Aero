@@ -5,12 +5,12 @@ import data from './dummy.json';
 const Trending = () => {
     return (
         <Box>
-            <Wrap direction = "row">
+            <Wrap direction = "row" spacing = {'2rem'}>
                 <WrapItem>
-                    <FlightGrid data = {data}></FlightGrid>
+                    <FlightGrid title = {'Upcoming Flights'} data = {data}></FlightGrid>
                 </WrapItem>
                 <WrapItem>
-                    <FlightGrid data = {data}></FlightGrid>
+                    <FlightGrid title = {'Delayed Flights'} data = {data}></FlightGrid>
                 </WrapItem>
 
             </Wrap>

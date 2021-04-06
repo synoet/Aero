@@ -18,7 +18,7 @@ const Navbar = (props: any) => {
         >
           <Flex align="center" mr={5}>
             <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
-              <chakra.img src = {logotype}/>
+              <chakra.img h = '50px' src = {logotype}/>
             </Heading>
           </Flex>
           <Center>

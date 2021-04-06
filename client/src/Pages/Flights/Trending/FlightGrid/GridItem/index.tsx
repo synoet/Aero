@@ -1,15 +1,14 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, chakra } from '@chakra-ui/react';
 import styled from 'styled-components';
-// "departure_location": "NWK",
-// "arrival_location": "LND",
-// "airline": "Jet Blue",
-// "departure_time": "22:00"
+import arrow from '../../../../../images/arrow.svg';
+
+
 const GridItem = ({data}: any) => {
     return (
         <StyledCard>
             <div className = 'flight-info'>
-                <p className = 'flight-name'>{data.departure_location} - {data.arrival_location}</p>
+                <p className = 'flight-name'>{data.departure_location} <Icon src = {arrow} /> {data.arrival_location}</p>
                 <p className = 'flight-time'>{data.departure_time}</p>
             </div>
             <p className = 'flight-airline'>{data.airline}</p>
@@ -30,7 +29,12 @@ padding-left: 1rem;
 padding-right: 1rem;
 padding-top: .5rem;
 padding-bottom: .5rem;
+border: 1px solid transparent;
 
+:hover {
+    border: 1px solid #6137FE;
+    cursor: pointer;
+}
 
 .flight-info {
     width: 100%;
@@ -51,4 +55,11 @@ padding-bottom: .5rem;
     color: #6137FE;
     font-size: .9rem;
 }
+`;
+
+
+const Icon = styled(chakra.img)`
+height: 15px;
+display: inline-block;
+vertical-align: middle;
 `;
