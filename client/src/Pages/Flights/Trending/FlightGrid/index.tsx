@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, SimpleGrid, Wrap, WrapItem } from "@chakra-ui/react"
+import { Box, SimpleGrid} from "@chakra-ui/react"
 import GridItem from './GridItem';
 import styled from 'styled-components';
 const FlightGrid = ({data, title}: any) => {
