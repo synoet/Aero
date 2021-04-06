@@ -1,5 +1,6 @@
 import express  from 'express';
 import * as http from 'http';
+import {createFlights} from './controllers/flight.controller';
 const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
@@ -18,6 +19,10 @@ app.get("/groupmembers", (req: express.Request, res: express.Response) => {
     res.status(200).send(group);
 })
 
+app.post("/flights", [
+    createFlights
+])
+
 app.use(express.json());
 
 server.listen(port, () => {
@@ -25,6 +30,5 @@ server.listen(port, () => {
 })
 
 export default app;
-// this is comment
 
 
