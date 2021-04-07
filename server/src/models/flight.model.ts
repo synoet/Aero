@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
+
+const mongo = MongooseService.getInstance().getMongoose();
 const FlightSchema = new mongoose.Schema({
     Flight_number: Number,
     Departure_Date: Date,
@@ -15,5 +17,5 @@ const FlightSchema = new mongoose.Schema({
     }
 
 });
-const Flight = MongooseService.getInstance().getMongoose().model('Flight', FlightSchema);
+const Flight = mongo.model('Flight', FlightSchema);
 export default Flight; 

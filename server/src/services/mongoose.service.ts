@@ -1,8 +1,12 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const port = process.env.DB || '3000';
+dotenv.config();
+const host = process.env.DB_HOST || '3000'
+
 export class MongooseService {
     private static instance: MongooseService;
+    
 
     options = {
         autoIndex: false,
@@ -31,10 +35,10 @@ export class MongooseService {
 
     connectWithRetry() {
         console.log('MongoDB connection with retry');
-        mongoose.connect(port, this.options).then(() => {
+        mongoose.connect(host, this.options).then(() => {
             console.log('MongoDB is connected')
         }).catch(err => {
-            console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++this.count);
+            console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++this.count, err, host);
             setTimeout(this.connectWithRetry, 5000)
         })
     };

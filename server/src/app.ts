@@ -3,19 +3,24 @@ import * as http from 'http';
 const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
-
 const routes: any = [];
 
 import dotenv from 'dotenv';
 import { BaseRoutesConfig } from './base/base.routes.config';
 import { FlightRoutes } from './routes/flight.routes';
+import { MongooseService } from './services/mongoose.service';
+import { Mongoose } from 'mongoose';
+
 dotenv.config();
+
 
 app.use(express.json());
 const port = process.env.PORT;
 app.use(express.urlencoded());
 
 routes.push(new FlightRoutes(app));
+
+
 
 
 

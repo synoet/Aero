@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { setupMaster } from 'node:cluster';
 import {MongooseService} from '../services/mongoose.service';
 const AirplaneSchema = new mongoose.Schema({
     ID: String,
