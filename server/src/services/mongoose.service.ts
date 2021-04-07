@@ -7,7 +7,6 @@ const host = process.env.DB_HOST || '3000'
 export class MongooseService {
     private static instance: MongooseService;
     
-
     options = {
         autoIndex: false,
         poolSize: 10,

@@ -2,16 +2,16 @@ import mongoose from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
 
 const mongo = MongooseService.getInstance().getMongoose();
-const FlightSchema = new mongoose.Schema({
-    Flight_number: Number,
-    Departure_Date: Date,
-    Departure_Time: Date, 
-    Airline_name: String,
-    Arrival_Date: Date,
-    Arrival_Time: Date,
-    Base_price: Number,
-    Airplane_ID: String,
-    Status: {
+export const FlightSchema = new mongoose.Schema({
+    flight_number: Number,
+    departure_date: Date,
+    departure_time: Date, 
+    airline_name: String,
+    arrival_date: Date,
+    arrival_time: Date,
+    base_price: Number,
+    airplane_id: String,
+    status: {
         type: String,
         default : null
     }

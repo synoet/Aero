@@ -12,7 +12,11 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
         const controller = new FlightController();
 
         this.app.post(`/flights`, [
-            controller.listFlights
+            controller.createFlight
         ]);
+
+        this.app.get(`/flights`, [
+            controller.listFlights
+        ])
     }
 }

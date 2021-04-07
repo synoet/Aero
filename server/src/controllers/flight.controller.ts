@@ -6,10 +6,14 @@ export class FlightController {
     mongooseService: MongooseService = MongooseService.getInstance();
     constructor(){}
 
-    listFlights = async(req: express.Request, res: express.Response) => {
+    createFlight = async(req: express.Request, res: express.Response) => {
         const flight = new Flight(req.body);
-        const newFlight = flight.save(flight);
+        const newFlight = await flight.save(flight);
         res.status(201).send(newFlight);
+    }
 
+    listFlights = async(req: express.Request, res: express.Response) => {
+        const flightList = await Flight.find().limit(100).exec();
+        res.status(200).send(flightList);
     }
 }

@@ -4,6 +4,7 @@ const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
 const routes: any = [];
+import bodyParser from 'body-parser';
 
 import dotenv from 'dotenv';
 import { BaseRoutesConfig } from './base/base.routes.config';
@@ -15,8 +16,10 @@ dotenv.config();
 
 
 app.use(express.json());
-const port = process.env.PORT;
 app.use(express.urlencoded());
+
+const port = process.env.PORT;
+
 
 routes.push(new FlightRoutes(app));
 
