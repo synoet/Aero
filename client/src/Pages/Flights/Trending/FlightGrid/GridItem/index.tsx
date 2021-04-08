@@ -8,10 +8,10 @@ const GridItem = ({data}: any) => {
     return (
         <StyledCard>
             <div className = 'flight-info'>
-                <p className = 'flight-name'>{data.departure_location} <Icon src = {arrow} /> {data.arrival_location}</p>
-                <p className = 'flight-time'>{data.departure_time}</p>
+                <p className = 'flight-name'>{data.departure_airport_name} <Icon src = {arrow} /> {data.arrival_airport_name}</p>
+                <p className = 'flight-time'>{data.departure_date}</p>
             </div>
-            <p className = 'flight-airline'>{data.airline}</p>
+            <p className = 'flight-airline'>{data.airline_name}</p>
         </StyledCard>
     )
 }
