@@ -27,12 +27,16 @@ const FlightList = ({data}: {data: any}) => {
             <Th>Buy</Th>
           </Tr>
           {data.map((flight: any) => {
+            const departureDate = new Date(flight.departure_date)
+            const departureTime = `${departureDate.getHours() < 10 ? '0': ''}${departureDate.getHours()}:${departureDate.getMinutes() < 10 ? '0': ''}${departureDate.getMinutes()}`;
+            const arrivalDate = new Date(flight.departure_date)
+            const arrivalTime = `${departureDate.getHours() < 10 ? '0': ''}${departureDate.getHours()}:${departureDate.getMinutes() < 10 ? '0': ''}${departureDate.getMinutes()}`;
               return (
                   <Tr>
                       <Td>{flight.flight_number}</Td>
                       <Td>{flight.base_price}$</Td>
-                      <Td>{flight.departure_date}</Td>
-                      <Td>{flight.arrival_date}</Td>
+                      <Td>{departureTime}</Td>
+                      <Td>{arrivalTime}</Td>
                       <Td>{flight.departure_airport_name}</Td>
                       <Td>{flight.arrival_airport_name}</Td>
                       <Td>{flight.airline_name}</Td>
