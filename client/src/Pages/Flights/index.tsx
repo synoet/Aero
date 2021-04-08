@@ -9,6 +9,22 @@ const Flights = () => {
     const [upcomingFlights, setUpcomingFlights] = useState();
     const [allFlights, setAllFlights] = useState();
 
+    useEffect(() => {
+        fetch(`https://projectaero-api.herokuapp.com/flightsview`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            setDelayedFlights(res.delayedFlights);
+            setAllFlights(res.allFlights);
+            setUpcomingFlights(res.upcomingFlights);
+            console.log(res);
+        }).catch((err) => console.log(err))
+    })
+
     return (
         <VStack>
             <Wrap spacing = {"3rem"} direction = "column">
