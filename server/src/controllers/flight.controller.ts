@@ -44,7 +44,7 @@ export class FlightController {
     }
 
     listFlights = async(req: express.Request, res: express.Response) => {
-        const flightList = await Flight.find().limit(100).exec();
+        const flightList = await Flight.find().limit(100).sort({arrival_date: 'desc'}).exec();
         res.status(200).send(flightList);
     }
 
@@ -52,5 +52,17 @@ export class FlightController {
         // _id is generated automatically
         const flight = await Flight.findOne({_id: req.params.id});
         res.status(200).send(flight);
+    }
+
+    getFlightsView = async(req: express.Request, res: express.Response) => {
+        const currentDate = new Date();
+        let upcomingResponse = await Flight.find({}).limit(100).sort({departure_date: 'desc'}).exec()
+        let upcomingFlights = upcomingResponse.filter(flight => flight.departure_date > currentDate).slice(0, 4);
+
+        res.status(200).send({
+            upcomingFlights: upcomingFlights,
+            delayedFlights: await Flight.find({status: 'delayed'}).exec(),
+            allFlights: await Flight.find().limit(100).exec(),
+        });
     }
 }
