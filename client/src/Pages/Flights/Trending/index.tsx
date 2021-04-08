@@ -1,7 +1,6 @@
 import React from 'react';
 import FlightGrid from './FlightGrid';
 import {Box, Wrap, WrapItem} from '@chakra-ui/react';
-import data from './dummy.json';
 const Trending = ({data}: {data: any}) => {
     return (
         <Box>
