@@ -8,9 +8,8 @@ import {
     Button
   } from "@chakra-ui/react"
 import styled from 'styled-components';
-import data from './dummy.json';
 
-const FlightList = () => {
+const FlightList = ({data}: {data: any}) => {
     console.log(data);
     return (
       <div>
@@ -27,16 +26,16 @@ const FlightList = () => {
             <Th>Airline</Th>
             <Th>Buy</Th>
           </Tr>
-          {data.map(flight => {
+          {data.map((flight: any) => {
               return (
                   <Tr>
-                      <Td>{flight.flight_id}</Td>
-                      <Td>{flight.price}$</Td>
-                      <Td>{flight.departure_time}</Td>
-                      <Td>{flight.arrival_time}</Td>
-                      <Td>{flight.departure_airport}</Td>
-                      <Td>{flight.arrival_airport}</Td>
-                      <Td>{flight.airline}</Td>
+                      <Td>{flight.flight_number}</Td>
+                      <Td>{flight.base_price}$</Td>
+                      <Td>{flight.departure_date}</Td>
+                      <Td>{flight.arrival_date}</Td>
+                      <Td>{flight.departure_airport_name}</Td>
+                      <Td>{flight.arrival_airport_name}</Td>
+                      <Td>{flight.airline_name}</Td>
                       <Td><Button bg = "#6137FE" color="white">Buy</Button></Td>
 
                   </Tr>

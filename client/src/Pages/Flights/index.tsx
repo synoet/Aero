@@ -8,6 +8,7 @@ const Flights = () => {
     const [delayedFlights, setDelayedFlights] = useState();
     const [upcomingFlights, setUpcomingFlights] = useState();
     const [allFlights, setAllFlights] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetch(`https://projectaero-api.herokuapp.com/flightsview`, {
@@ -23,21 +24,24 @@ const Flights = () => {
             setUpcomingFlights(res.upcomingFlights);
             console.log(res);
         }).catch((err) => console.log(err))
-    })
+        .then(() => setIsLoading(false));
+    }, [])
 
     return (
         <VStack>
+            {!isLoading && 
             <Wrap spacing = {"3rem"} direction = "column">
                 <WrapItem>
                     <Navbar></Navbar>
                 </WrapItem>
                 <WrapItem>
-                    <Trending></Trending>
+                    <Trending data = {{upcomingFlights: upcomingFlights, delayedFlights: delayedFlights}}></Trending>
                 </WrapItem>
                 <WrapItem>
-                    <FlightList></FlightList>
+                    <FlightList data = {allFlights}></FlightList>
                 </WrapItem>
             </Wrap>
+            }
         </VStack>
     )
 }
