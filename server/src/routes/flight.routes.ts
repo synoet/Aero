@@ -18,5 +18,9 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
         this.app.get(`/flights`, [
             controller.listFlights
         ])
+
+        this.app.get(`/flights/:id`, [
+            controller.getFlightById
+        ])
     }
 }
