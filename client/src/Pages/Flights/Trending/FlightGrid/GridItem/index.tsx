@@ -26,7 +26,7 @@ margin-top: 10px;
 margin-left: 10px;
 min-width: 250px;
 background: #FFFFFF;
-box-shadow: -3px 0px 3px rgba(0, 0, 0, 0.025), 0px -3px 3px rgba(0, 0, 0, 0.025), 3px 0px 3px rgba(0, 0, 0, 0.025), 0px 3px 3px rgba(0, 0, 0, 0.025);
+box-shadow: -6px 0px 6px rgba(0, 0, 0, 0.05), 0px -6px 6px rgba(0, 0, 0, 0.05), 6px 0px 6px rgba(0, 0, 0, 0.05), 0px 6px 6px rgba(0, 0, 0, 0.05);
 border-radius: 7px;
 padding-left: 1rem;
 padding-right: 1rem;
