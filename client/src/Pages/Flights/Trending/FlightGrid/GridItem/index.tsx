@@ -5,11 +5,14 @@ import arrow from '../../../../../images/arrow.svg';
 
 
 const GridItem = ({data}: any) => {
+    const departureDate = new Date(data.departure_date)
+    const departureTime = `${departureDate.getHours() < 10 ? '0': ''}${departureDate.getHours()}:${departureDate.getMinutes() < 10 ? '0': ''}${departureDate.getMinutes()}`;
+
     return (
         <StyledCard>
             <div className = 'flight-info'>
                 <p className = 'flight-name'>{data.departure_airport_name} <Icon src = {arrow} /> {data.arrival_airport_name}</p>
-                <p className = 'flight-time'>{data.departure_date}</p>
+                <p className = 'flight-time'>{departureTime}</p>
             </div>
             <p className = 'flight-airline'>{data.airline_name}</p>
         </StyledCard>
