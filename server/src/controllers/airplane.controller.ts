@@ -1,7 +1,6 @@
 import Airplane from '../models/airplane.model';
 import express from 'express';
 import {MongooseService} from '../services/mongoose.service';
-// import { Mongoose } from 'mongoose';
 import * as shortUUID from "short-uuid";
 
 type AirplaneData = {
