@@ -14,5 +14,9 @@ export class AirplaneRoutes extends BaseRoutesConfig implements configureRoutes{
         this.app.post(`/airplanes`, [
             controller.createAirplane
         ]);
+
+        this.app.get(`/airplanes`, [
+            controller.listAirplanes
+        ])
     }
 }

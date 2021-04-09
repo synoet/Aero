@@ -26,4 +26,9 @@ export class AirplaneController{
         res.status(201).send(newAirplane);
 
     }
+
+    listAirplanes = async(req: express.Request, res: express.Response) => {
+        const airplanes =  await Airplane.find().limit(100).exec();
+        res.status(200).send(airplanes);
+    }
 }
