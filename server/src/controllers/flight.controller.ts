@@ -54,6 +54,16 @@ export class FlightController {
         res.status(200).send(flight);
     }
 
+    updateFlightStatus = async(req: express.Request, res: express.Response) => {
+        const status: string = req.body.status;
+        const flight = await Flight.findOne({_id: req.params.id});
+        if (flight){
+            flight.status = status;
+            await flight.save();
+            res.status(201).send(flight);
+        }
+    }
+
     getFlightsView = async(req: express.Request, res: express.Response) => {
         const currentDate = new Date();
         let upcomingResponse = await Flight.find({}).limit(100).sort({departure_date: 'desc'}).exec()
