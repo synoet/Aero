@@ -1,6 +1,6 @@
 import express from 'express';
 import {BaseRoutesConfig, configureRoutes } from '../base/base.routes.config';
-import {AirplaneController} from '../controllers/airplane.controller';
+import {AirplaneController} from '../controllers/airplane.controller'
 
 export class AirplaneRoutes extends BaseRoutesConfig implements configureRoutes{
     constructor(app: express.Application){
@@ -11,8 +11,7 @@ export class AirplaneRoutes extends BaseRoutesConfig implements configureRoutes{
     configureRoutes(){
         const controller = new AirplaneController();
     
-
-        this.app.post(`/airplane`,[
+        this.app.post(`/airplanes`, [
             controller.createAirplane
         ]);
     }
