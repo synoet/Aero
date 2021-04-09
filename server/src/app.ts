@@ -11,6 +11,7 @@ import { BaseRoutesConfig } from './base/base.routes.config';
 import { FlightRoutes } from './routes/flight.routes';
 import { MongooseService } from './services/mongoose.service';
 import { Mongoose } from 'mongoose';
+import { AirplaneRoutes } from './routes/airplane.routes';
 
 dotenv.config();
 
@@ -33,7 +34,7 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT;
 routes.push(new FlightRoutes(app));
-
+routes.push(new AirplaneRoutes(app))
 
 
 
