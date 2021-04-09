@@ -15,6 +15,13 @@ type FlightData = {
     status: string;
 }
 
+const searchableKeys = [
+    'flight_number',
+    'airline_name',
+    'departure_airport_name',
+    'arrival_airport_name'
+]
+
 export class FlightController {
     mongooseService: MongooseService = MongooseService.getInstance();
     constructor(){}
@@ -62,6 +69,22 @@ export class FlightController {
             await flight.save();
             res.status(201).send(flight);
         }
+    }
+
+    searchFlights = async(req: express.Request, res: express.Response) => {
+        const query = req.params.query;
+        const flights = await Flight.find({}).limit(100).sort({arrival_date: 'desc'}).exec();
+        const sortedFlights: any = [];
+        flights.map((flight: any) => {
+            searchableKeys.map((key: any) => {
+                if (flight[key].includes(query)){
+                    console.log(flight[key])
+                    sortedFlights.push(flight)
+                }
+            })
+        })
+
+        res.status(200).send(sortedFlights);
     }
 
     getFlightsView = async(req: express.Request, res: express.Response) => {

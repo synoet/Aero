@@ -30,5 +30,9 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
         this.app.patch(`/flights/:id/status`, [
             controller.updateFlightStatus
         ])
+
+        this.app.get(`/flights/search/:query`, [
+            controller.searchFlights
+        ])
     }
 }
