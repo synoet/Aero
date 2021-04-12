@@ -4,14 +4,14 @@ const app: express.Application = express();
 const router = express.Router();
 const server: http.Server = http.createServer(app);
 const routes: any = [];
-import bodyParser from 'body-parser';
-
 import dotenv from 'dotenv';
 import { BaseRoutesConfig } from './base/base.routes.config';
 import { FlightRoutes } from './routes/flight.routes';
-import { MongooseService } from './services/mongoose.service';
-import { Mongoose } from 'mongoose';
 import { AirplaneRoutes } from './routes/airplane.routes';
+
+import * as swaggerUi from 'swagger-ui-express';
+const swaggerDocument = require('../swagger.json');
+
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ const port = process.env.PORT;
 routes.push(new FlightRoutes(app));
 routes.push(new AirplaneRoutes(app))
 
-
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 server.listen(port, () => {
