@@ -10,10 +10,9 @@ import {
 import styled from 'styled-components';
 
 const FlightList = ({data}: {data: any}) => {
-    console.log(data);
     return (
       <div>
-              <Title>Flights</Title>
+        <Title>Flights</Title>
         <Table variant="simple">
         <Thead>
           <Tr>
@@ -29,7 +28,6 @@ const FlightList = ({data}: {data: any}) => {
           {data.map((flight: any) => {
             const departureDate = new Date(flight.departure_date)
             const departureTime = `${departureDate.getHours() < 10 ? '0': ''}${departureDate.getHours()}:${departureDate.getMinutes() < 10 ? '0': ''}${departureDate.getMinutes()}`;
-            const arrivalDate = new Date(flight.departure_date)
             const arrivalTime = `${departureDate.getHours() < 10 ? '0': ''}${departureDate.getHours()}:${departureDate.getMinutes() < 10 ? '0': ''}${departureDate.getMinutes()}`;
               return (
                   <Tr>

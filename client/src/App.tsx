@@ -3,9 +3,10 @@ import {
   ChakraProvider,
   theme,
 } from "@chakra-ui/react"
-import Layout from './shared-components/Layout';
+import Flights from './pages/Flights'
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
+  <ChakraProvider  theme={theme}>
+    <Flights></Flights>
   </ChakraProvider>
 )

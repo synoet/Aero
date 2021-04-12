@@ -3,9 +3,11 @@ import { Box, Heading, Flex, Button, chakra, Center } from "@chakra-ui/react";
 import logotype from '../../images/logotype.svg';
 
 
-const Navbar = (props: any) => {
-    const [show, setShow] = useState(false);
+import MenuItem from './MenuItem';
+const Header = (props: any) => {
+    const [show, setShow] = useState(false)
     const handleToggle = () => setShow(!show);
+    
     return (
         <Flex
           as="nav"
@@ -13,8 +15,8 @@ const Navbar = (props: any) => {
           justify="space-between"
           wrap="wrap"
           padding="1.5rem"
-          w = "100%"
-          {...props}
+          width = "100%"
+          maxW = "1200px"
         >
           <Flex align="center" mr={5}>
             <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
@@ -24,7 +26,7 @@ const Navbar = (props: any) => {
           <Center>
             <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
                 <svg
-                fill="white"
+                fill="black"
                 width="12px"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +35,9 @@ const Navbar = (props: any) => {
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
                 </svg>
             </Box>
+            <Flex>
+
+            </Flex>
         
             <Box
                 display={{ sm: show ? "block" : "none", md: "flex" }}
@@ -40,6 +45,13 @@ const Navbar = (props: any) => {
                 alignItems="center"
                 flexGrow={1}
             >
+                <Flex>
+                    <MenuItem to="/"> Home </MenuItem>
+                    <MenuItem to="/Flights"> Flights </MenuItem>
+                    <MenuItem to="/Flights"> Destinations </MenuItem>
+                    <MenuItem to="/Flights"> Airports </MenuItem>
+                    <MenuItem to="/Flights"> Airlines </MenuItem>
+                </Flex>
             </Box>
           </Center>
     
@@ -57,7 +69,8 @@ const Navbar = (props: any) => {
             </Button>
           </Box>
         </Flex>
-      );
+    )
+
 }
 
-export default Navbar;
+export default Header;

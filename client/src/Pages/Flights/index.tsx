@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {VStack, Wrap, WrapItem } from "@chakra-ui/react"
 import FlightList from './FlightList';
 import Trending from './Trending';
-import Navbar from '../../Components/Navbar'
+import Layout from '../../components/Layout';
 
 const Flights = () => {
     const [delayedFlights, setDelayedFlights] = useState();
@@ -28,21 +28,27 @@ const Flights = () => {
     }, [])
 
     return (
-        <VStack>
-            {!isLoading && 
-            <Wrap spacing = {"3rem"} direction = "column">
-                <WrapItem>
-                    <Navbar></Navbar>
-                </WrapItem>
-                <WrapItem>
-                    <Trending data = {{upcomingFlights: upcomingFlights, delayedFlights: delayedFlights}}></Trending>
-                </WrapItem>
-                <WrapItem>
-                    <FlightList data = {allFlights}></FlightList>
-                </WrapItem>
-            </Wrap>
-            }
-        </VStack>
+        <>
+        {!isLoading && 
+                <Layout
+                leftPanel = {<FlightList data = {allFlights}></FlightList>}
+                // rightPanel = {<Trending data = {{upcomingFlights: upcomingFlights, delayedFlights: delayedFlights}}></Trending>}
+            ></Layout>
+        }
+        </>
+
+        // <VStack>
+        //     {!isLoading && 
+        //     <Wrap spacing = {"3rem"} direction = "column">
+        //         <WrapItem>
+        //             <Trending data = {{upcomingFlights: upcomingFlights, delayedFlights: delayedFlights}}></Trending>
+        //         </WrapItem>
+        //         <WrapItem>
+        //             <FlightList data = {allFlights}></FlightList>
+        //         </WrapItem>
+        //     </Wrap>
+        //     }
+        // </VStack>
     )
 }
 

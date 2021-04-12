@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Text, Link} from '@chakra-ui/react';
 
-const MenuItems = (props: any) => {
+const MenuItem = (props: any) => {
     const { children, isLast, to = "/", ...rest } = props;
     return (
         <Text
@@ -16,4 +16,4 @@ const MenuItems = (props: any) => {
       )
 }
 
-export default MenuItems;
+export default MenuItem;
