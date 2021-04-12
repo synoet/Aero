@@ -1,8 +1,17 @@
 import React from 'react';
+import { Flex } from '@chakra-ui/react';
 
-const Layout = () => {
+
+const Layout = (props: any) => {
     return (
-        <h1>Layout</h1>
+        <Flex
+            direction = 'column'
+            align = 'center'
+            maxW = {{ xl: "1200px"}}
+            m = "0 auto"
+        >
+            {props.children}
+        </Flex>
 
     )
 }
