@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import FlightList from './FlightList';
 import {Center} from '@chakra-ui/react';
+import FlightSearch from './FlightSearch';
 
 const Flights = () => {
     const [allFlights, setAllFlights] = useState();
@@ -26,6 +27,7 @@ const Flights = () => {
         <>
         {!isLoading && 
                 <Layout leftPanel = {<FlightList flights = {allFlights} />}>
+                    <FlightSearch></FlightSearch>
                 </Layout>
         }
         </>
