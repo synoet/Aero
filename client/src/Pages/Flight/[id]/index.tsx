@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 import Layout from '../../../components/Layout';
 import {chakra, Flex, HStack, VStack, Center} from '@chakra-ui/react';
 import styled from 'styled-components';
-import { FiArrowRight } from 'react-icons/fi'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import smallcircle from '../../../images/smallcircle.svg';
 import dots from '../../../images/dots.svg';
 import { useScreenType } from '../../../hooks/useScreenType';
+import {useHistory} from 'react-router-dom';
 
-const Flight: React.FC = ({match}: {match: any}) => {
+const Flight: React.FC<any> = ({match}: {match: any}) => {
     const {params: {flightId} } = match;
     const [isLoading, setIsLoading] = useState(true);
     const [flight, setFlight] = useState();
@@ -15,6 +16,7 @@ const Flight: React.FC = ({match}: {match: any}) => {
     const screenType = useScreenType();
 
     var options = {  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const history = useHistory();
 
     useEffect(() => {
         fetch(`https://projectaero-api.herokuapp.com/flights/${flightId}`, {
@@ -34,10 +36,10 @@ const Flight: React.FC = ({match}: {match: any}) => {
         <>
         {(!isLoading) &&    
             <Layout>
+                <HStack marginBottom='1rem' _hover = {{cursor: 'pointer', opacity: '.5'}} onClick = {() => {history.push('/flights')}}><FiArrowLeft/><p> Back to Flights</p></HStack>
                 <FlightInfo 
                     justify='space-between'
                 >
-                    
                     <VStack
                         align = 'flex-start'
                     >
