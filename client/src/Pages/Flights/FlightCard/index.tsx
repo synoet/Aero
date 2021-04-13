@@ -35,6 +35,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
         align = 'center'
         justify = 'space-between'
         padding = '1.5rem 2.5rem 1.5rem 2rem'
+        _hover={(screenType === 's' || screenType === 'xs') ? {border: '1px solid #6137FE', cursor: 'pointer'}: {}}
+        onClick={(screenType === 's' || screenType === 'xs') ? () => {history.push(`/flight/${flightId}`)} : () => {}}
         >
             <HStack
             >
