@@ -5,12 +5,14 @@ import {
   theme,
 } from "@chakra-ui/react"
 import Flights from './pages/Flights'
+import Flight from './pages/Flight/[id]';
 
 export const App = () => (
   <ChakraProvider  theme={theme}>
     <Router>
       <Route path = '/' />
       <Route path='/flights' component = {Flights} />
+      <Route path='/flight/:flightId' component = {Flight} />
       <Route path = '/destinations' />
       <Route path = '/airports' />
       <Route path = '/airlines' />
