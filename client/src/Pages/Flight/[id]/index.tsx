@@ -6,7 +6,7 @@ import { FiArrowRight } from 'react-icons/fi'
 import smallcircle from '../../../images/smallcircle.svg';
 import dots from '../../../images/dots.svg';
 
-const Flight = ({match}: {match: any}) => {
+const Flight: React.FC = ({match}: {match: any}) => {
     const {params: {flightId} } = match;
     const [isLoading, setIsLoading] = useState(true);
     const [flight, setFlight] = useState();
@@ -87,9 +87,9 @@ const Flight = ({match}: {match: any}) => {
                             <VStack
                                 align='flex-end'
                             >
-                                <MediumText>Airline: {flight.airline_name}</MediumText>
-                                <MediumText>Status: {flight.status}</MediumText>
-                                <MediumText>Flight Id: {flight._id}</MediumText>
+                                <MediumText><span>Airline: </span> {flight.airline_name}</MediumText>
+                                <MediumText><span>Status: </span> {flight.status}</MediumText>
+                                <MediumText><span>Flight Id: </span> {flight._id}</MediumText>
                             </VStack>
                         </SelectedFlightInfo>
                     </Flex>
@@ -121,6 +121,10 @@ color: #AAAAAA
 
 const MediumText = styled.p`
 font-size: 1.2rem;
+
+span {
+    opacity: .6;
+}
 `;
 
 const FlightInfo = styled(HStack)``;
