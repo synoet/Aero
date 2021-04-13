@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {VStack, Wrap, WrapItem } from "@chakra-ui/react"
 import Layout from '../../components/Layout';
-
+import FlightCard from './FlightCard';
 const Flights = () => {
     const [allFlights, setAllFlights] = useState();
     const [isLoading, setIsLoading] = useState(true);
@@ -23,8 +23,7 @@ const Flights = () => {
     return (
         <>
         {!isLoading && 
-                <Layout
-            ></Layout>
+                <Layout leftPanel = {<FlightCard departureTime = '12:00 EST' departureLocation = 'Newark NWK' arrivalTime = '18:00 EST' arrivalLocation = 'London LHR' price = {500} airline = 'Jet Blue' flightId = '123df45'></FlightCard>}></Layout>
         }
         </>
     )

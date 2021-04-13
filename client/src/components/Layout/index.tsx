@@ -13,15 +13,14 @@ interface MainLayoutProps {
 export const Layout: React.FC<MainLayoutProps> = ({
   children,
   leftPanel = <div />,
-  rightPanel = <div />,
+  rightPanel,
 }) => {
   const screenType = useScreenType();
 
   let content = null;
 
-  switch (screenType) {
-    case "2-columns":
-      content = (
+  if(screenType === 'xl' || screenType === 'l' || screenType === 'm'){
+    content = (
         <>
         {(leftPanel && rightPanel) && 
             <LeftPanel>{children}{leftPanel}</LeftPanel>
@@ -34,15 +33,14 @@ export const Layout: React.FC<MainLayoutProps> = ({
         }
         </>
       );
-      break;
-    case "1-columns":
-      content = (
+
+  }else if(screenType === 's' || screenType === 'xs'){
+    content = (
         <>
           <MainPanel>{children}{leftPanel}</MainPanel>
         </>
       );
-      break;
-    }
+  }
 
   return (
     <Flexing

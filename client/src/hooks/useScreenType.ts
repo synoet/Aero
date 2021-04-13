@@ -1,13 +1,21 @@
 import { useMediaQuery } from 'react-responsive';
 
 export const useScreenType = () => {
-    const two = useMediaQuery({minWidth: 1200})
-    const one = useMediaQuery({minWidth: 700})
+    const xl = useMediaQuery({minWidth: 1400})
+    const l = useMediaQuery({minWidth: 1280})
+    const m = useMediaQuery({minWidth: 1024})
+    const s = useMediaQuery({minWidth: 768})
+    const xs = useMediaQuery({minWidth: 200});
 
-    if (two){
-        return "2-columns"
-    }else if(one){
-        return "1-columns"
+    if(xl){
+        return 'xl'
+    }else if(l){
+        return 'l'
+    }else if(m){
+        return 'm'
+    }else if(s){
+        return 's'
+    }else if(xs){
+        return 'xs'
     }
-    return "1-columns"
 }

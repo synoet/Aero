@@ -9,6 +9,7 @@ import Flights from './pages/Flights'
 export const App = () => (
   <ChakraProvider  theme={theme}>
     <Router>
+      <Route path = '/' />
       <Route path='/flights' component = {Flights} />
       <Route path = '/destinations' />
       <Route path = '/airports' />
