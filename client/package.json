@@ -19,6 +19,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^3.0.0",
     "react-responsive": "^8.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "styled-components": "^5.2.3",
     "typescript": "^3.9.5",
@@ -46,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "husky": "^6.0.0",
     "pretty-quick": "^3.1.0"

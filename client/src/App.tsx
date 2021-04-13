@@ -1,4 +1,5 @@
 import * as React from "react"
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {
   ChakraProvider,
   theme,
@@ -7,6 +8,11 @@ import Flights from './pages/Flights'
 
 export const App = () => (
   <ChakraProvider  theme={theme}>
-    <Flights></Flights>
+    <Router>
+      <Route path='/flights' component = {Flights} />
+      <Route path = '/destinations' />
+      <Route path = '/airports' />
+      <Route path = '/airlines' />
+    </Router>
   </ChakraProvider>
 )

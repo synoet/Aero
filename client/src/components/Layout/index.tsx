@@ -23,17 +23,22 @@ export const Layout: React.FC<MainLayoutProps> = ({
     case "2-columns":
       content = (
         <>
-          <LeftPanel>{leftPanel}</LeftPanel>
-          {children}
-          <RightPanel>{rightPanel}</RightPanel>
+        {(leftPanel && rightPanel) && 
+            <LeftPanel>{children}{leftPanel}</LeftPanel>
+        }
+        {(leftPanel && rightPanel) && 
+            <RightPanel>{rightPanel}</RightPanel>
+        }
+        {(leftPanel && !rightPanel) && 
+            <MainPanel>{children}{leftPanel}</MainPanel>
+        }
         </>
       );
       break;
     case "1-columns":
       content = (
         <>
-          <MainPanel>{leftPanel}</MainPanel>
-          {children}
+          <MainPanel>{children}{leftPanel}</MainPanel>
         </>
       );
       break;
@@ -66,7 +71,6 @@ export default Layout
 
 const Flexing = styled(Flex)`
 width: 100%;
-border: 1px solid red;
 min-height: 100vh;
 height: 100%;
 `;
