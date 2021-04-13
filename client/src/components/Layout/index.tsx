@@ -56,6 +56,7 @@ export const Layout: React.FC<MainLayoutProps> = ({
         padding="1.5rem"
         width = "100%"
         maxW = "1200px"
+        spacing = "1rem"
     >
         {content}
     </Flex>

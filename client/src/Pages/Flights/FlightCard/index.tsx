@@ -28,6 +28,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
         <FlightFlex
         direction = {(screenType === 's' || screenType === 'xs') ? 'column': 'row'}
         minH = '130px'
+        w = '100%'
         align = 'center'
         justify = 'space-between'
         padding = '1.5rem 2.5rem 1.5rem 2rem'
@@ -52,7 +53,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 spacing = {0}
                 d = {(screenType === 's' || screenType === 'xs') ? 'none': 'block'}
             >
-                <MainText>{price}<span>/person</span></MainText>
+                <MainText>${price}<span>/person</span></MainText>
 
             </Price>
             <Options
@@ -92,8 +93,10 @@ color: #AAAAAA
 `;
 
 const Image = styled(chakra.img)``;
-const Departure = styled(VStack)``;
-const Arrival = styled(VStack)``;
+const Departure = styled(VStack)`
+width: 150px`;
+const Arrival = styled(VStack)`
+width: 150px`;
 const Price = styled(VStack)``;
 const Options = styled(VStack)``;
 
