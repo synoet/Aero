@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex, VStack, HStack, chakra, Button } from '@chakra-ui/react';
+import { Flex, VStack, HStack, chakra, Button, Divider } from '@chakra-ui/react';
 import flight from '../../../images/flight.svg';
 import { useScreenType } from '../../../hooks/useScreenType';
 
@@ -27,7 +27,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
     return (
         <FlightFlex
         direction = {(screenType === 's' || screenType === 'xs') ? 'column': 'row'}
-        minH = '100px'
+        minH = '130px'
         align = 'center'
         justify = 'space-between'
         padding = '1.5rem 2.5rem 1.5rem 2rem'
@@ -52,14 +52,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 spacing = {0}
                 d = {(screenType === 's' || screenType === 'xs') ? 'none': 'block'}
             >
-                <MainText>{price}</MainText>
-                <SubText>/person</SubText>
+                <MainText>{price}<span>/person</span></MainText>
+
             </Price>
             <Options
                 d = {(screenType === 's' || screenType === 'xs') ? 'none': 'block'}
             >
                 <Button bg="#6137FE"  color="white">
-                Buy Flight
+                View Info
                 </Button>
             </Options>
         </FlightFlex>
@@ -68,15 +68,22 @@ const FlightCard: React.FC<FlightCardProps> = ({
 
 export default FlightCard;
 
+
 const FlightFlex = styled(Flex)`
 box-shadow: -12.0195px 0px 12.0195px rgba(0, 0, 0, 0.03), 0px -12.0195px 12.0195px rgba(0, 0, 0, 0.03), 12.0482px 0px 12.0195px rgba(0, 0, 0, 0.03), 0px 12.0195px 12.0195px rgba(0, 0, 0, 0.03);
 border-radius: 20.0487px;
+background: #FFFFFF;
 `;
 
-
 const MainText = styled.p`
-font-size: 1.5rem;
+font-size: 1.6rem;
 font-weight: 500;
+
+span {
+font-size: 1rem;
+margin-left: 10px;
+color: #AAAAAA
+}
 `
 
 const SubText = styled.p`
