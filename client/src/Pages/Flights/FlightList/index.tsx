@@ -19,7 +19,7 @@ const FlightList = ({flights}: {flights: any}) => {
                         arrivalLocation = {flight.arrival_airport_name}
                         price = {flight.base_price}
                         airline = {flight.airline_name}
-                        flightId = {flight.flight_number}
+                        flightId = {flight._id}
                     />
                 )
             })}

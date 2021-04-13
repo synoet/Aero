@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Flex, VStack, HStack, chakra, Button, Divider } from '@chakra-ui/react';
 import flight from '../../../images/flight.svg';
 import { useScreenType } from '../../../hooks/useScreenType';
+import {useHistory} from 'react-router-dom';
 
 interface FlightCardProps {
     departureTime: string;
@@ -24,6 +25,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
 }) => {
 
     const screenType = useScreenType();
+    const history = useHistory();
+
     return (
         <FlightFlex
         direction = {(screenType === 's' || screenType === 'xs') ? 'column': 'row'}
@@ -59,8 +62,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
             <Options
                 d = {(screenType === 's' || screenType === 'xs') ? 'none': 'block'}
             >
-                <Button bg="#6137FE"  color="white">
-                View Info
+                <Button bg="#6137FE"  color="white" onClick = {() => {history.push(`/flight/${flightId}`)}}>
+                    View Info
                 </Button>
             </Options>
         </FlightFlex>

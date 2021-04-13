@@ -10,7 +10,9 @@ const Flight = ({match}: {match: any}) => {
     const {params: {flightId} } = match;
     const [isLoading, setIsLoading] = useState(true);
     const [flight, setFlight] = useState();
+
     var options = {  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+
     useEffect(() => {
         fetch(`https://projectaero-api.herokuapp.com/flights/${flightId}`, {
             method: 'GET',
@@ -32,6 +34,7 @@ const Flight = ({match}: {match: any}) => {
                 <FlightInfo 
                     justify='space-between'
                 >
+                    
                     <VStack
                         align = 'flex-start'
                     >
@@ -56,26 +59,40 @@ const Flight = ({match}: {match: any}) => {
                     padding='1rem'
                 >
                     <h1>Departing Flight - {new Date(flight.departure_date).toLocaleTimeString('en-us', options)}</h1>
-                    <FlightTimeInfo>
-                        <HStack>
-                            <Center w = '20px' h = '35px'>
-                                <chakra.img src = {smallcircle}></chakra.img>
-                            </Center>
-                            <MediumText>{new Date(flight.departure_date).getHours() < 10 ? '0': ''}{new Date(flight.departure_date).getHours()}:{new Date(flight.departure_date).getMinutes() < 10 ? '0': ''}{new Date(flight.departure_date).getMinutes()} - {flight.departure_airport_name}</MediumText>
-                        </HStack>
-                        <HStack>
-                            <Center w = '20px' h = '35px'>
-                                <chakra.img src = {dots}></chakra.img>
-                            </Center>
-                            <SmallLightText>Travel Time: {new Date(flight.arrival_date).getHours() - new Date(flight.departure_date).getHours()}:00 Hours</SmallLightText>
-                        </HStack>
-                        <HStack>
-                            <Center w = '20px' h = '35px'>
-                                <chakra.img src = {smallcircle}></chakra.img>
-                            </Center>
-                            <MediumText>{new Date(flight.arrival_date).getHours() < 10 ? '0': ''}{new Date(flight.arrival_date).getHours()}:{new Date(flight.arrival_date).getMinutes() < 10 ? '0': ''}{new Date(flight.arrival_date).getMinutes()} - {flight.arrival_airport_name}</MediumText>
-                        </HStack>
-                    </FlightTimeInfo>
+                    <Flex 
+                        justify='space-between'
+                        direction='row'
+                    >
+                        <FlightTimeInfo>
+                            <HStack>
+                                <Center w = '20px' h = '35px'>
+                                    <chakra.img src = {smallcircle}></chakra.img>
+                                </Center>
+                                <MediumText>{new Date(flight.departure_date).getHours() < 10 ? '0': ''}{new Date(flight.departure_date).getHours()}:{new Date(flight.departure_date).getMinutes() < 10 ? '0': ''}{new Date(flight.departure_date).getMinutes()} - {flight.departure_airport_name}</MediumText>
+                            </HStack>
+                            <HStack>
+                                <Center w = '20px' h = '35px'>
+                                    <chakra.img src = {dots}></chakra.img>
+                                </Center>
+                                <SmallLightText>Travel Time: {new Date(flight.arrival_date).getHours() - new Date(flight.departure_date).getHours()}:00 Hours</SmallLightText>
+                            </HStack>
+                            <HStack>
+                                <Center w = '20px' h = '35px'>
+                                    <chakra.img src = {smallcircle}></chakra.img>
+                                </Center>
+                                <MediumText>{new Date(flight.arrival_date).getHours() < 10 ? '0': ''}{new Date(flight.arrival_date).getHours()}:{new Date(flight.arrival_date).getMinutes() < 10 ? '0': ''}{new Date(flight.arrival_date).getMinutes()} - {flight.arrival_airport_name}</MediumText>
+                            </HStack>
+                        </FlightTimeInfo>
+                        <SelectedFlightInfo>
+                            <VStack
+                                align='flex-end'
+                            >
+                                <MediumText>Airline: {flight.airline_name}</MediumText>
+                                <MediumText>Status: {flight.status}</MediumText>
+                                <MediumText>Flight Id: {flight._id}</MediumText>
+                            </VStack>
+                        </SelectedFlightInfo>
+                    </Flex>
                 </SelectedFlight>
 
             </Layout>
@@ -113,6 +130,9 @@ const ArrowIcon = styled(FiArrowRight)``;
 const FlightTimeInfo = styled.div`
 margin-top: 1rem;
 margin-left: 1rem;
+`;
+
+const SelectedFlightInfo = styled.div`
 `;
 
 const SelectedFlight = styled(Flex)`
