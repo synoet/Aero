@@ -5,11 +5,14 @@ import styled from 'styled-components';
 import { FiArrowRight } from 'react-icons/fi'
 import smallcircle from '../../../images/smallcircle.svg';
 import dots from '../../../images/dots.svg';
+import { useScreenType } from '../../../hooks/useScreenType';
 
 const Flight: React.FC = ({match}: {match: any}) => {
     const {params: {flightId} } = match;
     const [isLoading, setIsLoading] = useState(true);
     const [flight, setFlight] = useState();
+
+    const screenType = useScreenType();
 
     var options = {  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
 
@@ -61,7 +64,7 @@ const Flight: React.FC = ({match}: {match: any}) => {
                     <h1>Departing Flight - {new Date(flight.departure_date).toLocaleTimeString('en-us', options)}</h1>
                     <Flex 
                         justify='space-between'
-                        direction='row'
+                        direction= {(screenType === 's' || screenType === 'xs')? 'column' : 'row'}
                     >
                         <FlightTimeInfo>
                             <HStack>
@@ -85,7 +88,9 @@ const Flight: React.FC = ({match}: {match: any}) => {
                         </FlightTimeInfo>
                         <SelectedFlightInfo>
                             <VStack
-                                align='flex-end'
+                                align={(screenType === 's' || screenType === 'xs')? 'flex-start' : 'flex-end'}
+                                marginLeft={(screenType === 's' || screenType === 'xs')? '1rem' : '0'}
+                                marginTop={(screenType === 's' || screenType === 'xs')? '1rem' : '0'}
                             >
                                 <MediumText><span>Airline: </span> {flight.airline_name}</MediumText>
                                 <MediumText><span>Status: </span> {flight.status}</MediumText>
