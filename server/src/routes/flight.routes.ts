@@ -34,7 +34,7 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
         this.app.get(`/flights/search/:query`, [
             controller.searchFlights
         ])
-        this.app.get(`/flights/:id/retuns`,[
+        this.app.get(`/flights/:id/returns`,[
             controller.getReturnFlightsByID
         ])
     }
