@@ -64,12 +64,18 @@ export class FlightController {
     getReturnFlightsByID = async(req:express.Request, res:express.Response) => {
         const referenceFlight = await Flight.findOne({ _id: req.params.id});
         const arrival = referenceFlight?.departure_date;
+        const arrivalAirport = referenceFlight?.arrival_airport_name;
+        const departureAirport = referenceFlight?.departure_airport_name;
         const properFlights: any = [];
         const allFlights = await Flight.find();
-        if (arrival){
+        if (arrival && arrivalAirport){
             allFlights.map((flight: any) => {
                 if(flight.departure_date > arrival){
-                    properFlights.push(flight);
+                    if (flight.departure_airport_name == arrivalAirport){
+                        if (flight.arrival_airport_name == departureAirport){
+                            properFlights.push(flight);
+                        }
+                    }
                 }
             })
         }
