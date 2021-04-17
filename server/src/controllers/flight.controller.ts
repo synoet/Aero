@@ -61,6 +61,22 @@ export class FlightController {
         res.status(200).send(flight);
     }
 
+    getReturnFlightsByID = async(req:express.Request, res:express.Response) => {
+        const referenceFlight = await Flight.findOne({ _id: req.params.id});
+        const arrival = referenceFlight?.departure_date;
+        const properFlights: any = [];
+        const allFlights = await Flight.find();
+        if (arrival){
+            allFlights.map((flight: any) => {
+                if(flight.departure_date > arrival){
+                    properFlights.push(flight);
+                }
+            })
+        }
+        res.status(200).send(properFlights);
+
+    }
+
     updateFlightStatus = async(req: express.Request, res: express.Response) => {
         const status: string = req.body.status;
         const flight = await Flight.findOne({_id: req.params.id});
