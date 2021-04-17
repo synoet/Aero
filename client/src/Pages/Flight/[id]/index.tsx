@@ -8,14 +8,15 @@ import dots from '../../../images/dots.svg';
 import { useScreenType } from '../../../hooks/useScreenType';
 import {useHistory} from 'react-router-dom';
 
+import {IFlight, mockFlight} from '../../../utils/types';
+
 const Flight: React.FC<any> = ({match}: {match: any}) => {
     const {params: {flightId} } = match;
     const [isLoading, setIsLoading] = useState(true);
-    const [flight, setFlight] = useState();
+    const [flight, setFlight] = useState<IFlight>(mockFlight);
 
     const screenType = useScreenType();
 
-    var options = {  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     const history = useHistory();
 
     useEffect(() => {
@@ -63,7 +64,7 @@ const Flight: React.FC<any> = ({match}: {match: any}) => {
                     w = '100%'
                     padding='1rem'
                 >
-                    <h1>Departing Flight - {new Date(flight.departure_date).toLocaleTimeString('en-us', options)}</h1>
+                    <h1>Departing Flight - {new Date(flight.departure_date).toLocaleTimeString('en-us')}</h1>
                     <Flex 
                         justify='space-between'
                         direction= {(screenType === 's' || screenType === 'xs')? 'column' : 'row'}

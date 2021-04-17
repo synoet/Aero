@@ -9,7 +9,7 @@ const Flights = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://projectaero-api.herokuapp.com/flightsview`, {
+        fetch(`https://projectaero-api.herokuapp.com/flights`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ const Flights = () => {
         })
         .then((res) => res.json())
         .then((res) => {
-            setAllFlights(res.allFlights);
+            setAllFlights(res);
             console.log(res);
         }).catch((err) => console.log(err))
         .then(() => setIsLoading(false));
