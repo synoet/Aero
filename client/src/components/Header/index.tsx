@@ -55,8 +55,6 @@ const Header = (props: any) => {
                     <MenuItem to="/home" active = {location.pathname === '/home' ? true : false}> Home </MenuItem>
                     <MenuItem to="/flights" active = {location.pathname === '/flights' ? true : false}> Flights </MenuItem>
                     <MenuItem to="/destinations" active = {location.pathname === '/destinations' ? true : false}> Destinations </MenuItem>
-                    <MenuItem to="/airports" active = {location.pathname === '/airports' ? true : false}> Airports </MenuItem>
-                    <MenuItem to="/airlines" active = {location.pathname === '/airlines' ? true : false}> Airlines </MenuItem>
                 </Flex>
             </Box>
           </Center>
