@@ -13,10 +13,10 @@ import Home from './pages/Home';
 export const App = () => (
   <ChakraProvider  theme={theme}>
     <Router>
-      <Route path = '/' component = {Home}/>
+      <Route path = '/Home' component = {Home}/>
       <Route path = '/signin' component = {SignIn} />
       <Route path = '/signup' component = {SignUp} />
-      <Route path='/flights' component = {Flights} />
+      <Route path= '/flights' component = {Flights} />
       <Route path='/flight/:flightId' component = {Flight} />
       <Route path = '/destinations' />
       <Route path = '/airports' />

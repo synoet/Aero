@@ -1,9 +1,12 @@
 import React from 'react';
 
 import {Text, Link} from '@chakra-ui/react';
+import {useHistory} from 'react-router-dom';
 
 const MenuItem = (props: any) => {
-    const { children, isLast, to = "/", ...rest } = props;
+    const history = useHistory();
+    const { children, isLast, active, to = "/", ...rest } = props;
+    console.log(active);
     return (
         <Text
           mb={{ base: isLast ? 0 : 8, sm: 0 }}
@@ -11,7 +14,7 @@ const MenuItem = (props: any) => {
           display="block"
           {...rest}
         >
-          <Link to={to}>{children}</Link>
+          <Link _hover = {{color: '#6137FE'}} color = {active? '#6137FE': 'black'}onClick = {() => history.push(to)}>{children}</Link>
         </Text>
       )
 }

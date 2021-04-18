@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import { Box, Heading, Flex, Button, chakra, Center } from "@chakra-ui/react";
 import logotype from '../../images/logotype.svg';
-
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
 const Header = (props: any) => {
     const [show, setShow] = useState(false)
     const handleToggle = () => setShow(!show);
+
+    const history = useHistory();
+
+    const location = useLocation();
+    console.log(location.pathname);
     
     return (
         <Flex
@@ -46,11 +52,11 @@ const Header = (props: any) => {
                 flexGrow={1}
             >
                 <Flex>
-                    <MenuItem to="/"> Home </MenuItem>
-                    <MenuItem to="/Flights"> Flights </MenuItem>
-                    <MenuItem to="/Flights"> Destinations </MenuItem>
-                    <MenuItem to="/Flights"> Airports </MenuItem>
-                    <MenuItem to="/Flights"> Airlines </MenuItem>
+                    <MenuItem to="/home" active = {location.pathname === '/home' ? true : false}> Home </MenuItem>
+                    <MenuItem to="/flights" active = {location.pathname === '/flights' ? true : false}> Flights </MenuItem>
+                    <MenuItem to="/destinations" active = {location.pathname === '/destinations' ? true : false}> Destinations </MenuItem>
+                    <MenuItem to="/airports" active = {location.pathname === '/airports' ? true : false}> Airports </MenuItem>
+                    <MenuItem to="/airlines" active = {location.pathname === '/airlines' ? true : false}> Airlines </MenuItem>
                 </Flex>
             </Box>
           </Center>
@@ -61,10 +67,10 @@ const Header = (props: any) => {
             display={{ sm: show ? "block" : "none", md: "block" }}
             mt={{ base: 4, md: 0 }}
           >
-            <Button bg = "transparent">
+            <Button bg = "transparent" border = '1px solid #6137FE' onClick = {() => history.push('/signin')}>
                 Sign In
             </Button>
-            <Button bg="#6137FE"  color="white">
+            <Button bg="#6137FE"  marginLeft = '1rem' color="white" onClick = {() => history.push('/signup')}>
               Get Started
             </Button>
           </Box>
