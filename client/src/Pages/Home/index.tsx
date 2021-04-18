@@ -1,9 +1,10 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import {Flex} from '@chakra-ui/react';
+import {chakra, Flex} from '@chakra-ui/react';
 import styled from 'styled-components';
 import TextLoop from "react-text-loop";
 import FlightSearch from '../Flights/FlightSearch';
+import background from '../../images/background.svg';
 const Home = () => {
     return (
         <Layout>
@@ -12,18 +13,20 @@ const Home = () => {
                 align = 'center'
                 direction = 'column'
             >
+                <chakra.img  w = '100%'  h = '300px' src = {background}/>
                 <HeroText>
-                    Book a Flight To Your Next 
+                    Fly to your
                     <TextLoop>
-                        <Loops> Dream Vacation 🌴</Loops>
-                        <Loops> Family Get Together 👪</Loops>
-                        <Loops> Coorprate Retreat 🤝</Loops>
-                        <Loops> Wedding 👰</Loops>
+                        <Loops> Dream Vacation</Loops>
+                        <Loops> Family Get Together</Loops>
+                        <Loops> Coorprate Retreat</Loops>
+                        <Loops> Wedding</Loops>
                     </TextLoop>
                 </HeroText>
                 <Flex
                     align = 'center'
-                    padding = '3rem'
+                    w = '80%'
+                    marginTop= '1rem'
                 >
                     <Search />
 
@@ -40,7 +43,8 @@ export default Home;
 const HeroFlex = styled(Flex)``;
 
 const HeroText = styled.h1`
-font-size: 3rem;
+font-size: 2.5rem;
+margin-top: -5rem;
 `;
 
 const Loops = styled.span`
