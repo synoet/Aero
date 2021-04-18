@@ -118,7 +118,7 @@ const Flight: React.FC<any> = ({match}: {match: any}) => {
 
                 <Divider marginTop='1rem'/>
 
-                <Flex w = '100%' marginTop= '1rem'><h1 style = {{fontWeight: '500', fontSize: '1.2rem'}}>Booking Options</h1></Flex>
+                <Flex w = '100%' marginTop= '1rem'><h1 style = {{fontWeight: 'bolder', fontSize: '1.2rem'}}>Booking Options</h1></Flex>
                 <BookingOptions
                     direction = 'column'
                     w = '100%'
@@ -145,7 +145,7 @@ const Flight: React.FC<any> = ({match}: {match: any}) => {
 
                 <Divider marginTop='1rem'/>
 
-                <Flex w = '100%' marginTop= '1rem'><h1 style = {{fontWeight: '500', fontSize: '1.2rem'}}>Returning Flights</h1></Flex>
+                <Flex w = '100%' marginTop= '1rem'><h1 style = {{fontWeight: 'bolder', fontSize: '1.2rem'}}>Returning Flights</h1></Flex>
                 {returns &&
                     <>
                         <Center><p>{(returns.length === 0) ? 'No Flights': ''}</p></Center>
