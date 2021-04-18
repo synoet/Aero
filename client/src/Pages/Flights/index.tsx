@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import FlightList from './FlightList';
-import {Center} from '@chakra-ui/react';
+import {Center, Spinner, Flex} from '@chakra-ui/react';
 import FlightSearch from './FlightSearch';
 
 const Flights = () => {
@@ -27,8 +27,15 @@ const Flights = () => {
         <>
         {!isLoading && 
                 <Layout leftPanel = {<FlightList flights = {allFlights} />}>
+
                     <FlightSearch></FlightSearch>
                 </Layout>
+        }
+        {isLoading &&
+            <Flex w = '100vw' h = '100vh' align = 'center' justify= 'center'>
+                <Spinner size='xl' speed="2s" color = '#6137FE' />
+            </Flex>
+            
         }
         </>
     )

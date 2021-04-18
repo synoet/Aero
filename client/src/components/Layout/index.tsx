@@ -1,9 +1,9 @@
 import React from "react";
 import { useScreenType } from '../../hooks/useScreenType';
-import { LeftPanel, RightPanel, MainPanel } from "./Panels";
+import { LeftPanel, RightPanel, MainPanel} from "./Panels";
 import styled from 'styled-components';
 import Header from '../Header';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Spinner} from '@chakra-ui/react';
 
 interface MainLayoutProps {
   leftPanel?: React.ReactNode;
@@ -58,7 +58,7 @@ export const Layout: React.FC<MainLayoutProps> = ({
         maxW = "1200px"
         spacing = "1rem"
     >
-        {content}
+      {content}
     </Flex>
     
     
