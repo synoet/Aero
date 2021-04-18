@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import { BaseRoutesConfig } from './base/base.routes.config';
 import { FlightRoutes } from './routes/flight.routes';
 import { AirplaneRoutes } from './routes/airplane.routes';
+import { DestinationRoutes } from './routes/destination.routes';
 
 import * as swaggerUi from 'swagger-ui-express';
 const swaggerDocument = require('../swagger.json');
@@ -34,7 +35,8 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT;
 routes.push(new FlightRoutes(app));
-routes.push(new AirplaneRoutes(app))
+routes.push(new AirplaneRoutes(app));
+routes.push(new DestinationRoutes(app));
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
