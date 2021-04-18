@@ -30,7 +30,7 @@ const SignIn = () => {
                     <h1 style = {{fontSize: '2rem'}}>Sign in to Aero</h1>
                 </Center>
                 <FormWrapper
-                minW = '400px'
+                minW = '450px'
                 maxW = '700px'
                 direction = 'column'
                 padding = '1rem'

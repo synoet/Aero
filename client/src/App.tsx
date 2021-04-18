@@ -8,11 +8,12 @@ import Flights from './pages/Flights'
 import Flight from './pages/Flight/[id]';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Home from './pages/Home';
 
 export const App = () => (
   <ChakraProvider  theme={theme}>
     <Router>
-      <Route path = '/' />
+      <Route path = '/' component = {Home}/>
       <Route path = '/signin' component = {SignIn} />
       <Route path = '/signup' component = {SignUp} />
       <Route path='/flights' component = {Flights} />
