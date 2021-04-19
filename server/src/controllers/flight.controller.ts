@@ -2,6 +2,7 @@ import Flight from '../models/flight.model';
 import express from 'express';
 import { MongooseService } from '../services/mongoose.service';
 import * as shortUUID from "short-uuid";
+import { debug } from 'node:console';
 
 type FlightData = {
     flight_number: string,
@@ -59,6 +60,27 @@ export class FlightController {
         // _id is generated automatically
         const flight = await Flight.findOne({_id: req.params.id});
         res.status(200).send(flight);
+    }
+
+    getFlightSearch = async(req: express.Request, res: express.Response) => {
+        const Flights: any = [];
+        const departurePlace = req.params.depature_airport;
+        const arrivalPlace = req.params.arrival_airport;
+        const departureDate = req.params.departure_date;
+        const arrivalDate = req.params.arrival_date;
+        const allFlights = Flight.find();
+        allFlights.map((flight: any) =>{
+            if (flight.departure_airport_name == departurePlace){
+                if (flight.arrival_airport_name == arrivalDate){
+                    if(flight.departure_date > departureDate && flight.departure_date <= arrivalDate){
+                        Flights.push(flight);
+                    }
+
+                }
+            }
+        })
+        res.status(200).send(Flights);
+
     }
 
     getReturnFlightsByID = async(req:express.Request, res:express.Response) => {
