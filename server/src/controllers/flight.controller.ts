@@ -2,7 +2,6 @@ import Flight from '../models/flight.model';
 import express from 'express';
 import { MongooseService } from '../services/mongoose.service';
 import * as shortUUID from "short-uuid";
-import { debug } from 'node:console';
 
 type FlightData = {
     flight_number: string,
@@ -63,23 +62,30 @@ export class FlightController {
     }
 
     getFlightSearch = async(req: express.Request, res: express.Response) => {
-        const Flights: any = [];
-        const departurePlace = req.params.depature_airport;
-        const arrivalPlace = req.params.arrival_airport;
-        const departureDate = req.params.departure_date;
-        const arrivalDate = req.params.arrival_date;
-        const allFlights = Flight.find();
-        allFlights.map((flight: any) =>{
-            if (flight.departure_airport_name == departurePlace){
-                if (flight.arrival_airport_name == arrivalDate){
-                    if(flight.departure_date > departureDate && flight.departure_date <= arrivalDate){
-                        Flights.push(flight);
-                    }
+        const properFlights: any = [];
 
+        let departureDate = req.params.departure_date;
+        let arrivalDate = req.params.arrival_date;
+        let departurePlace = req.params.depature_airport;
+        let arrivalPlace = req.params.arrival_airport;
+        console.log(departureDate);
+        console.log(arrivalDate);
+        console.log(departurePlace);
+        console.log(arrivalPlace);
+        
+        const allFlights = await Flight.find();
+        allFlights.map((flight: any) => {
+            if (flight.departure_airport_name == departurePlace){
+                if (flight.arrival_airport_name == arrivalPlace){
+                    if(flight.departure_date > departureDate){
+                        if (flight.departure_date < arrivalDate){
+                            properFlights.push(flight);
+                        } 
+                    }
                 }
             }
         })
-        res.status(200).send(Flights);
+        res.status(200).send(properFlights);
 
     }
 
