@@ -9,6 +9,7 @@ import Flight from './pages/Flight/[id]';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
+import Destinations from './pages/Destinations';
 
 export const App = () => (
   <ChakraProvider  theme={theme}>
@@ -18,8 +19,7 @@ export const App = () => (
       <Route path = '/signup' component = {SignUp} />
       <Route path= '/flights' component = {Flights} />
       <Route path='/flight/:flightId' component = {Flight} />
-      <Route path = '/destinations' />
-      <Route path = '/airports' />
+      <Route path = '/destinations' component = {Destinations}/>
       <Route path = '/airlines' />
     </Router>
   </ChakraProvider>
