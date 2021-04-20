@@ -64,10 +64,10 @@ export class FlightController {
     getFlightSearch = async(req: express.Request, res: express.Response) => {
         const properFlights: any = [];
 
-        let departureDate = req.params.departure_date;
-        let arrivalDate = req.params.arrival_date;
-        let departurePlace = req.params.depature_airport;
-        let arrivalPlace = req.params.arrival_airport;
+        const departureDate = req.params.departure_date;
+        const arrivalDate = req.params.arrival_date;
+        const departurePlace = req.params.depature_airport;
+        const arrivalPlace = req.params.arrival_airport;
         console.log(departureDate);
         console.log(arrivalDate);
         console.log(departurePlace);
@@ -77,8 +77,15 @@ export class FlightController {
         allFlights.map((flight: any) => {
             if (flight.departure_airport_name == departurePlace){
                 if (flight.arrival_airport_name == arrivalPlace){
-                    if(flight.departure_date > departureDate){
-                        if (flight.departure_date < arrivalDate){
+                    console.log(flight);
+                    //console.log(flight.departure_date);
+                    //console.log(departureDate);
+                    console.log(flight.departure_date <= departureDate);
+                    console.log(flight.departure_date >= departureDate);
+                    console.log(flight.departure_date == departureDate);
+                    if(flight.departure_date > departureDate){ // this isnt working the proper flights are seen before this
+                        //console.log(flight);
+                        if (flight.departure_date <= arrivalDate){
                             properFlights.push(flight);
                         } 
                     }
