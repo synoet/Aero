@@ -61,7 +61,7 @@ export class FlightController {
         res.status(200).send(flight);
     }
 
-    getFlightSearch = async(req: express.Request, res: express.Response) => {
+    getFlightSearchWithDateRange = async(req: express.Request, res: express.Response) => {
         const properFlights: any = [];
         const tempDepDate = req.params.departure_date;
         const departureDate = new Date(tempDepDate);
