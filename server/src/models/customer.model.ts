@@ -4,6 +4,7 @@ import {MongooseService} from '../services/mongoose.service';
 const mongo = MongooseService.getInstance().getMongoose();
 
 export interface ICustomer extends Document {
+    _id: string;
     email: string;
     name: string;
     password: string;
@@ -19,6 +20,7 @@ export interface ICustomer extends Document {
 }
 
 const CustomerSchema: Schema = new mongoose.Schema({
+    _id: String,
     email: String,
     name: String,
     password: String,
