@@ -5,15 +5,15 @@ const mongo = MongooseService.getInstance().getMongoose();
 
 export interface IStaff extends Document{
     _id: string;
-    username: string;
-    airling_name: string;
+    email: string;
+    airline_name: string;
     password: string;
 
 }
 
 const StaffSchema: Schema = new mongoose.Schema({
     _id: String,
-    username: String,
+    email: String,
     airline_name: String,
     password: String
 
