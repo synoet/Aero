@@ -2,7 +2,7 @@ import express from 'express';
 import {BaseRoutesConfig, configureRoutes } from '../base/base.routes.config';
 import { UserController } from '../controllers/user.controller';
 
-export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
+export class UserRoutes extends BaseRoutesConfig implements configureRoutes {
     constructor(app: express.Application){
         super(app, 'UserRoutes');
         this.configureRoutes();
@@ -11,7 +11,7 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
     configureRoutes() {
         const controller = new UserController();
 
-        this.app.post(`/user/login`, [
+        this.app.get(`/user/login/:email/:password`, [
             controller.login
         ]);
 

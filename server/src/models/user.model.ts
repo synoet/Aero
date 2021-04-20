@@ -5,11 +5,13 @@ const mongo = MongooseService.getInstance().getMongoose();
 
 export interface IUser extends Document {
     _id: string;
+    email: string;
     type: string;
 }
 
 const UserSchema: Schema = new mongoose.Schema({
     _id: String,
+    email: String,
     type: String,
 })
 
