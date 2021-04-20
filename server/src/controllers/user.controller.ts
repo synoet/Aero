@@ -44,7 +44,21 @@ export class UserController {
     constructor(){}
 
     getUser = async(req: express.Request, res: express.Response) => {
+        const id = req.params.id;
 
+        const user: any = await User.findOne({_id: id});
+
+        const {type} = user;
+        if(type === 'customer'){
+            const customer = await Customer.findOne({_id: id});
+            res.status(200).send(customer);
+        }else if(type === 'agent'){
+            const agent = await BookingAgent.findOne({_id: id});
+            res.status(200).send(agent);
+        }else if(type === 'staff'){
+            const staff = await Staff.findOne({_id: id});
+            res.status(200).send(staff);
+        }
     }
 
     login = async(req: express.Request, res: express.Response) => {

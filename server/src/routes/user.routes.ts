@@ -15,6 +15,10 @@ export class UserRoutes extends BaseRoutesConfig implements configureRoutes {
             controller.login
         ]);
 
+        this.app.get(`/user/:id`, [
+            controller.getUser
+        ])
+
         this.app.post(`/user/signup`, [
             controller.signup
         ])
