@@ -78,8 +78,8 @@ export class FlightController {
             if (flight.departure_airport_name == departurePlace){
                 if (flight.arrival_airport_name == arrivalPlace){
                     console.log(flight);
-                    //console.log(flight.departure_date);
-                    //console.log(departureDate);
+                    console.log(flight.departure_date);
+                    console.log(departureDate);
                     console.log(flight.departure_date <= departureDate);
                     console.log(flight.departure_date >= departureDate);
                     console.log(flight.departure_date == departureDate);
