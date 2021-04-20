@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import {useHistory} from 'react-router-dom';
 
 const SignIn = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
 
     const history = useHistory();
 
@@ -50,6 +50,7 @@ const SignIn = () => {
                             borderRadius= '10px'
                             padding='10px 15px 10px 15px'
                             marginLeft = '1rem'
+                            isDisabled = {!(email && password)}
                         >
                         Sign In 
                         </Button>
