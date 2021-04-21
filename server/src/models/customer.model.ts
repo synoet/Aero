@@ -1,6 +1,26 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema, Document} from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const CustomerSchema = new mongoose.Schema({
+
+const mongo = MongooseService.getInstance().getMongoose();
+
+export interface ICustomer extends Document {
+    _id: string;
+    email: string;
+    name: string;
+    password: string;
+    building_number: number;
+    street: string;
+    city: string;
+    state: string;
+    phone_number: string;
+    passport_number: number;
+    passport_expiration: Date;
+    passport_country: string;
+    date_of_birth: Date
+}
+
+const CustomerSchema: Schema = new mongoose.Schema({
+    _id: String,
     email: String,
     name: String,
     password: String,
@@ -15,5 +35,6 @@ const CustomerSchema = new mongoose.Schema({
     date_of_birth: Date
 
 });
-const Customer = MongooseService.getInstance().getMongoose().model('Customer', CustomerSchema);
+const Customer = mongo.model<ICustomer>('Customer', CustomerSchema);
+
 export default Customer;

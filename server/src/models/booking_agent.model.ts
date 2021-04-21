@@ -1,11 +1,24 @@
-import mongoose from 'mongoose';
+import mongoose , {Schema, Document} from 'mongoose';
 import {MongooseService} from '../services/mongoose.service';
-const BookingAgentSchema = new mongoose.Schema({
+
+const mongo = MongooseService.getInstance().getMongoose();
+
+export interface IBookingAgent extends Document{
+    _id: string;
+    email: string;
+    password: string,
+    commision: number;
+}
+
+const BookingAgentSchema: Schema = new mongoose.Schema({
+    _id: String,
     email: String,
     password: String,
     booking_agent_id: String,
     commission: Number
 
 });
-const BookingAgent = MongooseService.getInstance().getMongoose().model('BookingAgent', BookingAgentSchema);
+
+const BookingAgent = mongo.model<IBookingAgent>('BookingAgent', BookingAgentSchema);
+
 export default BookingAgent;
