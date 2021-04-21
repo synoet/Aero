@@ -84,7 +84,6 @@ export class FlightController {
             }
         })
         res.status(200).send(properFlights);
-
     }
 
     getReturnFlightsByID = async(req:express.Request, res:express.Response) => {
