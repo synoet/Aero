@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Layout from '../../components/Layout';
 import {chakra, Flex} from '@chakra-ui/react';
 import styled from 'styled-components';
 import TextLoop from "react-text-loop";
 import FlightSearch from '../Flights/FlightSearch';
 import background from '../../images/background.svg';
+import { useAuth } from '../../hooks/useAuth';
 const Home = () => {
+
+    const auth = useAuth();
     return (
         <Layout>
             <HeroFlex 

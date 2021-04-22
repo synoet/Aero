@@ -1,18 +1,23 @@
 import React, {useState} from 'react';
-import { Box, Heading, Flex, Button, chakra, Center } from "@chakra-ui/react";
+import { Box, Heading, Flex, Button, chakra, Center, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import logotype from '../../images/logotype.svg';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import {useAuth} from '../../hooks/useAuth';
+import NavItem from './NavItem';
 
-import MenuItem from './MenuItem';
+import {ChevronDownIcon} from '@chakra-ui/icons';
+
+import {FiCornerDownLeft, FiUser, FiSettings} from 'react-icons/fi';
+
 const Header = (props: any) => {
     const [show, setShow] = useState(false)
     const handleToggle = () => setShow(!show);
+    const auth = useAuth();
 
     const history = useHistory();
 
     const location = useLocation();
-    console.log(location.pathname);
     
     return (
         <Flex
@@ -52,26 +57,45 @@ const Header = (props: any) => {
                 flexGrow={1}
             >
                 <Flex>
-                    <MenuItem to="/home" active = {location.pathname === '/home' ? true : false}> Home </MenuItem>
-                    <MenuItem to="/flights" active = {location.pathname === '/flights' ? true : false}> Flights </MenuItem>
-                    <MenuItem to="/destinations" active = {location.pathname === '/destinations' ? true : false}> Destinations </MenuItem>
+                    <NavItem to="/home" active = {location.pathname === '/home' ? true : false}> Home </NavItem>
+                    <NavItem to="/flights" active = {location.pathname === '/flights' ? true : false}> Flights </NavItem>
+                    <NavItem to="/destinations" active = {location.pathname === '/destinations' ? true : false}> Destinations </NavItem>
+                    {auth.user && 
+                      <NavItem to="/dashboard" active = {location.pathname === '/dashboard' ? true : false}> Dashboard </NavItem>
+                    }
                 </Flex>
             </Box>
           </Center>
     
 
-    
-          <Box
-            display={{ sm: show ? "block" : "none", md: "block" }}
-            mt={{ base: 4, md: 0 }}
-          >
-            <Button bg = "transparent" border = '1px solid #6137FE' onClick = {() => history.push('/signin')}>
-                Sign In
-            </Button>
-            <Button bg="#6137FE"  marginLeft = '1rem' color="white" onClick = {() => history.push('/signup')}>
-              Get Started
-            </Button>
-          </Box>
+          {(!auth.user) && 
+            <Box
+              display={{ sm: show ? "block" : "none", md: "block" }}
+              mt={{ base: 4, md: 0 }}
+            >
+              <Button bg = "transparent" border = '1px solid #6137FE' onClick = {() => history.push('/signin')}>
+                  Sign In
+              </Button>
+              <Button bg="#6137FE"  marginLeft = '1rem' color="white" onClick = {() => history.push('/signup')}>
+                Get Started
+              </Button>
+            </Box>
+          }
+          {(auth.user) && 
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />} leftIcon = {<FiUser />}>
+                {auth.user.email}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick = {() => {auth.signout()}} minH="40px" icon = {<FiSettings />}>
+                  <span>Account Settings</span>
+                </MenuItem>
+                <MenuItem onClick = {() => {auth.signout()}} minH="40px" icon = {<FiCornerDownLeft />}>
+                  <span>Sign Out</span>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          }
         </Flex>
     )
 
