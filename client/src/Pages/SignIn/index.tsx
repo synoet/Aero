@@ -2,12 +2,16 @@ import React, {useState} from 'react'
 import {Flex, Input, Button, InputGroup, Center, Checkbox, HStack} from '@chakra-ui/react';
 import styled from 'styled-components';
 import {useHistory} from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const SignIn = () => {
-    const [email, setEmail] = useState(undefined);
-    const [password, setPassword] = useState(undefined);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    
 
     const history = useHistory();
+    const auth = useAuth();
 
     const handleEmailChange = (event: any) => {
         setEmail(event.target.value);
@@ -50,7 +54,8 @@ const SignIn = () => {
                             borderRadius= '10px'
                             padding='10px 15px 10px 15px'
                             marginLeft = '1rem'
-                            isDisabled = {!(email && password)}
+                            isDisabled = {(email == '' && password == '')}
+                            onClick = {() => { auth.signin(email, password, () => {history.push('/')})}}
                         >
                         Sign In 
                         </Button>

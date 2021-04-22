@@ -4,6 +4,7 @@ import { LeftPanel, RightPanel, MainPanel} from "./Panels";
 import styled from 'styled-components';
 import Header from '../Header';
 import { Flex, Spinner} from '@chakra-ui/react';
+import {AuthProvider} from '../../hooks/useAuth';
 
 interface MainLayoutProps {
   leftPanel?: React.ReactNode;
@@ -43,26 +44,27 @@ export const Layout: React.FC<MainLayoutProps> = ({
   }
 
   return (
-    <Flexing
-        direction = 'column'
-        align = 'center'
-        padding = '1.5rem'
-    >
-    <Header></Header>
-    <Flex
-        w = '100%'
-        align = 'center'
-        wrap="wrap"
-        padding="1.5rem"
-        width = "100%"
-        maxW = "1200px"
-        spacing = "1rem"
-    >
-      {content}
-    </Flex>
-    
-    
-    </Flexing>
+        <Flexing
+          direction = 'column'
+          align = 'center'
+          padding = '1.5rem'
+      >
+      <Header></Header>
+      <Flex
+          w = '100%'
+          align = 'center'
+          wrap="wrap"
+          padding="1.5rem"
+          width = "100%"
+          maxW = "1200px"
+          spacing = "1rem"
+      >
+        {content}
+      </Flex>
+      
+      
+      </Flexing>
+
   );
 };
 
