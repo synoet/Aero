@@ -10,6 +10,7 @@ import { FlightRoutes } from './routes/flight.routes';
 import { AirplaneRoutes } from './routes/airplane.routes';
 import { DestinationRoutes } from './routes/destination.routes';
 import { UserRoutes } from './routes/user.routes';
+import { TransactionRoutes } from './routes/transaction.routes';
 
 import * as swaggerUi from 'swagger-ui-express';
 const swaggerDocument = require('../swagger.json');
@@ -39,6 +40,7 @@ routes.push(new FlightRoutes(app));
 routes.push(new AirplaneRoutes(app));
 routes.push(new DestinationRoutes(app));
 routes.push(new UserRoutes(app));
+routes.push(new TransactionRoutes(app));
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

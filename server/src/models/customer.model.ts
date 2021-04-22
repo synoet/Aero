@@ -17,6 +17,10 @@ export interface ICustomer extends Document {
     passport_expiration: Date;
     passport_country: string;
     date_of_birth: Date
+    booking_agent_email:{
+        type: string,
+        default: null
+    }
 }
 
 const CustomerSchema: Schema = new mongoose.Schema({
@@ -32,7 +36,11 @@ const CustomerSchema: Schema = new mongoose.Schema({
     passport_number: String,
     passport_expiration: Date,
     passport_country: String,
-    date_of_birth: Date
+    date_of_birth: Date,
+    booking_agent_email:{
+        type: String,
+        default: null
+    }
 
 });
 const Customer = mongo.model<ICustomer>('Customer', CustomerSchema);
