@@ -30,10 +30,7 @@ interface CustomerEntity {
     passport_expiration: Date;
     passport_country: string;
     date_of_birth: Date;
-    booking_agent_email:{
-        type: string,
-        default: null
-    };
+
 }
 
 interface StaffEntity {
