@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, Link} from '@chakra-ui/react';
 import {useHistory} from 'react-router-dom';
 
-const MenuItem = (props: any) => {
+const NavItem = (props: any) => {
     const history = useHistory();
     const { children, isLast, active, to = "/", ...rest } = props;
     console.log(active);
@@ -19,4 +19,4 @@ const MenuItem = (props: any) => {
       )
 }
 
-export default MenuItem;
+export default NavItem;
