@@ -55,7 +55,7 @@ const SignIn = () => {
                             padding='10px 15px 10px 15px'
                             marginLeft = '1rem'
                             isDisabled = {(email == '' && password == '')}
-                            onClick = {() => { auth.signin(email, password, () => {history.push('/')})}}
+                            onClick = {() => { auth.signin(email, password, () => {history.push('/home')})}}
                         >
                         Sign In 
                         </Button>
