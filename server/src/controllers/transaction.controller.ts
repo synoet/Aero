@@ -43,22 +43,50 @@ export class TransactionController {
     constructor(){}
 
     createTransaction = async(req: express.Request, res: express.Response) => {
-        const UserEmail = req.params.customerEmail;
-        const BookingEmail = req.params.bookingEmail;
+        const UserEmail = req.body.customerEmail;
+        const BookingEmail = req.body.bookingEmail;
         const ticketID = shortUUID.generate();
 
+        const expireDate = new Date(req.body.cardExpiration);
+
         const purchaseDate = new Date();
-        purchaseDate.setHours(purchaseDate.getHours());
+        //purchaseDate.setHours(purchaseDate.getHours());
 
 
-        const transactionData: TransactionData = {
+        const TransactionData: TransactionData = {
             ticket_id: ticketID,
             customer_email: UserEmail,
             booking_agent_email: BookingEmail
         }
-        const transaction: any = new Transaction(transactionData);
-        const newTransaction = await transaction.save(transaction);
-        res.status(201).send(transaction);
+
+        const PurchaseData: PurchaseInfoData = {
+            ticket_ID: ticketID,
+            purchase_ID: req.body.purchaseID,
+            sold_price: req.body.soldPrice,
+            card_type: req.body.cardType,
+            card_number: req.body.cardNumber,
+            card_Name: req.body.cardName,
+            card_expiration: expireDate,
+            //purchase_time: Date,
+            purchase_date: purchaseDate,
+            booking_ID: req.body.bookingID
+        }
+
+        const TicketData: TicketData = {
+            ticket_id: ticketID,
+            email: (UserEmail === BookingEmail? BookingEmail:UserEmail),
+            flight_number: req.body.flightNumber
+        }
+
+        const transaction: any = new Transaction(TransactionData);
+        await transaction.save(transaction);
+
+        const purchaseInfo: any = new PurchaseInfo(PurchaseData);
+        await purchaseInfo.save(purchaseInfo);
+
+        const ticket: any = new Ticket(TicketData);
+        const newTicket = await ticket.save(ticket);
+        res.status(201).send(newTicket);
 
 
     }

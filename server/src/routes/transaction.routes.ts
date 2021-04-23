@@ -8,7 +8,10 @@ export class TransactionRoutes extends BaseRoutesConfig implements configureRout
         this.configureRoutes();
     }
     configureRoutes(){
-
+        const controller  = new TransactionController();
+        this.app.post(`/transaction`,[
+            controller.createTransaction
+        ])
     }
 }
     
