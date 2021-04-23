@@ -61,6 +61,31 @@ export class FlightController {
         res.status(200).send(flight);
     }
 
+    getFlightSearchWithDateRange = async(req: express.Request, res: express.Response) => {
+        const properFlights: any = [];
+        const tempDepDate = req.params.departure_date;
+        const departureDate = new Date(tempDepDate);
+        const tempArrivalDate = req.params.arrival_date;
+        const arrivalDate = new Date(tempArrivalDate);
+        const departurePlace = req.params.depature_airport;
+        const arrivalPlace = req.params.arrival_airport;
+
+        
+        const allFlights = await Flight.find();
+        allFlights.map((flight: any) => {
+            if (flight.departure_airport_name == departurePlace){
+                if (flight.arrival_airport_name == arrivalPlace){
+                    if(flight.departure_date >= departureDate){ 
+                        if (flight.departure_date <= arrivalDate){
+                            properFlights.push(flight);
+                        } 
+                    }
+                }
+            }
+        })
+        res.status(200).send(properFlights);
+    }
+
     getReturnFlightsByID = async(req:express.Request, res:express.Response) => {
         const referenceFlight = await Flight.findOne({ _id: req.params.id});
         const arrival = referenceFlight?.departure_date;

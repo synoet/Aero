@@ -37,5 +37,8 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
         this.app.get(`/flights/:id/returns`,[
             controller.getReturnFlightsByID
         ])
+        this.app.get(`/flights/search/:departure_date/:arrival_date/:depature_airport/:arrival_airport`,[
+            controller.getFlightSearchWithDateRange
+        ])
     }
 }
