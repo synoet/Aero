@@ -145,4 +145,11 @@ export class FlightController {
             allFlights: await Flight.find().limit(100).exec(),
         });
     }
+
+    getFlightByAirline = async(req: express.Request, res: express.Response) => {
+        const airline = req.params.airline;
+        const flights = await Flight.find({airline_namee: airline}).limit(100).sort({departure_date: 'desc'}).exec();
+
+        res.status(200).send(flights);
+    }
 }
