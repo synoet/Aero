@@ -1,5 +1,5 @@
 import Flight from '../models/flight.model';
-import express from 'express';
+import express, { request } from 'express';
 import { MongooseService } from '../services/mongoose.service';
 import * as shortUUID from "short-uuid";
 
@@ -152,4 +152,5 @@ export class FlightController {
 
         res.status(200).send(flights);
     }
+
 }
