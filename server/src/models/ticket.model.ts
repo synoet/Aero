@@ -4,15 +4,15 @@ import {MongooseService} from '../services/mongoose.service';
 const mongo = MongooseService.getInstance().getMongoose();
 
 export interface ITicket extends Document {
-    ticket_id: string,
+    _id: string,
     email: string,
-    flight_number: number
+    flight_id: String
 }
 
 const TicketSchema = new mongoose.Schema({
-    ticket_id: String,
+    _id: String,
     email: String,
-    flight_number: Number
+    flight_id: String
 
 });
 const Ticket = mongo.model<ITicket>('Ticket', TicketSchema);

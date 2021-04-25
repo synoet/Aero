@@ -4,7 +4,7 @@ import { TransactionController } from '../controllers/transaction.controller';
 
 export class TransactionRoutes extends BaseRoutesConfig implements configureRoutes {
     constructor(app: express.Application){
-        super(app, 'UserRoutes');
+        super(app, 'TransactionRoutes');
         this.configureRoutes();
     }
     configureRoutes(){

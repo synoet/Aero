@@ -4,31 +4,27 @@ import {MongooseService} from '../services/mongoose.service';
 const mongo = MongooseService.getInstance().getMongoose();
 
 export interface IPurchaseInfo extends Document {
-    ticket_ID: string,
-    purchase_ID: string,
+    _id: string,
+    ticket_id: string,
     sold_price: number,
     card_type: string,
     card_number: number,
-    card_Name: string,
-    //card_expiration: Date,
-    card_expiration: String,
-    //purchase_time: Date,
+    card_name: string,
+    card_expiration: Date,
     purchase_date: Date,
-    booking_ID: string
+    booking_id: string
 }
 
 const PurchaseInfoSchema = new mongoose.Schema({
-    ticket_ID: String,
-    purchase_ID: String,
+    _id: String,
+    ticket_id: String,
     sold_price: Number,
     card_type: String,
     card_number: Number,
     card_Name: String,
-    //card_expiration: Date,
-    card_expiration: String,
-    //purchase_time: Date,
+    card_expiration: Date,
     purchase_date: Date,
-    booking_ID: String
+    booking_id: String
 
 });
 const PurchaseInfo = mongo.model<IPurchaseInfo>('PurchaseInfo', PurchaseInfoSchema);

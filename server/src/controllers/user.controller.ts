@@ -192,7 +192,7 @@ export class UserController {
                     const id = shortUUID.generate()
     
                     const staffData = {
-                        _id: shortUUID.generate(),
+                        _id: id,
                         email: email,
                         password: password,
                         airline_name: airline_name
