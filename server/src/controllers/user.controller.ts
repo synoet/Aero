@@ -29,13 +29,13 @@ interface CustomerEntity {
     passport_number: number;
     passport_expiration: Date;
     passport_country: string;
-    date_of_birth: Date
+    date_of_birth: Date;
+
 }
 
 interface StaffEntity {
     airline_name: string;
 }
-
 
 
 
@@ -192,7 +192,7 @@ export class UserController {
                     const id = shortUUID.generate()
     
                     const staffData = {
-                        _id: shortUUID.generate(),
+                        _id: id,
                         email: email,
                         password: password,
                         airline_name: airline_name

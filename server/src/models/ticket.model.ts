@@ -1,10 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema, Document} from 'mongoose'
 import {MongooseService} from '../services/mongoose.service';
+
+const mongo = MongooseService.getInstance().getMongoose();
+
+export interface ITicket extends Document {
+    _id: string,
+    email: string,
+    flight_id: String
+}
+
 const TicketSchema = new mongoose.Schema({
-    ticket_id: String,
+    _id: String,
     email: String,
-    flight_number: Number
+    flight_id: String
 
 });
-const Ticket = MongooseService.getInstance().getMongoose().model('Ticket', TicketSchema);
+const Ticket = mongo.model<ITicket>('Ticket', TicketSchema);
 export default Ticket;
