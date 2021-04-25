@@ -21,7 +21,8 @@ type PurchaseInfoData = {
     card_type: string,
     card_number: number,
     card_Name: string,
-    card_expiration: Date,
+    //card_expiration: Date,
+    card_expiration: string,
     //purchase_time: Date,
     purchase_date: Date,
     booking_ID: string
@@ -44,7 +45,9 @@ export class TransactionController {
 
     createTransaction = async(req: express.Request, res: express.Response) => {
         const UserEmail = req.body.customerEmail;
+        console.log(UserEmail);
         const BookingEmail = req.body.bookingEmail;
+        console.log(BookingEmail);
         const ticketID = shortUUID.generate();
 
         const expireDate = new Date(req.body.cardExpiration);
@@ -66,7 +69,8 @@ export class TransactionController {
             card_type: req.body.cardType,
             card_number: req.body.cardNumber,
             card_Name: req.body.cardName,
-            card_expiration: expireDate,
+            //card_expiration: expireDate,
+            card_expiration: req.body.cardExpiration,
             //purchase_time: Date,
             purchase_date: purchaseDate,
             booking_ID: req.body.bookingID
@@ -87,7 +91,6 @@ export class TransactionController {
         const ticket: any = new Ticket(TicketData);
         const newTicket = await ticket.save(ticket);
         res.status(201).send(newTicket);
-
 
     }
 

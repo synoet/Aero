@@ -10,7 +10,8 @@ export interface IPurchaseInfo extends Document {
     card_type: string,
     card_number: number,
     card_Name: string,
-    card_expiration: Date,
+    //card_expiration: Date,
+    card_expiration: String,
     //purchase_time: Date,
     purchase_date: Date,
     booking_ID: string
@@ -23,7 +24,8 @@ const PurchaseInfoSchema = new mongoose.Schema({
     card_type: String,
     card_number: Number,
     card_Name: String,
-    card_expiration: Date,
+    //card_expiration: Date,
+    card_expiration: String,
     //purchase_time: Date,
     purchase_date: Date,
     booking_ID: String
