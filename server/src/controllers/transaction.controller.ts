@@ -7,6 +7,7 @@ import * as shortUUID from "short-uuid";
 import Transaction from '../models/transaction.model';
 import PurchaseInfo from '../models/purchase_info.model';
 import Ticket from '../models/ticket.model';
+import Flight from '../models/flight.model';
 
 type TransactionData = {
     _id: string,
@@ -88,7 +89,18 @@ export class TransactionController {
 
         const ticket: any = new Ticket(ticketData);
         const newTicket = await ticket.save(ticket);
-        res.status(201).send(ticket);
+
+        const user = await User.findOne({email: userEmail});
+        const flight = await Flight.findOne({flight_number: flightId});
+        
+        if((user && flight) != null){
+            res.status(201).send(ticket);
+        }else if (user == null){
+            res.status(401).send("User does not exist")
+        }else{
+            res.status(401).send("flight does not exist")
+        }
+        
 
     }
 
