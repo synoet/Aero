@@ -110,10 +110,10 @@ export const loadStaffData = (userId: string) => {
 }
 
 export const loadAgentData = (userId: string) => {
-    let userData: any, revenue: any, spending: any;
+    let userData: any, revenue: any, spending: any, tickets: any;
 
     return new Promise(async (resolve, reject) => {
-        fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
+        await fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -124,7 +124,7 @@ export const loadAgentData = (userId: string) => {
             userData = res;
         }).catch((err) => console.log(err))
 
-        fetch(`https://projectaero-api.herokuapp.com/user/${userId}/revenue`, {
+        await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/revenue`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ export const loadAgentData = (userId: string) => {
             revenue = res;
         }).catch((err) => console.log(err))
 
-        fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
+        await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/spending`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -146,11 +146,31 @@ export const loadAgentData = (userId: string) => {
             spending = res;
         }).catch((err) => console.log(err))
 
+        await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/tickets`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            tickets = res;
+        }).catch((err) => console.log(err))
+
+
         resolve({
             userData: userData,
             revenue: revenue,
-            spending: spending
+            spending: spending,
+            tickets: tickets
         })
         
     })
+}
+
+
+export default {
+    loadAgentData,
+    loadCustomerData,
+    loadStaffData
 }
