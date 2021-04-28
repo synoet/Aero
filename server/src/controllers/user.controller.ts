@@ -251,14 +251,22 @@ export class UserController {
         const user: any = await User.findOne({_id: id});
 
         const tickets = await Ticket.find({email: user.email});
-        const flights: any = [];
+        const currDate = new Date();
+        const previousFlights: any = [];
+        const upcomingFlights: any = [];
         await Promise.all(tickets.map( async (ticket: any) => {
             const flight: any = await Flight.findOne({_id: ticket.flight_id});
-            flights.push(flight);
+            if(flight.departure_date < currDate){
+                previousFlights.push(flight);
+            }else {
+                upcomingFlights.push(flight);
+            }
+            
         }))
 
-        res.status(200).send(flights);
+        res.status(200).send({previousFlights: previousFlights, upcomingFlights: upcomingFlights});
     }
+
 
     getUser = async(req: express.Request, res: express.Response) => {
         const id = req.params.id;
