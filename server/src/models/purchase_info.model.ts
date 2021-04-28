@@ -6,6 +6,7 @@ const mongo = MongooseService.getInstance().getMongoose();
 export interface IPurchaseInfo extends Document {
     _id: string,
     ticket_id: string,
+    transaction_id: string,
     sold_price: number,
     card_type: string,
     card_number: number,
@@ -15,9 +16,10 @@ export interface IPurchaseInfo extends Document {
     booking_id: string
 }
 
-const PurchaseInfoSchema = new mongoose.Schema({
+const PurchaseInfoSchema: Schema = new mongoose.Schema({
     _id: String,
     ticket_id: String,
+    transaction_id: String,
     sold_price: Number,
     card_type: String,
     card_number: Number,

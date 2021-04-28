@@ -9,7 +9,7 @@ export interface ITicket extends Document {
     flight_id: String
 }
 
-const TicketSchema = new mongoose.Schema({
+const TicketSchema: Schema = new mongoose.Schema({
     _id: String,
     email: String,
     flight_id: String

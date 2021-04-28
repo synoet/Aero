@@ -7,14 +7,13 @@ export interface IBookingAgent extends Document{
     _id: string;
     email: string;
     password: string,
-    commision: number;
+    commission: number;
 }
 
 const BookingAgentSchema: Schema = new mongoose.Schema({
     _id: String,
     email: String,
     password: String,
-    booking_agent_id: String,
     commission: Number
 
 });

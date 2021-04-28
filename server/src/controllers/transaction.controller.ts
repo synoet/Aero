@@ -17,6 +17,7 @@ type TransactionData = {
 type PurchaseInfoData = {
     _id: string,
     ticket_id: string,
+    transaction_id: string,
     sold_price: number,
     card_type: string,
     card_number: number,
@@ -65,6 +66,7 @@ export class TransactionController {
         const purchaseInfoData: PurchaseInfoData = {
             _id: purchaseId,
             ticket_id: ticketId,
+            transaction_id: transactionId,
             sold_price: price,
             card_type: cardType,
             card_number: cardNumber,
@@ -88,7 +90,7 @@ export class TransactionController {
 
         const ticket: any = new Ticket(ticketData);
         const newTicket = await ticket.save(ticket);
-        res.status(201).send(ticket);
+        res.status(201).send(newTicket);
 
     }
 
