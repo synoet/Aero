@@ -14,6 +14,12 @@ const Dashboard = () => {
                     {auth.role === 'customer' &&
                         <CustomerView />
                     }
+                    {auth.role === 'staff' && 
+                        <h1>Hello Staff</h1>
+                    }
+                    {auth.role === 'agent' && 
+                        <h1> Hello Agent </h1>
+                    }
                 </>
             }
         </Layout>
