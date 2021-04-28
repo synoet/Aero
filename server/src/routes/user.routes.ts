@@ -34,5 +34,9 @@ export class UserRoutes extends BaseRoutesConfig implements configureRoutes {
         this.app.get(`/user/:id/tickets`, [
             controller.tickets
         ])
+        
+        this.app.get(`/user/:id/flights`, [
+            controller.flights
+        ])
     }
 }
