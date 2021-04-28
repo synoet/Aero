@@ -237,6 +237,29 @@ export class UserController {
         }
     }
 
+
+    tickets = async(req: express.Request, res: express.Response) => {
+        const id = req.params.id;
+        const user: any = await User.findOne({_id: id});
+        const tickets = await Ticket.find({email: user.email});
+
+        res.status(200).send(tickets);
+    }
+
+    flights = async(req: express.Request, res: express.Response) => {
+        const id = req.params.id;
+        const user: any = await User.findOne({_id: id});
+
+        const tickets = await Ticket.find({email: user.email});
+        const flights: any = [];
+        await Promise.all(tickets.map( async (ticket: any) => {
+            const flight: any = await Flight.findOne({_id: ticket.flight_id});
+            flights.push(flight);
+        }))
+
+        res.status(200).send(flights);
+    }
+
     getUser = async(req: express.Request, res: express.Response) => {
         const id = req.params.id;
 
