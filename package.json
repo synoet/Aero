@@ -3,24 +3,8 @@
   "version": "1.0.0",
   "description": "<a><p align=\"center\"> <img height=100 src=\"https://user-images.githubusercontent.com/10552019/114287500-3f3f7680-9a35-11eb-81a6-33eebd6a5efd.png\"/>",
   "scripts": {
-    "prettier": "prettier --write **/*.{ts,tsx}"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier"
-    }
-  },
-  "lint-staged": {
-    "linters": {
-      "**/*.{ts,tsx}": [
-        "prettier --write",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "node_modules",
-      "package-lock.json"
-    ]
+    "format": "prettier --write **/*.{ts,tsx}",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
