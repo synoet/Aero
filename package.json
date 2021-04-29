@@ -4,6 +4,8 @@
   "description": "<a><p align=\"center\"> <img height=100 src=\"https://user-images.githubusercontent.com/10552019/114287500-3f3f7680-9a35-11eb-81a6-33eebd6a5efd.png\"/>",
   "scripts": {
     "format": "prettier --write **/*.{ts,tsx}",
+    "lint:fix": "eslint **/*.{ts,tsx} --fix -v",
+    "lint": "eslint **/*.{ts,tsx}",
     "prepare": "husky install"
   },
   "repository": {
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/nysteo/Aero#readme",
   "devDependencies": {
+    "eslint": "^7.25.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1"
