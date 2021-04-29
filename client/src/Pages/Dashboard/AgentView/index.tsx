@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
+import LineGraph from '../../../components/LineGraph';
 import { FiExternalLink } from "react-icons/fi";
 import {
   Flex,
@@ -65,30 +57,7 @@ const AgentView = ({ userId }: AgentViewProps) => {
                   </HStack>
 
                   <Divider marginTop="1rem" marginBottom="1rem" />
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart
-                      width={500}
-                      height={400}
-                      data={data.spending.spendingByMonths}
-                      margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="spending"
-                        stroke="#8884d8"
-                        fill="#6137FE"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  <LineGraph dataPoints = {data.spending.spendingByMonths} dataKey = 'name' />
                 </Card>
               </GridItem>
               <GridItem colSpan={6} minH="300px">
@@ -107,30 +76,7 @@ const AgentView = ({ userId }: AgentViewProps) => {
                   </HStack>
 
                   <Divider marginTop="1rem" marginBottom="1rem" />
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart
-                      width={500}
-                      height={400}
-                      data={data.revenue.revenueByMonths}
-                      margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="revenue"
-                        stroke="#8884d8"
-                        fill="#6137FE"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  <LineGraph dataPoints = {data.revenue.revenueByMonths} dataKey = 'name' />
                 </Card>
               </GridItem>
               <GridItem colSpan={6}>
