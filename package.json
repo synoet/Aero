@@ -7,7 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo hi"
+      "pre-commit": "npm run prettier"
     }
   },
   "lint-staged": {
