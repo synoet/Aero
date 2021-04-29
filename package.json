@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "<a><p align=\"center\"> <img height=100 src=\"https://user-images.githubusercontent.com/10552019/114287500-3f3f7680-9a35-11eb-81a6-33eebd6a5efd.png\"/>",
   "scripts": {
-    "prettier": "prettier --write **/*.{ts,tsx,js,css}"
+    "prettier": "prettier --write **/*.{ts,tsx}"
   },
   "husky": {
     "hooks": {
@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/nysteo/Aero/issues"
   },
-  "homepage": "https://github.com/nysteo/Aero#readme"
+  "homepage": "https://github.com/nysteo/Aero#readme",
+  "devDependencies": {
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  }
 }
