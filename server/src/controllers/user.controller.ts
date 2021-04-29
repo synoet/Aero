@@ -9,6 +9,7 @@ import { MongooseService } from "../services/mongoose.service";
 import * as shortUUID from "short-uuid";
 import Ticket from "../models/ticket.model";
 import Flight from "../models/flight.model";
+import { monthly } from '../templates/date.template';
 
 interface UserEntity {
   email: string;
@@ -47,68 +48,6 @@ export class UserController {
   spending = async (req: express.Request, res: express.Response) => {
     const id = req.params.id;
     let total = 0;
-    let spendingByMonths = [
-      {
-        month: 1,
-        name: "January",
-        spending: 0,
-      },
-      {
-        month: 2,
-        name: "Febuary",
-        spending: 0,
-      },
-      {
-        month: 3,
-        name: "March",
-        spending: 0,
-      },
-      {
-        month: 4,
-        name: "April",
-        spending: 0,
-      },
-      {
-        month: 5,
-        name: "May",
-        spending: 0,
-      },
-      {
-        month: 6,
-        name: "June",
-        spending: 0,
-      },
-      {
-        month: 7,
-        name: "July",
-        spending: 0,
-      },
-      {
-        month: 8,
-        name: "August",
-        spending: 0,
-      },
-      {
-        month: 9,
-        name: "September",
-        spending: 0,
-      },
-      {
-        month: 10,
-        name: "October",
-        spending: 0,
-      },
-      {
-        month: 11,
-        name: "November",
-        spending: 0,
-      },
-      {
-        month: 12,
-        name: "December",
-        spending: 0,
-      },
-    ];
 
     const user: any = await User.findOne({ _id: id });
     if (user) {
@@ -121,7 +60,7 @@ export class UserController {
             transaction_id: transaction._id,
           });
           const month: any = new Date(purchase.purchase_date).getMonth();
-          spendingByMonths[month].spending += purchase.sold_price;
+          monthly[month].data += purchase.sold_price;
           total += purchase.sold_price;
         })
       );
@@ -129,75 +68,11 @@ export class UserController {
 
     res
       .status(200)
-      .send({ totalSpending: total, spendingByMonths: spendingByMonths });
+      .send({ totalSpending: total, spendingByMonths: monthly });
   };
 
   revenue = async (req: express.Request, res: express.Response) => {
     const id = req.params.id;
-
-    let revenueByMonths = [
-      {
-        month: 1,
-        name: "January",
-        revenue: 0,
-      },
-      {
-        month: 2,
-        name: "Febuary",
-        revenue: 0,
-      },
-      {
-        month: 3,
-        name: "March",
-        revenue: 0,
-      },
-      {
-        month: 4,
-        name: "April",
-        revenue: 0,
-      },
-      {
-        month: 5,
-        name: "May",
-        revenue: 0,
-      },
-      {
-        month: 6,
-        name: "June",
-        revenue: 0,
-      },
-      {
-        month: 7,
-        name: "July",
-        revenue: 0,
-      },
-      {
-        month: 8,
-        name: "August",
-        revenue: 0,
-      },
-      {
-        month: 9,
-        name: "September",
-        revenue: 0,
-      },
-      {
-        month: 10,
-        name: "October",
-        revenue: 0,
-      },
-      {
-        month: 11,
-        name: "November",
-        revenue: 0,
-      },
-      {
-        month: 12,
-        name: "December",
-        revenue: 0,
-      },
-    ];
-
     const user: any = await User.findOne({ _id: id });
     if (user.type === "customer") {
       res
@@ -220,7 +95,7 @@ export class UserController {
               transaction_id: transaction._id,
             });
             const month: any = new Date(purchase.purchase_date).getMonth();
-            revenueByMonths[month].revenue += commission;
+            monthly[month].data += commission;
             total += commission;
           }
         })
@@ -228,7 +103,7 @@ export class UserController {
 
       res
         .status(200)
-        .send({ revenueSpending: total, revenueByMonths: revenueByMonths });
+        .send({ revenueSpending: total, revenueByMonths: monthly });
     } else if (user.type === "staff") {
       const staff: any = await Staff.findOne({ _id: id });
       const airline = staff.airline;
@@ -250,7 +125,7 @@ export class UserController {
             });
             const flight: any = await Flight.findOne({ _id: ticket.flight_id });
             if (flight.airline_name === staff.airline_name) {
-              revenueByMonths[month].revenue += flight.base_price;
+              monthly[month].data += flight.base_price;
               total += flight.base_price;
             }
           }
@@ -259,7 +134,7 @@ export class UserController {
 
       res
         .status(200)
-        .send({ totalRevenue: total, revenueByMonths: revenueByMonths });
+        .send({ totalRevenue: total, revenueByMonths: monthly });
     }
   };
 
