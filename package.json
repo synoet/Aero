@@ -12,9 +12,15 @@
   },
   "lint-staged": {
     "linters": {
-      "**/*.{ts,tsx}": ["prettier --write", "git add"]
+      "**/*.{ts,tsx}": [
+        "prettier --write",
+        "git add"
+      ]
     },
-    "ignore": ["node_modules", "package-lock.json"]
+    "ignore": [
+      "node_modules",
+      "package-lock.json"
+    ]
   },
   "repository": {
     "type": "git",
