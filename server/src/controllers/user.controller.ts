@@ -9,7 +9,7 @@ import { MongooseService } from "../services/mongoose.service";
 import * as shortUUID from "short-uuid";
 import Ticket from "../models/ticket.model";
 import Flight from "../models/flight.model";
-import { monthly } from '../templates/date.template';
+import { monthly } from "../templates/date.template";
 
 interface UserEntity {
   email: string;
@@ -66,9 +66,7 @@ export class UserController {
       );
     }
 
-    res
-      .status(200)
-      .send({ totalSpending: total, spendingByMonths: monthly });
+    res.status(200).send({ totalSpending: total, spendingByMonths: monthly });
   };
 
   revenue = async (req: express.Request, res: express.Response) => {
@@ -132,9 +130,7 @@ export class UserController {
         })
       );
 
-      res
-        .status(200)
-        .send({ totalRevenue: total, revenueByMonths: monthly });
+      res.status(200).send({ totalRevenue: total, revenueByMonths: monthly });
     }
   };
 
@@ -165,12 +161,10 @@ export class UserController {
       })
     );
 
-    res
-      .status(200)
-      .send({
-        previousFlights: previousFlights,
-        upcomingFlights: upcomingFlights,
-      });
+    res.status(200).send({
+      previousFlights: previousFlights,
+      upcomingFlights: upcomingFlights,
+    });
   };
 
   getUser = async (req: express.Request, res: express.Response) => {
