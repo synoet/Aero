@@ -10,6 +10,12 @@
       "pre-commit": "npm run prettier"
     }
   },
+  "lint-staged": {
+    "linters": {
+      "**/*.{ts,tsx}": ["prettier --write", "git add"]
+    },
+    "ignore": ["node_modules", "package-lock.json"]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nysteo/Aero.git"
