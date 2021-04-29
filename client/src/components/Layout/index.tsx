@@ -1,10 +1,10 @@
 import React from "react";
-import { useScreenType } from '../../hooks/useScreenType';
-import { LeftPanel, RightPanel, MainPanel} from "./Panels";
-import styled from 'styled-components';
-import Header from '../Header';
-import { Flex, Spinner} from '@chakra-ui/react';
-import {AuthProvider} from '../../hooks/useAuth';
+import { useScreenType } from "../../hooks/useScreenType";
+import { LeftPanel, RightPanel, MainPanel } from "./Panels";
+import styled from "styled-components";
+import Header from "../Header";
+import { Flex, Spinner } from "@chakra-ui/react";
+import { AuthProvider } from "../../hooks/useAuth";
 
 interface MainLayoutProps {
   leftPanel?: React.ReactNode;
@@ -20,58 +20,57 @@ export const Layout: React.FC<MainLayoutProps> = ({
 
   let content = null;
 
-  if(screenType === 'xl' || screenType === 'l' || screenType === 'm'){
+  if (screenType === "xl" || screenType === "l" || screenType === "m") {
     content = (
-        <>
-        {(leftPanel && rightPanel) && 
-            <LeftPanel>{children}{leftPanel}</LeftPanel>
-        }
-        {(leftPanel && rightPanel) && 
-            <RightPanel>{rightPanel}</RightPanel>
-        }
-        {(leftPanel && !rightPanel) && 
-            <MainPanel>{children}{leftPanel}</MainPanel>
-        }
-        </>
-      );
-
-  }else if(screenType === 's' || screenType === 'xs'){
+      <>
+        {leftPanel && rightPanel && (
+          <LeftPanel>
+            {children}
+            {leftPanel}
+          </LeftPanel>
+        )}
+        {leftPanel && rightPanel && <RightPanel>{rightPanel}</RightPanel>}
+        {leftPanel && !rightPanel && (
+          <MainPanel>
+            {children}
+            {leftPanel}
+          </MainPanel>
+        )}
+      </>
+    );
+  } else if (screenType === "s" || screenType === "xs") {
     content = (
-        <>
-          <MainPanel>{children}{leftPanel}</MainPanel>
-        </>
-      );
+      <>
+        <MainPanel>
+          {children}
+          {leftPanel}
+        </MainPanel>
+      </>
+    );
   }
 
   return (
-        <Flexing
-          direction = 'column'
-          align = 'center'
-          padding = '1.5rem'
-      >
+    <Flexing direction="column" align="center" padding="1.5rem">
       <Header></Header>
       <Flex
-          w = '100%'
-          align = 'center'
-          wrap="wrap"
-          padding="1.5rem"
-          width = "100%"
-          maxW = "1200px"
-          spacing = "1rem"
+        w="100%"
+        align="center"
+        wrap="wrap"
+        padding="1.5rem"
+        width="100%"
+        maxW="1200px"
+        spacing="1rem"
       >
         {content}
       </Flex>
-      
-      
-      </Flexing>
-
+    </Flexing>
   );
 };
 
-export default Layout
+export default Layout;
 
 const Flexing = styled(Flex)`
-width: 100%;
-min-height: 100vh;
-height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
 `;
