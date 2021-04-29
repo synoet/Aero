@@ -1,109 +1,94 @@
-import React from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
-import { FiExternalLink } from "react-icons/fi";
-import {
-  Flex,
-  Divider,
-  Grid,
-  GridItem,
-  HStack,
-  Button,
-} from "@chakra-ui/react";
-import styled from "styled-components";
-import { useAuth } from "../../../hooks/useAuth";
+import React from 'react'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { FiExternalLink } from 'react-icons/fi'
+import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
+import styled from 'styled-components'
+import { useAuth } from '../../../hooks/useAuth'
 
 const data = [
   {
-    name: "Oct",
+    name: 'Oct',
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: "Nov",
+    name: 'Nov',
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: "Dec",
+    name: 'Dec',
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: "Jan",
+    name: 'Jan',
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: "Feb",
+    name: 'Feb',
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: "Mar",
+    name: 'Mar',
     uv: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
-    name: "Apr",
+    name: 'Apr',
     uv: 3490,
     pv: 4300,
     amt: 2100,
   },
-];
+]
 
 const tempUpcoming = [
   {
-    departure_airport_name: "Lax",
-    arrival_airport_name: "Reagan",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Lax',
+    arrival_airport_name: 'Reagan',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
   {
-    departure_airport_name: "Newark",
-    arrival_airport_name: "Berlin",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Newark',
+    arrival_airport_name: 'Berlin',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
   {
-    departure_airport_name: "Moscow",
-    arrival_airport_name: "Paris",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Moscow',
+    arrival_airport_name: 'Paris',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
-];
+]
 
 const tempPrevious = [
   {
-    departure_airport_name: "Lax",
-    arrival_airport_name: "Reagan",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Lax',
+    arrival_airport_name: 'Reagan',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
   {
-    departure_airport_name: "Newark",
-    arrival_airport_name: "Berlin",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Newark',
+    arrival_airport_name: 'Berlin',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
   {
-    departure_airport_name: "Moscow",
-    arrival_airport_name: "Paris",
-    flightId: "607db6bff3f16d29f58a99b1",
+    departure_airport_name: 'Moscow',
+    arrival_airport_name: 'Paris',
+    flightId: '607db6bff3f16d29f58a99b1',
   },
-];
+]
 
 const CustomerView = () => {
-  const auth = useAuth();
+  const auth = useAuth()
   return (
     <>
       <HeroText>
@@ -112,13 +97,7 @@ const CustomerView = () => {
       <SmallText>Welcome to your Customer Dashboard.</SmallText>
       <Divider marginTop="1rem" marginBottom="1rem" />
       <Flex direction="column" align="center">
-        <Grid
-          minH="600px"
-          w="100%"
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(6, 1fr)"
-          gap={4}
-        >
+        <Grid minH="600px" w="100%" templateRows="repeat(2, 1fr)" templateColumns="repeat(6, 1fr)" gap={4}>
           <GridItem colSpan={3}>
             <Card direction="column" w="100%" h="100%">
               <HStack justify="space-between">
@@ -140,13 +119,9 @@ const CustomerView = () => {
                     marginTop="1rem"
                   >
                     <HStack>
-                      <p style={{ fontSize: "1.2rem" }}>
-                        {flight.departure_airport_name}
-                      </p>
+                      <p style={{ fontSize: '1.2rem' }}>{flight.departure_airport_name}</p>
                       <FiArrowRight />
-                      <p style={{ fontSize: "1.2rem" }}>
-                        {flight.arrival_airport_name}
-                      </p>
+                      <p style={{ fontSize: '1.2rem' }}>{flight.arrival_airport_name}</p>
                     </HStack>
                     <HStack>
                       <Button
@@ -160,7 +135,7 @@ const CustomerView = () => {
                       </Button>
                     </HStack>
                   </UpcomingFlight>
-                );
+                )
               })}
             </Card>
           </GridItem>
@@ -191,12 +166,7 @@ const CustomerView = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="uv"
-                    stroke="#8884d8"
-                    fill="#6137FE"
-                  />
+                  <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#6137FE" />
                 </AreaChart>
               </ResponsiveContainer>
             </Card>
@@ -218,13 +188,9 @@ const CustomerView = () => {
                     marginTop="1rem"
                   >
                     <HStack>
-                      <p style={{ fontSize: "1.2rem" }}>
-                        {flight.departure_airport_name}
-                      </p>
+                      <p style={{ fontSize: '1.2rem' }}>{flight.departure_airport_name}</p>
                       <FiArrowRight />
-                      <p style={{ fontSize: "1.2rem" }}>
-                        {flight.arrival_airport_name}
-                      </p>
+                      <p style={{ fontSize: '1.2rem' }}>{flight.arrival_airport_name}</p>
                     </HStack>
                     <HStack>
                       <Button
@@ -238,29 +204,29 @@ const CustomerView = () => {
                       </Button>
                     </HStack>
                   </UpcomingFlight>
-                );
+                )
               })}
             </Card>
           </GridItem>
         </Grid>
       </Flex>
     </>
-  );
-};
+  )
+}
 
-export default CustomerView;
+export default CustomerView
 
 const HeroText = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-`;
+`
 
 const SmallText = styled.p`
   opacity: 0.6;
-`;
+`
 const Highlight = styled.span`
   color: #6137fe;
-`;
+`
 
 const Card = styled(Flex)`
   border: 1.5px solid #e9e9e9;
@@ -272,7 +238,7 @@ const Card = styled(Flex)`
     font-size: 1.2rem;
     font-weight: 500;
   }
-`;
+`
 const UpcomingFlight = styled(Flex)`
   border: 1.5px solid #e9e9e9;
   box-sizing: border-box;
@@ -283,4 +249,4 @@ const UpcomingFlight = styled(Flex)`
       opacity: 0.6;
     }
   }
-`;
+`
