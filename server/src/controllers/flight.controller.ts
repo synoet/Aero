@@ -141,7 +141,7 @@ export class FlightController {
 
   getFlightByAirline = async (req: express.Request, res: express.Response) => {
     const airline = req.params.airline
-    const flights = await Flight.find({airline_name: airline}).limit(100).sort({ departure_date: 'desc' }).exec()
+    const flights = await Flight.find({ airline_name: airline }).limit(100).sort({ departure_date: 'desc' }).exec()
     res.status(200).send(flights)
   }
 }

@@ -1,10 +1,10 @@
-import mongoose,{Schema, Document} from 'mongoose'
+import mongoose, { Schema, Document } from 'mongoose'
 import { MongooseService } from '../services/mongoose.service'
 
-const mongo = MongooseService.getInstance().getMongoose();
+const mongo = MongooseService.getInstance().getMongoose()
 
-export interface IAirport extends Document{
-  name: string,
+export interface IAirport extends Document {
+  name: string
   city: string
 }
 const AirportSchema = new mongoose.Schema({
