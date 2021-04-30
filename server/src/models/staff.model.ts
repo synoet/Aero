@@ -1,13 +1,13 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { MongooseService } from "../services/mongoose.service";
+import mongoose, { Schema, Document } from 'mongoose'
+import { MongooseService } from '../services/mongoose.service'
 
-const mongo = MongooseService.getInstance().getMongoose();
+const mongo = MongooseService.getInstance().getMongoose()
 
 export interface IStaff extends Document {
-  _id: string;
-  email: string;
-  airline_name: string;
-  password: string;
+  _id: string
+  email: string
+  airline_name: string
+  password: string
 }
 
 const StaffSchema: Schema = new mongoose.Schema({
@@ -15,7 +15,7 @@ const StaffSchema: Schema = new mongoose.Schema({
   email: String,
   airline_name: String,
   password: String,
-});
-const Staff = mongo.model<IStaff>("Staff", StaffSchema);
+})
+const Staff = mongo.model<IStaff>('Staff', StaffSchema)
 
-export default Staff;
+export default Staff

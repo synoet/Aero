@@ -1,13 +1,13 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { MongooseService } from "../services/mongoose.service";
+import mongoose, { Schema, Document } from 'mongoose'
+import { MongooseService } from '../services/mongoose.service'
 
-const mongo = MongooseService.getInstance().getMongoose();
+const mongo = MongooseService.getInstance().getMongoose()
 
 export interface IDestination extends Document {
-  location: string;
-  airport: string;
-  image: string;
-  visits: number;
+  location: string
+  airport: string
+  image: string
+  visits: number
 }
 
 export const DestinationSchema: Schema = new mongoose.Schema({
@@ -18,6 +18,6 @@ export const DestinationSchema: Schema = new mongoose.Schema({
     type: Number,
     default: Math.floor(Math.random() * 10) + 1,
   },
-});
-const Destination = mongo.model<IDestination>("Destination", DestinationSchema);
-export default Destination;
+})
+const Destination = mongo.model<IDestination>('Destination', DestinationSchema)
+export default Destination

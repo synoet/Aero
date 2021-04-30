@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Flex,
   HStack,
@@ -9,34 +9,32 @@ import {
   Center,
   InputLeftElement,
   InputLeftAddon,
-} from "@chakra-ui/react";
-import { FiCalendar, FiSearch, FiHome, FiMapPin, FiMap } from "react-icons/fi";
-import { useScreenType } from "../../../hooks/useScreenType";
+} from '@chakra-ui/react'
+import { FiCalendar, FiSearch, FiHome, FiMapPin, FiMap } from 'react-icons/fi'
+import { useScreenType } from '../../../hooks/useScreenType'
 
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const FlightSearch: React.FC = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
-  const screenType = useScreenType();
+  const screenType = useScreenType()
 
-  const handleStartDate = () => {};
+  const handleStartDate = () => {}
 
-  const handleEndDate = () => {};
+  const handleEndDate = () => {}
   return (
     <SearchFlex w="100%" direction="column" minH="120px" padding="1.5rem">
       <h2>Search for Flights</h2>
       <FormWrapper
-        direction={screenType === "s" || screenType === "xs" ? "column" : "row"}
+        direction={screenType === 's' || screenType === 'xs' ? 'column' : 'row'}
         justify="space-between"
         marginBottom="1rem"
       >
         <Location
-          w={screenType === "s" || screenType === "xs" ? "100%" : "49%"}
-          marginBottom={
-            screenType === "s" || screenType === "xs" ? "1rem" : "0"
-          }
+          w={screenType === 's' || screenType === 'xs' ? '100%' : '49%'}
+          marginBottom={screenType === 's' || screenType === 'xs' ? '1rem' : '0'}
         >
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiHome />} />
@@ -48,9 +46,7 @@ const FlightSearch: React.FC = () => {
             <Input size="md" placeholder="Where To?" />
           </InputGroup>
         </Location>
-        <DateWrapper
-          w={screenType === "s" || screenType === "xs" ? "100%" : "49%"}
-        >
+        <DateWrapper w={screenType === 's' || screenType === 'xs' ? '100%' : '49%'}>
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiCalendar />} />
             <Input size="md" placeholder="Start Date? (dd/mm/yy)" />
@@ -70,22 +66,20 @@ const FlightSearch: React.FC = () => {
           position="absolute"
           bottom="-1rem"
         >
-          <FiSearch style={{ marginRight: "10px" }}></FiSearch>
+          <FiSearch style={{ marginRight: '10px' }}></FiSearch>
           Search
         </Button>
       </Center>
     </SearchFlex>
-  );
-};
+  )
+}
 
-export default FlightSearch;
+export default FlightSearch
 
 const SearchFlex = styled(Flex)`
   background: #ffffff;
-  box-shadow: -12.0195px 0px 12.0195px rgba(0, 0, 0, 0.03),
-    0px -12.0195px 12.0195px rgba(0, 0, 0, 0.03),
-    12.0482px 0px 12.0195px rgba(0, 0, 0, 0.03),
-    0px 12.0195px 12.0195px rgba(0, 0, 0, 0.03);
+  box-shadow: -12.0195px 0px 12.0195px rgba(0, 0, 0, 0.03), 0px -12.0195px 12.0195px rgba(0, 0, 0, 0.03),
+    12.0482px 0px 12.0195px rgba(0, 0, 0, 0.03), 0px 12.0195px 12.0195px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin-bottom: 4rem;
   position: relative;
@@ -94,8 +88,8 @@ const SearchFlex = styled(Flex)`
     margin-bottom: 1rem;
     font-size: 1.2rem;
   }
-`;
+`
 
-const Location = styled(HStack)``;
-const DateWrapper = styled(HStack)``;
-const FormWrapper = styled(Flex)``;
+const Location = styled(HStack)``
+const DateWrapper = styled(HStack)``
+const FormWrapper = styled(Flex)``

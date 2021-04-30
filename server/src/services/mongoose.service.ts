@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
-dotenv.config();
-const host = process.env.DB_HOST || "3000";
+dotenv.config()
+const host = process.env.DB_HOST || '3000'
 
 export class MongooseService {
-  private static instance: MongooseService;
+  private static instance: MongooseService
 
   options = {
     autoIndex: false,
@@ -13,39 +13,34 @@ export class MongooseService {
     bufferMaxEntries: 0,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  };
-  count = 0;
+  }
+  count = 0
 
   constructor() {
-    this.connectWithRetry();
+    this.connectWithRetry()
   }
 
   public static getInstance() {
     if (!this.instance) {
-      this.instance = new MongooseService();
+      this.instance = new MongooseService()
     }
-    return this.instance;
+    return this.instance
   }
 
   getMongoose() {
-    return mongoose;
+    return mongoose
   }
 
   connectWithRetry() {
-    console.log("MongoDB connection with retry");
+    console.log('MongoDB connection with retry')
     mongoose
       .connect(host, this.options)
       .then(() => {
-        console.log("MongoDB is connected");
+        console.log('MongoDB is connected')
       })
-      .catch((err) => {
-        console.log(
-          "MongoDB connection unsuccessful, retry after 5 seconds. ",
-          ++this.count,
-          err,
-          host
-        );
-        setTimeout(this.connectWithRetry, 5000);
-      });
+      .catch(err => {
+        console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++this.count, err, host)
+        setTimeout(this.connectWithRetry, 5000)
+      })
   }
 }

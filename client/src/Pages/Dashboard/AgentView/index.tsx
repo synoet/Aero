@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
-import { FiExternalLink } from "react-icons/fi";
-import {
-  Flex,
-  Divider,
-  Grid,
-  GridItem,
-  HStack,
-  Button,
-} from "@chakra-ui/react";
-import styled from "styled-components";
-import * as userService from "../../../services/user.service";
+import React, { useEffect, useState } from 'react'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { FiExternalLink } from 'react-icons/fi'
+import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
+import styled from 'styled-components'
+import * as userService from '../../../services/user.service'
 
 type AgentViewProps = {
-  userId: string;
-};
+  userId: string
+}
 
 const AgentView = ({ userId }: AgentViewProps) => {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<any>()
 
   useEffect(() => {
     userService.loadAgentData(userId).then((res: any) => {
-      setData(res);
-      console.log(res);
-    });
-  }, []);
+      setData(res)
+      console.log(res)
+    })
+  }, [])
   return (
     <>
       {data && (
@@ -42,21 +27,12 @@ const AgentView = ({ userId }: AgentViewProps) => {
           <SmallText>Welcome to your Agent Dashboard.</SmallText>
           <Divider marginTop="1rem" marginBottom="1rem" />
           <Flex direction="column" align="center">
-            <Grid
-              minH="600px"
-              w="100%"
-              templateRows="repeat(2, 1fr)"
-              templateColumns="repeat(6, 1fr)"
-              gap={4}
-            >
+            <Grid minH="600px" w="100%" templateRows="repeat(2, 1fr)" templateColumns="repeat(6, 1fr)" gap={4}>
               <GridItem colSpan={6} minH="300px">
                 <Card direction="column" w="100%" h="100%">
                   <HStack justify="space-between">
                     <h1>
-                      Spending History -{" "}
-                      <Highlight>
-                        Total: ${data.spending.totalSpending}
-                      </Highlight>
+                      Spending History - <Highlight>Total: ${data.spending.totalSpending}</Highlight>
                     </h1>
                     <HStack>
                       <FiExternalLink />
@@ -81,12 +57,7 @@ const AgentView = ({ userId }: AgentViewProps) => {
                       <XAxis dataKey="name" />
                       <YAxis />
                       <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="spending"
-                        stroke="#8884d8"
-                        fill="#6137FE"
-                      />
+                      <Area type="monotone" dataKey="spending" stroke="#8884d8" fill="#6137FE" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </Card>
@@ -95,10 +66,7 @@ const AgentView = ({ userId }: AgentViewProps) => {
                 <Card direction="column" w="100%" h="100%">
                   <HStack justify="space-between">
                     <h1>
-                      Revenue History -{" "}
-                      <Highlight>
-                        Total: ${data.revenue.revenueSpending}
-                      </Highlight>
+                      Revenue History - <Highlight>Total: ${data.revenue.revenueSpending}</Highlight>
                     </h1>
                     <HStack>
                       <FiExternalLink />
@@ -123,12 +91,7 @@ const AgentView = ({ userId }: AgentViewProps) => {
                       <XAxis dataKey="name" />
                       <YAxis />
                       <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="revenue"
-                        stroke="#8884d8"
-                        fill="#6137FE"
-                      />
+                      <Area type="monotone" dataKey="revenue" stroke="#8884d8" fill="#6137FE" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </Card>
@@ -163,22 +126,22 @@ const AgentView = ({ userId }: AgentViewProps) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default AgentView;
+export default AgentView
 
 const HeroText = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-`;
+`
 
 const SmallText = styled.p`
   opacity: 0.6;
-`;
+`
 const Highlight = styled.span`
   color: #6137fe;
-`;
+`
 
 const Card = styled(Flex)`
   border: 1.5px solid #e9e9e9;
@@ -190,7 +153,7 @@ const Card = styled(Flex)`
     font-size: 1.2rem;
     font-weight: 500;
   }
-`;
+`
 const UpcomingFlight = styled(Flex)`
   border: 1.5px solid #e9e9e9;
   box-sizing: border-box;
@@ -201,4 +164,4 @@ const UpcomingFlight = styled(Flex)`
       opacity: 0.6;
     }
   }
-`;
+`
