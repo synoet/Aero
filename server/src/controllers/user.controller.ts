@@ -85,7 +85,7 @@ export class UserController {
       const transactions = await Transaction.find({
         booking_agent_email: user.email,
       });
-
+      const monthlyRev = monthly;
       await Promise.all(
         transactions.map(async (transaction: any) => {
           if (transaction.customer_email !== transaction.booking_agent_email) {
@@ -93,15 +93,17 @@ export class UserController {
               transaction_id: transaction._id,
             });
             const month: any = new Date(purchase.purchase_date).getMonth();
-            monthly[month].data += commission;
-            total += commission;
+            monthlyRev[month].data += commission;
+            //console.log(purchase._id);
+            total += ((commission/100) * purchase.sold_price);
           }
         })
       );
 
       res
         .status(200)
-        .send({ revenueSpending: total, revenueByMonths: monthly });
+        .send({ revenueSpending: total, revenueByMonths: monthlyRev });
+        //.send(total);
     } else if (user.type === "staff") {
       const staff: any = await Staff.findOne({ _id: id });
       const airline = staff.airline;
