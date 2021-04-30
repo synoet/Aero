@@ -15,9 +15,9 @@ const Dashboard = () => {
       {auth.user && (
         <>
           {auth.role === 'customer' && <CustomerView />}
-          {/* {auth.role === 'staff' && 
-                        <StaffView />
-                    } */}
+          {auth.role === 'staff' && 
+                        <StaffView userId = {auth.user._id} />
+          }
           {auth.role === 'agent' && <AgentView userId={auth.user._id} />}
         </>
       )}
