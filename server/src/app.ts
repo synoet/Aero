@@ -13,6 +13,7 @@ import { UserRoutes } from './routes/user.routes'
 import { TransactionRoutes } from './routes/transaction.routes'
 
 import * as swaggerUi from 'swagger-ui-express'
+import { AirportRoutes } from './routes/airport.routes'
 const swaggerDocument = require('../swagger.json')
 
 dotenv.config()
@@ -39,6 +40,7 @@ routes.push(new AirplaneRoutes(app))
 routes.push(new DestinationRoutes(app))
 routes.push(new UserRoutes(app))
 routes.push(new TransactionRoutes(app))
+routes.push(new AirportRoutes(app))
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
