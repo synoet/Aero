@@ -22,7 +22,7 @@ export class AirportController {
   }
 
   listAirports = async (req: express.Request, res: express.Response) => {
-    const airportList = await Airport.find()
+    const airportList = await Airport.find().limit(100).exec()
     res.status(200).send(airportList)
   }
 }
