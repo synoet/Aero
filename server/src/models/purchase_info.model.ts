@@ -1,19 +1,19 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { MongooseService } from "../services/mongoose.service";
+import mongoose, { Schema, Document } from 'mongoose'
+import { MongooseService } from '../services/mongoose.service'
 
-const mongo = MongooseService.getInstance().getMongoose();
+const mongo = MongooseService.getInstance().getMongoose()
 
 export interface IPurchaseInfo extends Document {
-  _id: string;
-  ticket_id: string;
-  transaction_id: string;
-  sold_price: number;
-  card_type: string;
-  card_number: number;
-  card_name: string;
-  card_expiration: Date;
-  purchase_date: Date;
-  booking_id: string;
+  _id: string
+  ticket_id: string
+  transaction_id: string
+  sold_price: number
+  card_type: string
+  card_number: number
+  card_name: string
+  card_expiration: Date
+  purchase_date: Date
+  booking_id: string
 }
 
 const PurchaseInfoSchema: Schema = new mongoose.Schema({
@@ -27,9 +27,6 @@ const PurchaseInfoSchema: Schema = new mongoose.Schema({
   card_expiration: Date,
   purchase_date: Date,
   booking_id: String,
-});
-const PurchaseInfo = mongo.model<IPurchaseInfo>(
-  "PurchaseInfo",
-  PurchaseInfoSchema
-);
-export default PurchaseInfo;
+})
+const PurchaseInfo = mongo.model<IPurchaseInfo>('PurchaseInfo', PurchaseInfoSchema)
+export default PurchaseInfo

@@ -1,26 +1,22 @@
-import React from "react";
-import { useScreenType } from "../../hooks/useScreenType";
-import { LeftPanel, RightPanel, MainPanel } from "./Panels";
-import styled from "styled-components";
-import Header from "../Header";
-import { Flex, Spinner } from "@chakra-ui/react";
-import { AuthProvider } from "../../hooks/useAuth";
+import React from 'react'
+import { useScreenType } from '../../hooks/useScreenType'
+import { LeftPanel, RightPanel, MainPanel } from './Panels'
+import styled from 'styled-components'
+import Header from '../Header'
+import { Flex, Spinner } from '@chakra-ui/react'
+import { AuthProvider } from '../../hooks/useAuth'
 
 interface MainLayoutProps {
-  leftPanel?: React.ReactNode;
-  rightPanel?: React.ReactNode;
+  leftPanel?: React.ReactNode
+  rightPanel?: React.ReactNode
 }
 
-export const Layout: React.FC<MainLayoutProps> = ({
-  children,
-  leftPanel = <div />,
-  rightPanel,
-}) => {
-  const screenType = useScreenType();
+export const Layout: React.FC<MainLayoutProps> = ({ children, leftPanel = <div />, rightPanel }) => {
+  const screenType = useScreenType()
 
-  let content = null;
+  let content = null
 
-  if (screenType === "xl" || screenType === "l" || screenType === "m") {
+  if (screenType === 'xl' || screenType === 'l' || screenType === 'm') {
     content = (
       <>
         {leftPanel && rightPanel && (
@@ -37,8 +33,8 @@ export const Layout: React.FC<MainLayoutProps> = ({
           </MainPanel>
         )}
       </>
-    );
-  } else if (screenType === "s" || screenType === "xs") {
+    )
+  } else if (screenType === 's' || screenType === 'xs') {
     content = (
       <>
         <MainPanel>
@@ -46,31 +42,23 @@ export const Layout: React.FC<MainLayoutProps> = ({
           {leftPanel}
         </MainPanel>
       </>
-    );
+    )
   }
 
   return (
     <Flexing direction="column" align="center" padding="1.5rem">
       <Header></Header>
-      <Flex
-        w="100%"
-        align="center"
-        wrap="wrap"
-        padding="1.5rem"
-        width="100%"
-        maxW="1200px"
-        spacing="1rem"
-      >
+      <Flex w="100%" align="center" wrap="wrap" padding="1.5rem" width="100%" maxW="1200px" spacing="1rem">
         {content}
       </Flex>
     </Flexing>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
 
 const Flexing = styled(Flex)`
   width: 100%;
   min-height: 100vh;
   height: 100%;
-`;
+`
