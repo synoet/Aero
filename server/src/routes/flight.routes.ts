@@ -17,6 +17,8 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
 
     this.app.get(`/flights`, [controller.listFlights]);
 
+    this.app.post('/rating',[controller.createRating])
+
     this.app.get(`/flights/:id`, [controller.getFlightById]);
 
     this.app.patch(`/flights/:id/status`, [controller.updateFlightStatus]);

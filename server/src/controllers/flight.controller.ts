@@ -1,4 +1,6 @@
 import Flight from "../models/flight.model";
+import Rating from "../models/ratings.model";
+import User from "../models/user.model";
 import express, { request } from "express";
 import { MongooseService } from "../services/mongoose.service";
 import * as shortUUID from "short-uuid";
@@ -14,6 +16,12 @@ type FlightData = {
   airplane_id: string;
   status: string;
 };
+
+type RatingData = {
+  customer_email: string,
+  commentary: string,
+  ratings: number
+}
 
 const searchableKeys = [
   "flight_number",
@@ -51,6 +59,24 @@ export class FlightController {
     const newFlight = await flight.save(flight);
     res.status(201).send(newFlight);
   };
+
+createRating = async(req: express.Request, res: express.Response) => {
+  const ratingData: RatingData = {
+      customer_email: req.body.email,
+      commentary: req.body.commentary,
+      ratings: req.body.rating
+  }
+  const rating: any = new Rating(ratingData);
+  const newRating = await rating.save(rating);
+
+  const user = User.findOne({email: req.body.email});
+  if(user != null){
+      res.status(201).send(newRating);
+  }else{
+      res.status(401).send("User does not exist or can not rate");
+  }
+  
+}
 
   listFlights = async (req: express.Request, res: express.Response) => {
     const flightList = await Flight.find()
