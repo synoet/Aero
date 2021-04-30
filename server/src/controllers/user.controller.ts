@@ -130,18 +130,15 @@ export class UserController {
     }
   }
 
-  frequentCustomers = async(req: express.Request, res: express.Response) => {
-      const id = req.params.id;
-      const user: any = await User.findOne({_id: id});
+  frequentCustomers = async (req: express.Request, res: express.Response) => {
+    const id = req.params.id
+    const user: any = await User.findOne({ _id: id })
 
-      if(user){
-          if(user.type === 'agent'){
-              const transactions = await Transaction.find({booking_agent_email: user.email});
-
-          }
+    if (user) {
+      if (user.type === 'agent') {
+        const transactions = await Transaction.find({ booking_agent_email: user.email })
       }
-
-
+    }
   }
 
   tickets = async (req: express.Request, res: express.Response) => {
