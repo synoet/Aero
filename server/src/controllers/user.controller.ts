@@ -135,10 +135,10 @@ export class UserController {
     const user: any = await User.findOne({ _id: id })
 
     if (user) {
-			if (user.type === 'customer'){
-				res.status(400).send('Sorry this feature is only available for Staff and Agents');
-			}else if (user.type === 'agent') {
-        const transactions = await Transaction.find({ booking_agent_email: user.email });
+      if (user.type === 'customer') {
+        res.status(400).send('Sorry this feature is only available for Staff and Agents')
+      } else if (user.type === 'agent') {
+        const transactions = await Transaction.find({ booking_agent_email: user.email })
       }
     }
   }

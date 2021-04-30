@@ -27,6 +27,6 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
       controller.getFlightSearchWithDateRange,
     ])
 
-    this.app.get(`/flights/:airline`, [controller.getFlightByAirline])
+    this.app.get(`/flights/airline/:airline`, [controller.getFlightByAirline])
   }
 }
