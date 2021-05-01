@@ -71,8 +71,8 @@ export class TransactionController {
       flight_id: flightId,
     }
 
-    if(bookingEmail !== userEmail){
-      await Ticket.deleteOne({email: bookingEmail, flight_id: flightId})
+    if (bookingEmail !== userEmail) {
+      await Ticket.deleteOne({ email: bookingEmail, flight_id: flightId })
     }
 
     const transaction: any = new Transaction(transactionData)

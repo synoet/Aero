@@ -11,6 +11,6 @@ export class AirportRoutes extends BaseRoutesConfig implements configureRoutes {
     const controller = new AirportController()
 
     this.app.post('/airports', [controller.createAirport])
-    this.app.get('/listAirports', [controller.listAirports])
+    this.app.get('/airports', [controller.listAirports])
   }
 }
