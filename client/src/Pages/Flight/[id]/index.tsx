@@ -7,7 +7,7 @@ import smallcircle from '../../../images/smallcircle.svg'
 import dots from '../../../images/dots.svg'
 import { useScreenType } from '../../../hooks/useScreenType'
 import { useHistory } from 'react-router-dom'
-
+import Transaction from '../transaction';
 import { IFlight, mockFlight } from '../../../utils/types'
 
 const Flight: React.FC<any> = ({ match }: { match: any }) => {
@@ -17,6 +17,8 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [flight, setFlight] = useState<IFlight>(mockFlight)
   const [returns, setReturns] = useState([])
+  const [listings, setListings]  = useState([])
+
 
   const screenType = useScreenType()
 
@@ -47,6 +49,19 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
         setReturns(res)
       })
       .catch(err => console.log(err))
+
+      fetch(`https://projectaero-api.herokuapp.com/flights/${flightId}/listings`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(res => {
+          setListings(res)
+          console.log(res);
+        })
+        .catch(err => console.log(err))
   }, [])
 
   return (
@@ -138,44 +153,33 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
           <Flex w="100%" marginTop="1rem">
             <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Booking Options</h1>
           </Flex>
-          <BookingOptions direction="column" w="100%">
-            <Option w="100%" align="center" justify="space-between" direction="row" padding="1rem">
-              <h1>
-                <span>Booking Agent:</span> Angelina Jolie
-              </h1>
-              <HStack>
-                <h1 style={{ marginRight: '1rem' }}>{flight.base_price}$</h1>
-                <Button
-                  align="center"
-                  bg="#6137FE"
-                  color="white"
-                  onClick={() => {
-                    history.push(`/flight/${flightId}`)
-                  }}
-                >
-                  Buy
-                </Button>
-              </HStack>
-            </Option>
-            <Option marginTop="1rem" align="center" w="100%" justify="space-between" direction="row" padding="1rem">
-              <h1>
-                <span>Booking Agent:</span> Angelina Jolie
-              </h1>
-              <HStack align="center">
-                <h1 style={{ marginRight: '1rem' }}>{flight.base_price}$</h1>
-                <Button
-                  bg="#6137FE"
-                  color="white"
-                  onClick={() => {
-                    history.push(`/flight/${flightId}`)
-                  }}
-                >
-                  Buy
-                </Button>
-              </HStack>
-            </Option>
-          </BookingOptions>
 
+          {listings &&
+            <BookingOptions direction="column" w="100%">
+              {listings.map((listing: any) => {
+                return (
+                  <Option marginTop="1rem" align="center" w="100%" justify="space-between" direction="row" padding="1rem">
+                  <h1>
+                    <span>{listing.seller_type === 'agent'? 'Booking Agent: ' : 'Airline: '}</span> {listing.seller}
+                  </h1>
+                  <HStack align="center">
+                    <h1 style={{ marginRight: '1rem' }}>{listing.price}$</h1>
+                    <Button
+                      bg="#6137FE"
+                      color="white"
+                      onClick={() => {
+                        history.push(`/flight/${flightId}`)
+                      }}
+                    >
+                      Buy
+                    </Button>
+                  </HStack>
+                </Option>
+
+                )
+              })}
+            </BookingOptions>
+          }
           <Divider marginTop="1rem" />
 
           <Flex w="100%" marginTop="1rem">

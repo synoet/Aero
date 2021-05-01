@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Destinations from './pages/Destinations'
 import { AuthProvider } from './hooks/useAuth'
 import Dashboard from './pages/Dashboard'
+import Transaction from './pages/Flight/transaction';
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -22,6 +23,7 @@ export const App = () => (
         <Route path="/destinations" component={Destinations} />
         <Route path="/airlines" />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/transaction" component={Transaction} />
       </Router>
     </AuthProvider>
   </ChakraProvider>
