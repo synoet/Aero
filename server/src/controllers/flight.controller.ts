@@ -2,6 +2,9 @@ import Flight from '../models/flight.model'
 import express, { request } from 'express'
 import { MongooseService } from '../services/mongoose.service'
 import * as shortUUID from 'short-uuid'
+import Ticket from '../models/ticket.model'
+import User from '../models/user.model'
+import BookingAgent from '../models/booking_agent.model'
 
 type FlightData = {
   flight_number: string
@@ -78,6 +81,34 @@ export class FlightController {
       }
     })
     res.status(200).send(properFlights)
+  }
+
+  listings = async (req: express.Request, res: express.Response) => {
+    const id: string = req.params.id
+    const flight: any = await Flight.findOne({ _id: id })
+    const { airline_name, base_price } = flight
+    const purchaseOptions = [
+      {
+        seller: airline_name,
+        price: base_price,
+      },
+    ]
+
+    const tickets = await Ticket.find({ flight_id: id })
+    await Promise.all(
+      tickets.map(async (ticket: any) => {
+        const purchaser: any = await User.findOne({ email: ticket.email })
+        if (purchaser.type === 'agent') {
+          const agent: any = await BookingAgent.findOne({ email: ticket.email })
+          purchaseOptions.push({
+            seller: ticket.email,
+            price: base_price + base_price * (agent.commission / 100),
+          })
+        }
+      })
+    )
+
+    res.status(200).send(purchaseOptions)
   }
 
   getReturnFlightsByID = async (req: express.Request, res: express.Response) => {

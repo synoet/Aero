@@ -58,7 +58,7 @@ export class UserController {
       },
       {
         month: 3,
-        name: 'MAr',
+        name: 'Mar',
         data: 0,
       },
       {
@@ -145,7 +145,7 @@ export class UserController {
       },
       {
         month: 3,
-        name: 'MAr',
+        name: 'Mar',
         data: 0,
       },
       {
@@ -216,8 +216,7 @@ export class UserController {
               transaction_id: transaction._id,
             })
             const month: any = new Date(purchase.purchase_date).getMonth()
-            monthly[month].data += commission
-            total += commission
+            monthly[month].data += total += commission
           }
         })
       )
