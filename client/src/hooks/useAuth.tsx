@@ -91,7 +91,7 @@ function useProvideAuth() {
   const removeSession = (): void => {
     if (isSession()) {
       localStorage.removeItem('aero-id')
-      localStorage.reemoveItem('aero-role')
+      localStorage.removeItem('aero-role')
     }
   }
 
