@@ -1,7 +1,7 @@
 export const loadCustomerData = (userId: string) => {
   let userData: any, spending: any, tickets: any, flights: any
   return new Promise(async (resolve, reject) => {
-    fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
+    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ export const loadCustomerData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
-    fetch(`https://projectaero-api.herokuapp.com/user/${userId}/spending`, {
+    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/spending`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const loadCustomerData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
-    fetch(`https://projectaero-api.herokuapp.com/user/${userId}/tickets`, {
+    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/tickets`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const loadCustomerData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
-    fetch(`https://projectaero-api.herokuapp.com/user/${userId}/flights`, {
+    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/flights`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -174,11 +174,14 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                         bg="#6137FE"
                         color="white"
                         onClick={() => {
-                          localStorage.setItem('transaction', JSON.stringify({
-                            flight: flight,
-                            seller: listing.seller,
-                            price: listing.price
-                          }))
+                          localStorage.setItem(
+                            'transaction',
+                            JSON.stringify({
+                              flight: flight,
+                              seller: listing.seller,
+                              price: listing.price,
+                            })
+                          )
                           history.push(`/transaction`)
                         }}
                       >

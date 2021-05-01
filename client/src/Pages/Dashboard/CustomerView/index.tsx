@@ -1,95 +1,30 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { FiExternalLink } from 'react-icons/fi'
+import LineGraph from '../../../components/LineGraph'
 import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
 import styled from 'styled-components'
 import { useAuth } from '../../../hooks/useAuth'
+import * as userService from '../../../services/user.service'
 
-const data = [
-  {
-    name: 'Oct',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Nov',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Dec',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Jan',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Feb',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Mar',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Apr',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-]
+type CustomerViewProps = {
+  userId: string
+}
 
-const tempUpcoming = [
-  {
-    departure_airport_name: 'Lax',
-    arrival_airport_name: 'Reagan',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-  {
-    departure_airport_name: 'Newark',
-    arrival_airport_name: 'Berlin',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-  {
-    departure_airport_name: 'Moscow',
-    arrival_airport_name: 'Paris',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-]
 
-const tempPrevious = [
-  {
-    departure_airport_name: 'Lax',
-    arrival_airport_name: 'Reagan',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-  {
-    departure_airport_name: 'Newark',
-    arrival_airport_name: 'Berlin',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-  {
-    departure_airport_name: 'Moscow',
-    arrival_airport_name: 'Paris',
-    flightId: '607db6bff3f16d29f58a99b1',
-  },
-]
-
-const CustomerView = () => {
+const CustomerView = ({userId}: CustomerViewProps) => {
+  const [data, setData] = useState<any>();
   const auth = useAuth()
+  useEffect(() => {
+    userService.loadCustomerData(userId).then((res: any) => {
+      setData(res)
+      console.log(res)
+    })
+  },[])
   return (
+    <>
+    {data && 
     <>
       <HeroText>
         Hello 👋 <Highlight>{auth.user.name}</Highlight>
@@ -97,18 +32,14 @@ const CustomerView = () => {
       <SmallText>Welcome to your Customer Dashboard.</SmallText>
       <Divider marginTop="1rem" marginBottom="1rem" />
       <Flex direction="column" align="center">
-        <Grid minH="600px" w="100%" templateRows="repeat(2, 1fr)" templateColumns="repeat(6, 1fr)" gap={4}>
+        <Grid minH="600px" w="100%"  templateColumns="repeat(6, 1fr)" gap={4}>
           <GridItem colSpan={3}>
             <Card direction="column" w="100%" h="100%">
               <HStack justify="space-between">
                 <h1>Upcoming Flights</h1>
-                <HStack>
-                  <FiExternalLink />
-                  <p> Expand</p>
-                </HStack>
               </HStack>
               <Divider marginTop="1rem" marginBottom="1rem" />
-              {tempUpcoming.map((flight: any) => {
+              {data.flights.upcomingFlights.map((flight: any) => {
                 return (
                   <UpcomingFlight
                     w="100%"
@@ -143,32 +74,10 @@ const CustomerView = () => {
             <Card direction="column" w="100%" h="100%">
               <HStack justify="space-between">
                 <h1>Spending History</h1>
-                <HStack>
-                  <FiExternalLink />
-                  <p> Expand</p>
-                </HStack>
               </HStack>
 
               <Divider marginTop="1rem" marginBottom="1rem" />
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  width={500}
-                  height={400}
-                  data={data}
-                  margin={{
-                    top: 10,
-                    right: 30,
-                    left: 0,
-                    bottom: 0,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#6137FE" />
-                </AreaChart>
-              </ResponsiveContainer>
+              <LineGraph dataPoints={data.spending.spendingByMonths} dataKey="data" labelKey="name" />
             </Card>
           </GridItem>
           <GridItem colSpan={6}>
@@ -177,7 +86,7 @@ const CustomerView = () => {
                 <h1>Previous Flights</h1>
               </HStack>
               <Divider marginTop="1rem" marginBottom="1rem" />
-              {tempUpcoming.map((flight: any) => {
+              {data.flights.previousFlights.map((flight: any) => {
                 return (
                   <UpcomingFlight
                     w="100%"
@@ -210,6 +119,8 @@ const CustomerView = () => {
           </GridItem>
         </Grid>
       </Flex>
+      </>
+      }
     </>
   )
 }
