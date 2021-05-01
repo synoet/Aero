@@ -107,7 +107,7 @@ export class UserController {
         data: 0,
       },
     ]
-    
+
     const id = req.params.id
     let total = 0
 
@@ -194,7 +194,7 @@ export class UserController {
         data: 0,
       },
     ]
-    
+
     const id = req.params.id
     const user: any = await User.findOne({ _id: id })
     if (user.type === 'customer') {
