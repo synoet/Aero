@@ -9,7 +9,6 @@ import { MongooseService } from '../services/mongoose.service'
 import * as shortUUID from 'short-uuid'
 import Ticket from '../models/ticket.model'
 import Flight from '../models/flight.model'
-import { monthly } from '../templates/date.template'
 
 interface UserEntity {
   email: string
@@ -46,6 +45,69 @@ export class UserController {
   constructor() {}
 
   spending = async (req: express.Request, res: express.Response) => {
+    const monthly = [
+      {
+        month: 1,
+        name: 'Jan',
+        data: 0,
+      },
+      {
+        month: 2,
+        name: 'Feb',
+        data: 0,
+      },
+      {
+        month: 3,
+        name: 'MAr',
+        data: 0,
+      },
+      {
+        month: 4,
+        name: 'Apr',
+        data: 0,
+      },
+      {
+        month: 5,
+        name: 'May',
+        data: 0,
+      },
+      {
+        month: 6,
+        name: 'Jun',
+        data: 0,
+      },
+      {
+        month: 7,
+        name: 'Jul',
+        data: 0,
+      },
+      {
+        month: 8,
+        name: 'Aug',
+        data: 0,
+      },
+      {
+        month: 9,
+        name: 'Sep',
+        data: 0,
+      },
+      {
+        month: 10,
+        name: 'Oct',
+        data: 0,
+      },
+      {
+        month: 11,
+        name: 'Nov',
+        data: 0,
+      },
+      {
+        month: 12,
+        name: 'Dec',
+        data: 0,
+      },
+    ]
+    
     const id = req.params.id
     let total = 0
 
@@ -70,6 +132,69 @@ export class UserController {
   }
 
   revenue = async (req: express.Request, res: express.Response) => {
+    const monthly = [
+      {
+        month: 1,
+        name: 'Jan',
+        data: 0,
+      },
+      {
+        month: 2,
+        name: 'Feb',
+        data: 0,
+      },
+      {
+        month: 3,
+        name: 'MAr',
+        data: 0,
+      },
+      {
+        month: 4,
+        name: 'Apr',
+        data: 0,
+      },
+      {
+        month: 5,
+        name: 'May',
+        data: 0,
+      },
+      {
+        month: 6,
+        name: 'Jun',
+        data: 0,
+      },
+      {
+        month: 7,
+        name: 'Jul',
+        data: 0,
+      },
+      {
+        month: 8,
+        name: 'Aug',
+        data: 0,
+      },
+      {
+        month: 9,
+        name: 'Sep',
+        data: 0,
+      },
+      {
+        month: 10,
+        name: 'Oct',
+        data: 0,
+      },
+      {
+        month: 11,
+        name: 'Nov',
+        data: 0,
+      },
+      {
+        month: 12,
+        name: 'Dec',
+        data: 0,
+      },
+    ]
+    
     const id = req.params.id
     const user: any = await User.findOne({ _id: id })
     if (user.type === 'customer') {

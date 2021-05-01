@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { FiArrowRight } from 'react-icons/fi'
 import LineGraph from '../../../components/LineGraph'
-import { FiExternalLink } from 'react-icons/fi'
 import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
 import styled from 'styled-components'
 import * as userService from '../../../services/user.service'

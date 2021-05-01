@@ -97,7 +97,7 @@ export const loadStaffData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
-    await fetch(`https://projectaero-api.herokuapp.com/flights/${userData.airline_name}`, {
+    await fetch(`https://projectaero-api.herokuapp.com/flights/airline/${userData.airline_name}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
