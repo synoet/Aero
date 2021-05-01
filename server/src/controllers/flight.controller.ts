@@ -90,6 +90,7 @@ export class FlightController {
     const purchaseOptions = [
       {
         seller: airline_name,
+        seller_type: 'airline',
         price: base_price,
       },
     ]
@@ -102,6 +103,7 @@ export class FlightController {
           const agent: any = await BookingAgent.findOne({ email: ticket.email })
           purchaseOptions.push({
             seller: ticket.email,
+            seller_type: 'agent',
             price: base_price + base_price * (agent.commission / 100),
           })
         }
