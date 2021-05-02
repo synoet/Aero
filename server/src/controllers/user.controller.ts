@@ -265,33 +265,28 @@ export class UserController {
       } else if (user.type === 'agent') {
         const allTransactions = await Transaction.find({ booking_agent_email: user.email })
         //const customerList: any = [];
-        let occur: any = {};
+        let occur: any = {}
         allTransactions.map((transaction: any) => {
-          if (transaction.customer_email in occur){
+          if (transaction.customer_email in occur) {
             occur[transaction.customer_email] += 1
-          }else{
+          } else {
             occur[transaction.customer_email] = 1
           }
           //customerList.push(transaction.customer_email);
         })
-        let items: any = occur.items();
-        var lenDict = Object.keys(occur).length;
-        Object.values(items).sort();
+        let items: any = occur.items()
+        var lenDict = Object.keys(occur).length
+        Object.values(items).sort()
 
-        const topCustomers: any = [];
-        console.log(items);
-        
+        const topCustomers: any = []
+        console.log(items)
+
         topCustomers.push(Object.keys(items)[lenDict - 1])
         topCustomers.push(Object.keys(items)[lenDict - 2])
         topCustomers.push(Object.keys(items)[lenDict - 3])
         topCustomers.push(Object.keys(items)[lenDict - 4])
         topCustomers.push(Object.keys(items)[lenDict - 5])
-
-
-      } else if (user.type === 'staff'){
-
-
-
+      } else if (user.type === 'staff') {
       }
     }
   }
