@@ -20,5 +20,8 @@
   "devDependencies": {
     "husky": "^6.0.0",
     "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "swagger-ui": "^3.48.0"
   }
 }

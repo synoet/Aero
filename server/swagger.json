@@ -1,110 +1,127 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Aero API",
-        "description": "Aero API",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
-    },
-    "basePath": "/",
-    "tags": [
-            {
-                "name": "Flights",
-                "description": "API for flights in the system"
-            }
-        ],
-        "schemes": [
-            "http"
-        ],
-        "consumes": [
-            "application/json"
-        ],
-        "produces": [
-            "application/json"
-    ],
-    "paths": {
-        "/flights": {
-            "get": {
-                "tags": [
-                    "Flights"
-                ],
-                "description": "List all Flights", 
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retrieved all Flights",
-                        "schema": {
-                            "$ref": "#/definitions/Flights"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Flights"
-                ],
-                "description": "Create a New Flight",
-                "produce": [
-                    "application/json"
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Sucessfully created a new flight",
-                        "schema": {
-                            "$ref": "#/definitions/Flight"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "Flight": {
-            "required": [
-                "airline_name",
-                "arrival_aiport_name",
-                "departure_airport_name",
-                "base_pridce",
-                "airplaine_id",
-                "status"
-            ],
-            "properties": {
-                "flight_number": {
-                    "type": "string"
-                },
-                "departure_date": {
-                    "type": "Date"
-                },
-                "arrival_date": {
-                    "type": "Date"
-                },
-                "airline_name": {
-                    "type": "string"
-                },
-                "arrival_airport_name": { 
-                    "type": "string"
-                },
-                "departure_airport_name": {
-                    "type": "string"
-                },
-                "base_price": {
-                    "type": "number"
-                },
-                "airplane_id": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        }, 
-        "Flights": {
-            "type": "array",
-            "$ref": "#/definitions/Flight"
-        }
+  "swagger": "2.0",
+  "info": {
+    "title": "Aero API",
+    "description": "API for the Aero Flight System",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Flights",
+      "description": "API for flights in the system"
+    },
+    {
+      "name": "User",
+      "description": "API for users"
+    },
+    {
+      "name": "Airports",
+      "description": "API for airports"
+    },
+    {
+      "name": "Destinations",
+      "description": "API for destinations"
+    },
+    {
+      "name": "Transactions",
+      "description": "API for transactions"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/flights": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "description": "List all Flights",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved all Flights",
+            "schema": {
+              "$ref": "#/definitions/Flights"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "description": "Create a New Flight",
+        "produce": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Sucessfully created a new flight",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Flight": {
+      "required": [
+        "airline_name",
+        "arrival_aiport_name",
+        "departure_airport_name",
+        "base_pridce",
+        "airplaine_id",
+        "status"
+      ],
+      "properties": {
+        "flight_number": {
+          "type": "string"
+        },
+        "departure_date": {
+          "type": "Date"
+        },
+        "arrival_date": {
+          "type": "Date"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "arrival_airport_name": {
+          "type": "string"
+        },
+        "departure_airport_name": {
+          "type": "string"
+        },
+        "base_price": {
+          "type": "number"
+        },
+        "airplane_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Flights": {
+      "type": "array",
+      "$ref": "#/definitions/Flight"
+    }
+  }
 }
