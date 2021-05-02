@@ -10,8 +10,8 @@ import Destinations from './pages/Destinations'
 import { AuthProvider } from './hooks/useAuth'
 import Dashboard from './pages/Dashboard'
 import Transaction from './pages/Transaction'
-import Airplanes from './pages/Airplanes';
-import Airports from './pages/Airports';  
+import Airplanes from './pages/Airplanes'
+import Airports from './pages/Airports'
 export const App = () => (
   <ChakraProvider theme={theme}>
     <AuthProvider>
