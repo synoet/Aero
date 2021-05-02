@@ -9,6 +9,7 @@ import { MongooseService } from '../services/mongoose.service'
 import * as shortUUID from 'short-uuid'
 import Ticket from '../models/ticket.model'
 import Flight from '../models/flight.model'
+import { reverse } from 'node:dns'
 
 interface UserEntity {
   email: string
@@ -262,7 +263,35 @@ export class UserController {
       if (user.type === 'customer') {
         res.status(400).send('Sorry this feature is only available for Staff and Agents')
       } else if (user.type === 'agent') {
-        const transactions = await Transaction.find({ booking_agent_email: user.email })
+        const allTransactions = await Transaction.find({ booking_agent_email: user.email })
+        //const customerList: any = [];
+        let occur: any = {};
+        allTransactions.map((transaction: any) => {
+          if (transaction.customer_email in occur){
+            occur[transaction.customer_email] += 1
+          }else{
+            occur[transaction.customer_email] = 1
+          }
+          //customerList.push(transaction.customer_email);
+        })
+        let items: any = occur.items();
+        var lenDict = Object.keys(occur).length;
+        Object.values(items).sort();
+
+        const topCustomers: any = [];
+        console.log(items);
+        
+        topCustomers.push(Object.keys(items)[lenDict - 1])
+        topCustomers.push(Object.keys(items)[lenDict - 2])
+        topCustomers.push(Object.keys(items)[lenDict - 3])
+        topCustomers.push(Object.keys(items)[lenDict - 4])
+        topCustomers.push(Object.keys(items)[lenDict - 5])
+
+
+      } else if (user.type === 'staff'){
+
+
+
       }
     }
   }
