@@ -7,6 +7,8 @@ import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
 import styled from 'styled-components'
 import { useAuth } from '../../../hooks/useAuth'
 import * as userService from '../../../services/user.service'
+import {useHistory} from 'react-router-dom';
+import Flight from '../../Flight/[id]'
 
 type CustomerViewProps = {
   userId: string
@@ -15,6 +17,7 @@ type CustomerViewProps = {
 const CustomerView = ({ userId }: CustomerViewProps) => {
   const [data, setData] = useState<any>()
   const auth = useAuth()
+  const history = useHistory();
   useEffect(() => {
     userService.loadCustomerData(userId).then((res: any) => {
       setData(res)
@@ -60,6 +63,9 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                             color="black"
                             background="transparent"
                             opacity=".6"
+                            onClick = {() => {
+                              history.push(`/flight/${flight._id}`)
+                            }}
                           >
                             View Details
                           </Button>
@@ -107,6 +113,9 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                             color="black"
                             background="transparent"
                             opacity=".6"
+                            onClick = {() => {
+                              history.push(`/flight/${flight._id}`)
+                            }}
                           >
                             View Details
                           </Button>

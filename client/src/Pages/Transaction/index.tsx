@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Flex, HStack, InputGroup, Input, Select, Button, SliderFilledTrack, Image } from '@chakra-ui/react'
-import { useAuth } from '../../../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 import { useHistory } from 'react-router-dom'
-import Success from '../../../images/success.svg'
+import Success from '../../images/success.svg'
 const Transaction = () => {
   const [data, setData] = useState<any>()
   const [cardType, setCardType] = useState('Visa')

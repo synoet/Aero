@@ -60,6 +60,22 @@ const Header = (props: any) => {
                 Dashboard{' '}
               </NavItem>
             )}
+            {auth.user && 
+            <>
+            {auth.role === 'staff' && (
+              <NavItem to= "/airports" active = {location.pathname === '/airports' ? true : false}>
+                {' '}
+                Airports{' '}
+              </NavItem>
+            )}
+            {auth.role === 'staff' && (
+              <NavItem to= "/airplanes" active = {location.pathname === '/airplanes' ? true : false}>
+                {' '}
+                Airplanes{' '}
+              </NavItem>
+            )}
+            </>
+            }
           </Flex>
         </Box>
       </Center>
