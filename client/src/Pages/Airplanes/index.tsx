@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Layout from '../../components/Layout'
 import GenericList from '../../components/GenericList'
 import { FiPlusSquare } from 'react-icons/fi'
-import {useAuth} from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth'
 import {
   HStack,
   Modal,
@@ -24,7 +24,7 @@ const Airplanes = () => {
   const [airportName, setAirportName] = useState()
   const [seats, setSeats] = useState()
 
-  const auth = useAuth();
+  const auth = useAuth()
 
   useEffect(() => {
     fetch(`https://projectaero-api.herokuapp.com/airplanes`, {
@@ -63,7 +63,6 @@ const Airplanes = () => {
       .catch(err => console.log(err))
   }, [increment])
 
-
   const handleSeatsChange = (event: any) => {
     setSeats(event.target.value)
   }
@@ -82,49 +81,49 @@ const Airplanes = () => {
 
   return (
     <>
-    {auth.user &&
-      <>
-      {airplanes && 
-        <Layout>
-            <Modal onClose={() => setIsEdit(false)} isOpen={isEdit} isCentered>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Add new Airplane</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <InputGroup marginTop="1rem">
-                  <Input isDisabled = {true}  placeholder= {auth.user.airline_name} />
-                </InputGroup>
-                <InputGroup marginTop="1rem">
-                  <Input value={seats} onChange={handleSeatsChange} placeholder="Seats" />
-                </InputGroup>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  onClick={() => {
-                    setIsEdit(false)
-                    submitNewAirport()
-                  }}
-                >
-                  Submit
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          <HStack justify="space-between" w="100%">
-            <HeroText>Airplanes</HeroText>
-            {auth.role === 'staff' && (
-              <Add onClick={() => setIsEdit(true)}>
-                <PlusIcon className="PlusIcon" />
-                <p>Add Airplane</p>
-              </Add>
-            )}
-          </HStack>
-          <GenericList items={airplanes}></GenericList>
-        </Layout>
-      }
-      </>
-    }
+      {auth.user && (
+        <>
+          {airplanes && (
+            <Layout>
+              <Modal onClose={() => setIsEdit(false)} isOpen={isEdit} isCentered>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Add new Airplane</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <InputGroup marginTop="1rem">
+                      <Input isDisabled={true} placeholder={auth.user.airline_name} />
+                    </InputGroup>
+                    <InputGroup marginTop="1rem">
+                      <Input value={seats} onChange={handleSeatsChange} placeholder="Seats" />
+                    </InputGroup>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      onClick={() => {
+                        setIsEdit(false)
+                        submitNewAirport()
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+              <HStack justify="space-between" w="100%">
+                <HeroText>Airplanes</HeroText>
+                {auth.role === 'staff' && (
+                  <Add onClick={() => setIsEdit(true)}>
+                    <PlusIcon className="PlusIcon" />
+                    <p>Add Airplane</p>
+                  </Add>
+                )}
+              </HStack>
+              <GenericList items={airplanes}></GenericList>
+            </Layout>
+          )}
+        </>
+      )}
     </>
   )
 }

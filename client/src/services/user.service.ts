@@ -73,29 +73,18 @@ export const loadStaffData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
-    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/revenue`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(res => {
-        revenue = res
+      await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/revenue`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .catch(err => console.log(err))
+        .then(res => res.json())
+        .then(res => {
+          revenue = res
+        })
+        .catch(err => console.log(err))
 
-    await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/revenue`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(res => {
-        revenue = res
-      })
-      .catch(err => console.log(err))
 
     await fetch(`https://projectaero-api.herokuapp.com/flights/airline/${userData.airline_name}`, {
       method: 'GET',
