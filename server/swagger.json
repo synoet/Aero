@@ -1,110 +1,1117 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Aero API",
-        "description": "Aero API",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
+  "swagger": "2.0",
+  "info": {
+    "title": "Aero API",
+    "description": "API for the Aero Flight System",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Flights",
+      "description": "API for flights in the system"
     },
-    "basePath": "/",
-    "tags": [
-            {
-                "name": "Flights",
-                "description": "API for flights in the system"
+    {
+      "name": "User",
+      "description": "API for users"
+    },
+    {
+      "name": "Airports",
+      "description": "API for airports"
+    },
+    {
+      "name": "Destinations",
+      "description": "API for destinations"
+    },
+    {
+      "name": "Transactions",
+      "description": "API for transactions"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/flights": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "List all flights",
+        "description": "List all Flights",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved all Flights",
+            "schema": {
+              "$ref": "#/definitions/Flights"
             }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Flights"
         ],
-        "schemes": [
-            "http"
+        "summary": "Adds Flight",
+        "description": "Adds a flight ",
+        "produces": [
+          "application/json"
         ],
+        "responses": {
+          "201": {
+            "description": "Sucessfully created a new flight",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/view": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": " Views the flights",
+        "description": "View Flights",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Flights viewable",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Find flight by ID",
+        "description": "Returns a single flight",
+        "operationId": "getFlightById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Flight to return",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}/status": {
+      "patch": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Update Flight Status",
+        "description": "Updates a single Flight stauts",
+        "operationId": "updateFlightStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Flight to update",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Flight not found"
+          }
+        }
+      }
+    },
+    "/flights/search/{query}": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Search for Flights",
+        "description": "Return flights by search query",
+        "operationId": "searchFlightByQuery",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "search query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flights"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}/returns": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Return flight",
+        "description": "Return a flight by ID",
+        "operationId": "returnFlightByID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Flight to return",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/search/{departure_date}/{arrival_date}/{departure_airport}/{arrival_airport}": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Return flight by dates and airport",
+        "description": "Return flight by arrival date, departure date, departure airport, and arrival airport",
+        "operationId": "returnFlightByDateAirport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "departure_date",
+            "in": "path",
+            "description": "Departure date of flight",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "arrival_date",
+            "in": "path",
+            "description": "Arrival date of flight",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "departure_airport",
+            "in": "path",
+            "description": "Departure airport of flight",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "arrival_airport",
+            "in": "path",
+            "description": "Arrival airport of flight",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/airline/{airline_name}": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Find flight by airline",
+        "description": "Return a flight by airline",
+        "operationId": "returnFlightByAirline",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "airline_name",
+            "in": "path",
+            "description": "Airline of flight",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}/listings": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "List flights",
+        "description": "List flights by Id",
+        "operationId": "listFlightById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Airline of flight",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/user/login/{email}/{password}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "login ",
+        "description": "Login with email and password",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email of User",
+            "required": true,
+            "type": "string",
+            "format": "email"
+          },
+          {
+            "name": "password",
+            "in": "path",
+            "description": "password of User",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Incorrect password"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User",
+        "description": "Get User from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Adds user",
+        "description": "Adds user to DB",
         "consumes": [
-            "application/json"
+          "applicaton/json"
         ],
         "produces": [
-            "application/json"
-    ],
-    "paths": {
-        "/flights": {
-            "get": {
-                "tags": [
-                    "Flights"
-                ],
-                "description": "List all Flights", 
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retrieved all Flights",
-                        "schema": {
-                            "$ref": "#/definitions/Flights"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Flights"
-                ],
-                "description": "Create a New Flight",
-                "produce": [
-                    "application/json"
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Sucessfully created a new flight",
-                        "schema": {
-                            "$ref": "#/definitions/Flight"
-                        }
-                    }
-                }
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
+          },
+          "401": {
+            "description": "Email already exists"
+          }
         }
+      }
     },
-    "definitions": {
-        "Flight": {
-            "required": [
-                "airline_name",
-                "arrival_aiport_name",
-                "departure_airport_name",
-                "base_pridce",
-                "airplaine_id",
-                "status"
-            ],
-            "properties": {
-                "flight_number": {
-                    "type": "string"
+    "/user/{id}/spending": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User Spending",
+        "description": "Get User Spending from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "totalSpending": {
+                  "type": "integer",
+                  "description": "Total spending for user."
                 },
-                "departure_date": {
-                    "type": "Date"
-                },
-                "arrival_date": {
-                    "type": "Date"
-                },
-                "airline_name": {
-                    "type": "string"
-                },
-                "arrival_airport_name": { 
-                    "type": "string"
-                },
-                "departure_airport_name": {
-                    "type": "string"
-                },
-                "base_price": {
-                    "type": "number"
-                },
-                "airplane_id": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
+                "spendingByMonths": {
+                  "type": "object",
+                  "description": "Spending per month."
                 }
+              }
             }
-        }, 
-        "Flights": {
-            "type": "array",
-            "$ref": "#/definitions/Flight"
+          }
         }
+      }
+    },
+    "/user/{id}/revenue": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User revenue",
+        "description": "Get User revenue from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "totalRevenue": {
+                  "type": "integer",
+                  "description": "Total revenue for user."
+                },
+                "revenueByMonths": {
+                  "type": "object",
+                  "description": "Revenue per month."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}/tickets": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User ticket",
+        "description": "Get User ticket from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}/flights": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User Flights",
+        "description": "Get User Flights from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flights"
+            }
+          }
+        }
+      }
+    },
+    "/airports": {
+      "post": {
+        "tags": [
+          "Airports"
+        ],
+        "summary": "Create Airport",
+        "description": "Create Airport for DB",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Airport"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Airports"
+        ],
+        "summary": "List Airports",
+        "description": "Returns all airports in a list",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Airports"
+            }
+          }
+        }
+      }
+    },
+    "/destinations": {
+      "post": {
+        "tags": [
+          "Destinations"
+        ],
+        "summary": "Create destination",
+        "description": "Create destination for DB",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Destinations"
+        ],
+        "summary": "List Destinations",
+        "description": "Returns all destinations in a list",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Destinations"
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create Transaction",
+        "description": "Create transaction for DB",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        }
+      }
     }
+  },
+  "definitions": {
+    "Airports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Airport"
+      }
+    },
+    "Airport": {
+      "required": [
+        "name",
+        "city"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        }
+      }
+    },
+    "Flights": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Flight"
+      }
+    },
+    "Flight": {
+      "required": [
+        "airline_name",
+        "arrival_aiport_name",
+        "departure_airport_name",
+        "base_pridce",
+        "airplaine_id",
+        "status"
+      ],
+      "properties": {
+        "flight_number": {
+          "type": "string"
+        },
+        "departure_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "arrival_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "arrival_airport_name": {
+          "type": "string"
+        },
+        "departure_airport_name": {
+          "type": "string"
+        },
+        "base_price": {
+          "type": "number"
+        },
+        "airplane_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "id",
+        "email",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "BookingAgent": {
+      "required": [
+        "id",
+        "email",
+        "type",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "type": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    },
+    "Ticket": {
+      "required": [
+        "id",
+        "email",
+        "flight_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "flight_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Destinations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Destination"
+      }
+    },
+    "Destination": {
+      "required": [
+        "location",
+        "airport",
+        "image",
+        "visits"
+      ],
+      "properties": {
+        "location": {
+          "type": "string"
+        },
+        "airport": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "visits": {
+          "type": "integer"
+        }
+      }
+    },
+    "Transaction": {
+      "required": [
+        "id",
+        "customer_email"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "customer_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "booking_agent_email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "Airline": {
+      "required": [
+        "airline_string"
+      ],
+      "properties": {
+        "airline_string": {
+          "type": "string"
+        }
+      }
+    },
+    "Airplane": {
+      "required": [
+        "id",
+        "seats",
+        "airline_name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "seats": {
+          "type": "integer"
+        },
+        "airline_name": {
+          "type": "string"
+        }
+      }
+    },
+    "Arrival": {
+      "required": [
+        "flight_number",
+        "airline_name",
+        "arrival_time",
+        "arrival_date",
+        "aiport_name"
+      ],
+      "properties": {
+        "flight_numer": {
+          "type": "integer"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "arrival_time": {
+          "type": "string",
+          "format": "time"
+        },
+        "arrival_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "airport_name": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Departure": {
+      "required": [
+        "flight_number",
+        "airline_name",
+        "departure_time",
+        "departure_date",
+        "aiport_name"
+      ],
+      "properties": {
+        "flight_numer": {
+          "type": "integer"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "departure_time": {
+          "type": "string",
+          "format": "time"
+        },
+        "departure_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "airport_name": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Customer": {
+      "required": [
+        "id",
+        "email",
+        "name",
+        "password",
+        "building_number",
+        "street",
+        "city",
+        "state",
+        "phone_number",
+        "passport_expiration",
+        "passport_country",
+        "date_of_birth"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        },
+        "building_number": {
+          "type": "integer"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "passport_number": {
+          "type": "integer"
+        },
+        "passport_expiration": {
+          "type": "string",
+          "format": "date"
+        },
+        "passport_country": {
+          "type": "string"
+        },
+        "date_of_birth": {
+          "type": "string",
+          "format": "date"
+        },
+        "booking_agent_email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "Purchase_Info": {
+      "required": [
+        "id",
+        "ticket_id",
+        "transaction_id",
+        "sold_price",
+        "card_type",
+        "card_number",
+        "card_name",
+        "card_expiration",
+        "purchase_date",
+        "booking_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ticket_id": {
+          "type": "string"
+        },
+        "transaction_id": {
+          "type": "string"
+        },
+        "sold_price": {
+          "type": "integer"
+        },
+        "card_type": {
+          "type": "string"
+        },
+        "card_number": {
+          "type": "integer"
+        },
+        "card_name": {
+          "type": "string"
+        },
+        "card_expiration": {
+          "type": "string",
+          "format": "date"
+        },
+        "booking_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Ratings": {
+      "required": [
+        "customer_email",
+        "commentary",
+        "ratings"
+      ],
+      "properties": {
+        "customer_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "commentary": {
+          "type": "string"
+        },
+        "ratings": {
+          "type": "integer"
+        }
+      }
+    },
+    "Staff_phone_number": {
+      "required": [
+        "username",
+        "phone_number"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "integer"
+        }
+      }
+    },
+    "Staff": {
+      "required": [
+        "id",
+        "email",
+        "airline_name",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    }
+  }
 }
