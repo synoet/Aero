@@ -298,7 +298,6 @@ export class UserController {
 
     res.status(200).send(tickets)
   }
-
   flights = async (req: express.Request, res: express.Response) => {
     const id = req.params.id
     const user: any = await User.findOne({ _id: id })
@@ -322,6 +321,17 @@ export class UserController {
       previousFlights: previousFlights,
       upcomingFlights: upcomingFlights,
     })
+  }
+  getAgents = async (req: express.Request, res: express.Response) => {
+    const allUsers: any = await User.find();
+    const allAgents: any = [];
+    allUsers.map((user: any) => {
+      if(user.type == 'agent'){
+        allAgents.push(user);
+      }
+    })
+    res.status(200).send(allAgents);
+
   }
 
   getUser = async (req: express.Request, res: express.Response) => {
