@@ -303,7 +303,7 @@ export class UserController {
           if (a < b) return 1
           return 0
         })
-        console.log(allKeys)
+        //console.log(allKeys)
         for (var k in dict) {
           var value = dict[k]
           if (value == allKeys[0]) {
