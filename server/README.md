@@ -32,3 +32,13 @@ cd server
 npm install
 npm run develop
 ```
+
+### Airplane Controller
+#### createAirplane 
+```
+
+```
+#### listAirplanes
+```
+
+```
