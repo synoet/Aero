@@ -121,12 +121,11 @@ export class UserController {
           const purchase: any = await PurchaseInfo.findOne({
             transaction_id: transaction._id,
           })
-          if (purchase){
+          if (purchase) {
             const month: any = new Date(purchase.purchase_date).getMonth()
             monthly[month].data += purchase.sold_price
             total += purchase.sold_price
           }
-
         })
       )
     }
@@ -218,11 +217,10 @@ export class UserController {
             const purchase: any = await PurchaseInfo.findOne({
               transaction_id: transaction._id,
             })
-            if (purchase){
+            if (purchase) {
               const month: any = new Date(purchase.purchase_date).getMonth()
-            monthly[month].data += total += commission
+              monthly[month].data += total += commission
             }
-            
           }
         })
       )
@@ -243,18 +241,19 @@ export class UserController {
             const purchase: any = await PurchaseInfo.findOne({
               transaction_id: transaction._id,
             })
-            if (purchase){
+            if (purchase) {
               const month: any = new Date(purchase.purchase_date).getMonth()
               const ticket: any = await Ticket.findOne({
                 _id: purchase.ticket_id,
               })
-              const flight: any = await Flight.findOne({ _id: ticket.flight_id })
-              if (flight.airline_name === staff.airline_name) {
-                monthly[month].data += flight.base_price
-                total += flight.base_price
+              if(ticket){
+                const flight: any = await Flight.findOne({ _id: ticket.flight_id })
+                if (flight.airline_name === staff.airline_name) {
+                  monthly[month].data += flight.base_price
+                  total += flight.base_price
+                }
               }
             }
-            
           }
         })
       )

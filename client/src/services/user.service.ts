@@ -106,7 +106,7 @@ export const loadStaffData = (userId: string) => {
 }
 
 export const loadAgentData = (userId: string) => {
-  let userData: any, revenue: any, spending: any, flights: any, frequent: any;
+  let userData: any, revenue: any, spending: any, flights: any, frequent: any
 
   return new Promise(async (resolve, reject) => {
     await fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
@@ -174,7 +174,7 @@ export const loadAgentData = (userId: string) => {
       revenue: revenue,
       spending: spending,
       flights: flights,
-      frequent: frequent
+      frequent: frequent,
     })
   })
 }

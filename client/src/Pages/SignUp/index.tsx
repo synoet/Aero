@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import States from '../../data/states.json'
 import Countries from '../../data/states.json'
-import {useAuth} from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth'
 
 const SignUp = () => {
-  const auth = useAuth();
+  const auth = useAuth()
   const [isWho, setIsWho] = useState(true)
   const [who, setWho] = useState(undefined)
   const [email, setEmail] = useState(undefined)
@@ -108,9 +108,9 @@ const SignUp = () => {
     setWho(event.target.value)
   }
 
-  const handleSignUp = () =>  {
-    let userData = {};
-    if (who === 'customer'){
+  const handleSignUp = () => {
+    let userData = {}
+    if (who === 'customer') {
       userData = {
         email: email,
         password: password,
@@ -125,32 +125,31 @@ const SignUp = () => {
           passport_number: passportNumber,
           passport_expiration: new Date(passportExpiration),
           passport_country: passportCountry,
-          date_of_birth: new Date(dob)
-        }
+          date_of_birth: new Date(dob),
+        },
       }
-    }else if(who === 'agent'){
+    } else if (who === 'agent') {
       userData = {
         email: email,
         password: password,
         type: 'agent',
         Agent: {
-          commission: commision
-        }
+          commission: commision,
+        },
       }
-    }else if (who == 'staff'){
+    } else if (who == 'staff') {
       userData = {
         email: email,
         password: password,
         type: 'staff',
         Staff: {
           airline_name: airlineName,
-        }
+        },
       }
     }
-    console.log(userData);
-    auth.signup(userData);
+    console.log(userData)
+    auth.signup(userData)
     history.push('/home')
-
   }
 
   const isCompleted = (): boolean => {
@@ -221,10 +220,22 @@ const SignUp = () => {
             {who === 'customer' && (
               <HStack>
                 <InputGroup>
-                  <Input value = {firstName} onChange = {(event: any) => {setFirstName(event.target.value)}}placeholder="First Name" />
+                  <Input
+                    value={firstName}
+                    onChange={(event: any) => {
+                      setFirstName(event.target.value)
+                    }}
+                    placeholder="First Name"
+                  />
                 </InputGroup>
                 <InputGroup>
-                  <Input value = {lastName} onChange = {(event: any) => {setLastName(event.target.value)}}placeholder="Last Name" />
+                  <Input
+                    value={lastName}
+                    onChange={(event: any) => {
+                      setLastName(event.target.value)
+                    }}
+                    placeholder="Last Name"
+                  />
                 </InputGroup>
               </HStack>
             )}
@@ -315,7 +326,7 @@ const SignUp = () => {
                 marginLeft=".5rem"
                 w="75%"
                 // isDisabled={!isCompleted()}
-                onClick = {() => handleSignUp()}
+                onClick={() => handleSignUp()}
               >
                 Create My Account
               </Button>
