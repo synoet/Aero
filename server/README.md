@@ -35,12 +35,9 @@ npm run develop
 
 ## Airplane Controller
 #### createAirplane 
-
 This function is for the creation of an individual airplane when given the id, seats and the airline name. It will create a new airplane and save it to the database
 
-
 #### listAirplanes
-
 This function is for going through the database and returning all the planes that are currently in it. 
 
 
@@ -69,21 +66,41 @@ This function is used for changing the specific status of an individual flight. 
 #### getFlightsView
 
 #### getFlightByAirline
-
-This function is meant to simply return all the flights that are coming from a specific airline. 
-
+This function is meant to simply return all the flights that are coming from a specific airline. It will simply query through the database of flights and return all the flights whose airline name corresponds to the one given to the function.
 
 
 
-
-
-
-### Airport Controller
+## Airport Controller
 #### createAirport 
-
 This function is used for creating airports when given the name and the city. It will create and save a new airport to the database.
 
-
 #### listAirports
-
 This function is for going through the database and returning all the airports that are currently present. 
+
+
+
+## Transaction Controller
+### createTransaction
+This funcion does quite a few tasks. It will essentially create and save a transaction, purchaseinfo and a ticket. It only returns the ticket though. The function is essentially given all the information necessary for transactions, purchases and tickets and add all the information to the respective data types and saves all of them to the database to be accessed later. 
+
+
+
+## User Controller
+### revenue
+This function is for calculating the revenue of the respective individual whether it be a booking agent or airline staff. This function isnt accessible to a user who is just a customer. It is also shown as a devision over months to show where revenue was made per month. 
+
+### frequent
+This function is also not available for any user who is just a customer. When the user is a booking agent it calculates the top customers based off of tickets bought as well as top customers based on the commission from tickets. When the user is a staff member it calculates customers who have flown most frequently on a particular airline. 
+
+### tickets
+
+### flights
+
+### getUser
+This function is simply for finding and returning the specifc user when given their id. It database will be searched through to find the user with the same id and return them. 
+
+### login
+This function is for logging in when you have already been register. It simply does the correct checks if the users email and password are in the database and if they are they get logged in otherwise they receive an error. 
+
+### signup
+This function is for allowing people to sign up as one of three types of users. They can sign up as a customer, agent or staff. Customers must fill data specific to them just as email, password, name, and address where as agent require different information such as commission and staff also require different information. After all the respective information is given the user is saved to the database with their information which will allow them to login later.
