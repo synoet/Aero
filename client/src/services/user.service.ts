@@ -59,7 +59,7 @@ export const loadCustomerData = (userId: string) => {
 }
 
 export const loadStaffData = (userId: string) => {
-  let userData: any, revenue: any, flights: any
+  let userData: any, revenue: any, flights: any, frequent: any;
   return new Promise(async (resolve, reject) => {
     await fetch(`https://projectaero-api.herokuapp.com/user/${userId}`, {
       method: 'GET',
@@ -97,10 +97,23 @@ export const loadStaffData = (userId: string) => {
       })
       .catch(err => console.log(err))
 
+      await fetch(`https://projectaero-api.herokuapp.com/user/${userId}/frequent`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(res => {
+          frequent = res
+        })
+        .catch(err => console.log(err))
+
     resolve({
       userData: userData,
       revenue: revenue,
       flights: flights,
+      frequent: frequent,
     })
   })
 }

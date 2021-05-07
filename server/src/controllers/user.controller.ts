@@ -246,7 +246,7 @@ export class UserController {
               const ticket: any = await Ticket.findOne({
                 _id: purchase.ticket_id,
               })
-              if(ticket){
+              if (ticket) {
                 const flight: any = await Flight.findOne({ _id: ticket.flight_id })
                 if (flight.airline_name === staff.airline_name) {
                   monthly[month].data += flight.base_price
