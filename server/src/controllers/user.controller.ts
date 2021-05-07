@@ -270,6 +270,9 @@ export class UserController {
   topDestinations = async (req: express.Request, res: express.Response) => {
     const id = req.params.id
     const user: any = await User.findOne({ _id: id })
+    var top1: any;
+    var top2: any;
+    var top3: any;
 
     if (user) {
       if (user.type === 'customer' || user.type === 'agent') {
@@ -300,11 +303,40 @@ export class UserController {
           if (a < b) return 1
           return 0
         })
-
         console.log(allKeys)
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[0]){
+            top1 = k;
+          }
+        }
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[1]){
+            top2 = k;
+          }
+        }
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[2]){
+            top3 = k;
+          }
+        }
+        //console.log(top1,top2,top3)
+        var firstDestination: any = Flight.findOne({_id: top1});
+        var secondDestination: any = Flight.findOne({_id: top2});
+        var thirdDestination: any = Flight.findOne({_id: top3});
+        console.log(firstDestination)
+
 
         let topDestination: any = []
-        res.status(200).send(topDestination)
+
+        topDestination.push(firstDestination.arrival_airport_name)
+        topDestination.push(secondDestination.arrival_airport_name)
+        topDestination.push(thirdDestination.arrival_airport_name)
+
+        //console.log(topDestination)
+        //res.status(200).send(topDestination)
       }
     }
   }
