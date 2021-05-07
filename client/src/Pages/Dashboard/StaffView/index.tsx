@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import LineGraph from '../../../components/LineGraph'
+import PieGraph from '../../../components/PieGraph'
 import {
   Flex,
   Divider,
@@ -117,13 +118,43 @@ const StaffView = ({ userId }: StaffViewProps) => {
                   <LineGraph dataPoints={data.revenue.revenueByMonths} dataKey="data" labelKey="name" />
                 </Card>
               </GridItem>
+              <GridItem colSpan={3} minH="300px">
+                <Card direction="column" w="100%" h="100%">
+                  <HStack justify="space-between">
+                    <h1>Top Booking Agents</h1>
+                  </HStack>
+                  <Divider marginTop="1rem" marginBottom="1rem" />
+                  {data.frequent.frquentAgents.map((agent: any) => {
+                    return (
+                      <Agent justify="space-between" padding="1rem">
+                        <p>{agent.agent}</p>
+                        <p>
+                          Tickets Sold: <Highlight>{agent.ticketsSold}</Highlight>
+                        </p>
+                        <p>
+                          Revenue: <Highlight>${agent.commission}</Highlight>
+                        </p>
+                      </Agent>
+                    )
+                  })}
+                </Card>
+              </GridItem>
+              <GridItem colSpan={3} minH="300px">
+                <Card direction="column" w="100%" h="100%">
+                  <HStack justify="space-between">
+                    <h1>Revenue Comparison</h1>
+                  </HStack>
+                  <Divider marginTop="1rem" marginBottom="1rem" />
+                  <PieGraph dataPoints={data.revenue.comparison} />
+                </Card>
+              </GridItem>
               <GridItem rowSpan={2} colSpan={6} minH="300px">
                 <Card direction="column" w="100%" h="100%">
                   <HStack>
                     <h1> Top Customers </h1>
                   </HStack>
                   <Divider marginTop="1rem" marginBottom="1rem" />
-                  {data.frequent.map((item: any, index: number) => {
+                  {data.frequent.frequentCustomers.map((item: any, index: number) => {
                     return (
                       <VStack w="100%" align="flex-start">
                         <Customer onClick={Collapsibility[index][1]} w="100%" marginTop="1rem" padding="1rem">
@@ -263,6 +294,18 @@ const Card = styled(Flex)`
   }
 `
 const UpcomingFlight = styled(Flex)`
+  border: 1.5px solid #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  h1 {
+    span {
+      opacity: 0.6;
+    }
+  }
+`
+
+const Agent = styled(Flex)`
   border: 1.5px solid #e9e9e9;
   box-sizing: border-box;
   border-radius: 10px;

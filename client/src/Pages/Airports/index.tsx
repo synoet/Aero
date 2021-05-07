@@ -129,16 +129,14 @@ const HeroText = styled.h1`
   font-size: 2rem;
   font-weight: 600;
 `
-
 const Add = styled(HStack)`
+  background-color: #6137fe;
+  padding: 0.6rem 1rem 0.6rem 1rem;
+  color: white;
+  border-radius: 2rem;
   :hover {
     cursor: pointer;
-    p {
-      color: #6137fe;
-    }
-    .PlusIcon {
-      color: #6137fe;
-    }
+    opacity: 0.6;
   }
 `
 
