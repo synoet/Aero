@@ -26,5 +26,7 @@ export class UserRoutes extends BaseRoutesConfig implements configureRoutes {
     this.app.get(`/user/:id/flights`, [controller.flights])
 
     this.app.get(`/user/:id/topDestinations`, [controller.topDestinations])
+    
+    this.app.get(`/user/:id/frequent`, [controller.frequent])
   }
 }

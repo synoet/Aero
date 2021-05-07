@@ -255,7 +255,7 @@ export class UserController {
     }
   }
 
-  frequentCustomers = async (req: express.Request, res: express.Response) => {
+  frequent = async (req: express.Request, res: express.Response) => {
     const id = req.params.id
     const user: any = await User.findOne({ _id: id })
 
@@ -263,7 +263,120 @@ export class UserController {
       if (user.type === 'customer') {
         res.status(400).send('Sorry this feature is only available for Staff and Agents')
       } else if (user.type === 'agent') {
-        const transactions = await Transaction.find({ booking_agent_email: user.email })
+        const agent: any = await BookingAgent.findOne({ _id: user._id })
+        const allTransactions = await Transaction.find({ booking_agent_email: user.email })
+        let occur: any = {}
+        allTransactions.map((transaction: any) => {
+          if (transaction.customer_email in occur) {
+            occur[transaction.customer_email] += 1
+          } else {
+            occur[transaction.customer_email] = 1
+          }
+        })
+
+        var items = Object.keys(occur).map(key => {
+          return [key, occur[key]]
+        })
+
+        items.sort((first, second) => {
+          return second[1] - first[1]
+        })
+
+        var byTickets: any = []
+        var byCommission: any = []
+
+        await Promise.all(
+          items.slice(0, 5).map(async (item: any) => {
+            let specTransactions = await Transaction.find({ booking_agent_email: user.email, customer_email: item[0] })
+            var totalCommission = 0
+            const purchases = await Promise.all(
+              specTransactions.map(async (transaction: any) => {
+                let purchase = await PurchaseInfo.findOne({ transaction_id: transaction._id })
+                if (purchase) {
+                  return purchase
+                }
+              })
+            )
+            purchases.map((purchase: any) => {
+              if (purchase) {
+                totalCommission += purchase.sold_price
+              }
+            })
+            byTickets.push({
+              customer: item[0],
+              tickets: item[1],
+            })
+
+            byCommission.push({
+              customer: item[0],
+              commission: totalCommission * (agent.commission / 100),
+            })
+          })
+        )
+
+        res.status(200).send({ byTickets: byTickets, byCommission: byCommission })
+      } else if (user.type === 'staff') {
+        const staff: any = await Staff.findOne({ _id: user._id })
+        const { airline_name } = staff
+        const tickets = await Ticket.find({})
+        let occur: any = {}
+        let flightByCustomer: any = {}
+        let ticketsByAirline = await Promise.all(
+          tickets.map(async (ticket: any) => {
+            if (ticket) {
+              const flight: any = await Flight.findOne({ _id: ticket.flight_id })
+              if (flight) {
+                if (flight.airline_name === airline_name) {
+                  return ticket
+                }
+              }
+            }
+          })
+        )
+        ticketsByAirline.map((ticket: any) => {
+          if (ticket) {
+            if (ticket.email in occur) {
+              occur[ticket.email] += 1
+            } else {
+              occur[ticket.email] = 1
+            }
+          }
+        })
+
+        var items = Object.keys(occur).map(key => {
+          return [key, occur[key]]
+        })
+
+        items.sort((first, second) => {
+          return second[1] - first[1]
+        })
+
+        let frequentCustomers: any = []
+
+        await Promise.all(
+          items.map(async item => {
+            let customerFlights: any = []
+            const customerTickets = await Ticket.find({ email: item[0] })
+            await Promise.all(
+              customerTickets.map(async (ticket: any) => {
+                const customerFlight = await Flight.findOne({ _id: ticket.flight_id })
+                if (customerFlight) {
+                  if (customerFlight.airline_name === airline_name) {
+                    customerFlights.push(customerFlight)
+                  }
+                }
+              })
+            )
+            console.log(customerFlights)
+            frequentCustomers.push({
+              customer: item[0],
+              tickets: item[1],
+              flights: customerFlights,
+            })
+          })
+        )
+
+        res.status(200).send(frequentCustomers)
       }
     }
   }
