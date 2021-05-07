@@ -274,45 +274,40 @@ export class UserController {
     if (user) {
       if (user.type === 'customer' || user.type === 'agent') {
         res.status(400).send('Sorry this feature is only available for airline staff')
-      } else{
-        var dict: any = {};
+      } else {
+        var dict: any = {}
         let allTickets: any = await Ticket.find()
         allTickets.map((ticket: any) => {
-          if (ticket.flight_id in dict){
+          if (ticket.flight_id in dict) {
             //console.log(ticket.flight_id)
-            var value = dict[ticket.flight_id ]
-            value += 1;
+            var value = dict[ticket.flight_id]
+            value += 1
             dict[ticket.flight_id] = value
-          }else{
+          } else {
             dict[ticket.flight_id] = 1
           }
-
-        });
+        })
 
         const allKeys: any = []
-        for (var k in dict){
+        for (var k in dict) {
           var value = dict[k]
           allKeys.push(value)
         }
         //console.log(allKeys)
-        
+
         allKeys.sort((a: any, b: any) => {
-          if (a > b) return -1;
-          if (a < b) return 1;
-          return 0;
+          if (a > b) return -1
+          if (a < b) return 1
+          return 0
         })
 
         console.log(allKeys)
 
         let topDestination: any = []
         res.status(200).send(topDestination)
-
-
-
       }
     }
   }
-  
 
   tickets = async (req: express.Request, res: express.Response) => {
     const id = req.params.id
