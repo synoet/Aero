@@ -17,7 +17,7 @@ import {
   VStack,
   ModalCloseButton,
 } from '@chakra-ui/react'
-import { Collapse, useDisclosure } from "@chakra-ui/react"
+import { Collapse, useDisclosure } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
 import * as userService from '../../../services/user.service'
 import { FiArrowRight } from 'react-icons/fi'
@@ -33,20 +33,19 @@ const StaffView = ({ userId }: StaffViewProps) => {
   const [selectedFlight, setSelectedFlight] = useState<any>(undefined)
   const [increment, setIncrement] = useState(0)
   const [newStatus, setNewStatus] = useState<any>(undefined)
-  const [isOneOpen, onOneToggle] = useState<any>(false);
-  const [isTwoOpen, onTwoToggle] = useState<any>(false);
-  const [isThreeOpen, onThreeToggle] = useState<any>(false);
-  const [isFourOpen, onFourToggle] = useState<any>(false);
-  const [isFiveOpen, onFiveToggle] = useState<any>(false);
+  const [isOneOpen, onOneToggle] = useState<any>(false)
+  const [isTwoOpen, onTwoToggle] = useState<any>(false)
+  const [isThreeOpen, onThreeToggle] = useState<any>(false)
+  const [isFourOpen, onFourToggle] = useState<any>(false)
+  const [isFiveOpen, onFiveToggle] = useState<any>(false)
 
   const Collapsibility = [
     [isOneOpen, () => onOneToggle(!isOneOpen)],
     [isTwoOpen, () => onTwoToggle(!isTwoOpen)],
     [isThreeOpen, () => onThreeToggle(!isThreeOpen)],
     [isFourOpen, () => onFourToggle(!isFourOpen)],
-    [isFiveOpen, () => onFiveToggle(!isFiveOpen)]
+    [isFiveOpen, () => onFiveToggle(!isFiveOpen)],
   ]
-  
 
   const history = useHistory()
 
@@ -118,24 +117,23 @@ const StaffView = ({ userId }: StaffViewProps) => {
                   <LineGraph dataPoints={data.revenue.revenueByMonths} dataKey="data" labelKey="name" />
                 </Card>
               </GridItem>
-              <GridItem rowSpan = {2} colSpan = {6} minH = "300px">
-                <Card direction = "column" w = "100%" h = "100%">
+              <GridItem rowSpan={2} colSpan={6} minH="300px">
+                <Card direction="column" w="100%" h="100%">
                   <HStack>
                     <h1> Top Customers </h1>
                   </HStack>
-                  <Divider marginTop = '1rem' marginBottom = '1rem' />
+                  <Divider marginTop="1rem" marginBottom="1rem" />
                   {data.frequent.map((item: any, index: number) => {
                     return (
-                      <VStack w = '100%' align = 'flex-start'>
-                        <Customer onClick = {Collapsibility[index][1]} w = '100%' marginTop = '1rem' padding = '1rem'>
+                      <VStack w="100%" align="flex-start">
+                        <Customer onClick={Collapsibility[index][1]} w="100%" marginTop="1rem" padding="1rem">
                           <h1>{item.customer}</h1>
                         </Customer>
-                        <Collapse in = {Collapsibility[index][0]} animateOpacity style = {{width: '100%'}}>
-                        <VStack  spacing = {3} w = '100%' padding = '1rem'>
-                          {item.flights.map((flight: any) => {
-                            return (
-                              
-                                <UpcomingFlight padding = '1rem' w = '100%'>
+                        <Collapse in={Collapsibility[index][0]} animateOpacity style={{ width: '100%' }}>
+                          <VStack spacing={3} w="100%" padding="1rem">
+                            {item.flights.map((flight: any) => {
+                              return (
+                                <UpcomingFlight padding="1rem" w="100%">
                                   <HStack w="100%">
                                     <p style={{ fontSize: '.8rem' }}>{flight.departure_airport_name}</p>
                                     <FiArrowRight />
@@ -149,21 +147,19 @@ const StaffView = ({ userId }: StaffViewProps) => {
                                     color="black"
                                     background="transparent"
                                     opacity=".6"
-                                    fontSize = '.8rem'
+                                    fontSize=".8rem"
                                     onClick={() => history.push(`/flight/${flight._id}`)}
                                   >
                                     View Details
                                   </Button>
                                 </UpcomingFlight>
-                            )
-                          })}
+                              )
+                            })}
                           </VStack>
-
                         </Collapse>
                       </VStack>
                     )
                   })}
-                  
                 </Card>
               </GridItem>
               <GridItem colSpan={6}>
@@ -279,17 +275,17 @@ const UpcomingFlight = styled(Flex)`
 `
 
 const Customer = styled(Flex)`
-border: 1.5px solid #e9e9e9;
-box-sizing: border-box;
-border-radius: 10px;
-:hover {
-  cursor: pointer;
-  border: 1.5px solid #6137fe
-}
-h1 {
-  font-size: 1rem;
-  span {
-    opacity: 0.6;
+  border: 1.5px solid #e9e9e9;
+  box-sizing: border-box;
+  border-radius: 10px;
+  :hover {
+    cursor: pointer;
+    border: 1.5px solid #6137fe;
   }
-}
-`;
+  h1 {
+    font-size: 1rem;
+    span {
+      opacity: 0.6;
+    }
+  }
+`

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import LineGraph from '../../../components/LineGraph'
-import BarGraph from '../../../components/BarGraph';
+import BarGraph from '../../../components/BarGraph'
 import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
 import styled from 'styled-components'
 import * as userService from '../../../services/user.service'
@@ -50,36 +50,35 @@ const AgentView = ({ userId }: AgentViewProps) => {
                   <LineGraph dataPoints={data.revenue.revenueByMonths} dataKey="data" labelKey="name" />
                 </Card>
               </GridItem>
-              <GridItem colSpan = {3} minH = "300px">
-                <Card direction = "column" w = "100%" h = "100%">
-                  <HStack justify = "space-between">
-                    <h1>
-                      Top 5 Customers
-                    </h1>
+              <GridItem colSpan={3} minH="300px">
+                <Card direction="column" w="100%" h="100%">
+                  <HStack justify="space-between">
+                    <h1>Top 5 Customers</h1>
                   </HStack>
-                  <Divider marginTop = '1rem' marginBottom = '1rem' />
+                  <Divider marginTop="1rem" marginBottom="1rem" />
                   {data.frequent.byTickets.map((item: any, index: number) => {
                     return (
-                      <Customer  marginTop = '1rem' justify = 'space-between' padding = '1rem'>
-                        <h1>{index + 1} . {item.customer}</h1>
-                        <p>Tickets: <Highlight>{item.tickets}</Highlight></p>
+                      <Customer marginTop="1rem" justify="space-between" padding="1rem">
+                        <h1>
+                          {index + 1} . {item.customer}
+                        </h1>
+                        <p>
+                          Tickets: <Highlight>{item.tickets}</Highlight>
+                        </p>
                       </Customer>
                     )
                   })}
                 </Card>
               </GridItem>
-              <GridItem colSpan = {3} minH = "300px">
-                <Card direction = "column" w = "100%" h = "100%">
+              <GridItem colSpan={3} minH="300px">
+                <Card direction="column" w="100%" h="100%">
                   <HStack>
                     <h1>Top Customers By Commission </h1>
-                    
                   </HStack>
-                  <Divider marginTop = '1rem' marginBottom = '1rem' />                  
-                  <BarGraph dataPoints = {data.frequent.byCommission} dataKey = "commission" labelKey = "customer" />
-
+                  <Divider marginTop="1rem" marginBottom="1rem" />
+                  <BarGraph dataPoints={data.frequent.byCommission} dataKey="commission" labelKey="customer" />
                 </Card>
               </GridItem>
-
 
               <GridItem colSpan={6}>
                 <Card direction="column" w="100%" h="100%">
@@ -243,5 +242,4 @@ const Customer = styled(Flex)`
       opacity: 0.6;
     }
   }
-
-`;
+`

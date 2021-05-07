@@ -383,6 +383,21 @@ export class UserController {
           })
         )
 
+        //booking agent information
+
+        const transactions = await Transaction.find({});
+
+        const btcTransactions = transactions.map((transaction: any) => {
+          if(transaction){
+            if (transaction.customer_email !== transaction.booking_agent_email){
+              return transaction;
+            }
+          }
+        })
+
+        console.log(btcTransactions);
+
+
         res.status(200).send(frequentCustomers)
       }
     }
