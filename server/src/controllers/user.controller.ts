@@ -323,15 +323,14 @@ export class UserController {
     })
   }
   getAgents = async (req: express.Request, res: express.Response) => {
-    const allUsers: any = await User.find();
-    const allAgents: any = [];
+    const allUsers: any = await User.find()
+    const allAgents: any = []
     allUsers.map((user: any) => {
-      if(user.type == 'agent'){
-        allAgents.push(user);
+      if (user.type == 'agent') {
+        allAgents.push(user)
       }
     })
-    res.status(200).send(allAgents);
-
+    res.status(200).send(allAgents)
   }
 
   getUser = async (req: express.Request, res: express.Response) => {
