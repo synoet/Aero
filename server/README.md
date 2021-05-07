@@ -36,9 +36,50 @@ npm run develop
 ### Airplane Controller
 #### createAirplane 
 ```
+This function is for the creation of an individual airplane when given the id, seats and the airline name. It will create a new airplane and save it to the database
 
 ```
 #### listAirplanes
 ```
+This function is for going through the database and returning all the planes that are currently in it. 
+```
 
+
+### Flight Controller
+#### createFlight
+
+#### listFlights
+
+#### getFlightByID
+
+#### getFlightSearchWithDateRange
+
+#### listings
+
+#### getReturnFlightsByID
+
+#### updateFlightStatus
+
+#### searchFlights
+
+#### getFlightsView
+
+#### getFlightByAirline
+This function is meant to simply return all the flights that are coming from a specific airline. 
+
+
+
+
+
+
+
+### Airport Controller
+#### createAirport 
+```
+This function is used for creating airports when given the name and the city. It will create and save a new airport to the database.
+
+```
+#### listAirports
+```
+This function is for going through the database and returning all the airports that are currently present. 
 ```
