@@ -276,7 +276,7 @@ export class UserController {
 
     if (user) {
       if (user.type === 'customer' || user.type === 'agent') {
-        res.status(400).send('Sorry this feature is only available for airline staff')
+        res.status(401).send('Sorry this feature is only available for airline staff')
       } else {
         var dict: any = {}
         let allTickets: any = await Ticket.find()
