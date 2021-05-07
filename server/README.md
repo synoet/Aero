@@ -34,7 +34,7 @@ npm run develop
 ```
 
 ## Airplane Controller
-#### **createAirplane 
+#### createAirplane 
 This function is for the creation of an individual airplane when given the id, seats and the airline name. It will create a new airplane and save it to the database
 
 #### listAirplanes
