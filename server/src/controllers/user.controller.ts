@@ -269,13 +269,11 @@ export class UserController {
         })
       )
 
-      res
-        .status(200)
-        .send({
-          totalRevenue: total,
-          revenueByMonths: monthly,
-          comparison: { direct: directRevenue, indirect: indirectRevenue },
-        })
+      res.status(200).send({
+        totalRevenue: total,
+        revenueByMonths: monthly,
+        comparison: { direct: directRevenue, indirect: indirectRevenue },
+      })
     }
   }
 
