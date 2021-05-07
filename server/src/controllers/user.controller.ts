@@ -230,10 +230,10 @@ export class UserController {
       const staff: any = await Staff.findOne({ _id: id })
       const airline = staff.airline
 
-      const transactions = await Transaction.find();
+      const transactions = await Transaction.find()
 
-      var directRevenue: number = 0;
-      var indirectRevenue: any = 0;
+      var directRevenue: number = 0
+      var indirectRevenue: any = 0
 
       await Promise.all(
         transactions.map(async (transaction: any) => {
@@ -251,14 +251,14 @@ export class UserController {
               })
               if (ticket) {
                 const flight: any = await Flight.findOne({ _id: ticket.flight_id })
-                if (flight){
+                if (flight) {
                   if (flight.airline_name === staff.airline_name) {
                     monthly[month].data += flight.base_price
-                    if(transaction.customer_email === transaction.booking_agent_email){
-                      indirectRevenue += flight.base_price;
-                    }else if(transaction.booking_agent_email === null){
-                      console.log(flight.base_price);
-                      directRevenue +=  flight.base_price
+                    if (transaction.customer_email === transaction.booking_agent_email) {
+                      indirectRevenue += flight.base_price
+                    } else if (transaction.booking_agent_email === null) {
+                      console.log(flight.base_price)
+                      directRevenue += flight.base_price
                     }
                     total += flight.base_price
                   }
@@ -269,7 +269,13 @@ export class UserController {
         })
       )
 
-      res.status(200).send({ totalRevenue: total, revenueByMonths: monthly, comparison: {direct: directRevenue, indirect: indirectRevenue} })
+      res
+        .status(200)
+        .send({
+          totalRevenue: total,
+          revenueByMonths: monthly,
+          comparison: { direct: directRevenue, indirect: indirectRevenue },
+        })
     }
   }
 
