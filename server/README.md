@@ -58,6 +58,9 @@ This function is used to find all the flights that fall between a specific date 
 #### listings
 This function is meant for the purchasing of tickets. When given an id it will find the flight corresponding to it and then purchaseOptions are devised and then depending on who is selling the ticket their respective information is returned.
 
+#### createRating
+This functino is meant to add a rating to a flight. When given an id it will go through the database to find the respective flight and allow the user to leave a comment and rating on the flight.
+
 #### getReturnFlightsByID
 This function is for getting all the return flights from a specific location based off an id. When given an id the function will find the flight from withing the data and then return all the returning flight from the same location of the given flight back to where the flight departed from. 
 
