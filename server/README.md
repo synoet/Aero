@@ -104,3 +104,13 @@ This function is for logging in when you have already been register. It simply d
 
 ### signup
 This function is for allowing people to sign up as one of three types of users. They can sign up as a customer, agent or staff. Customers must fill data specific to them just as email, password, name, and address where as agent require different information such as commission and staff also require different information. After all the respective information is given the user is saved to the database with their information which will allow them to login later.
+
+
+
+## Destination Controller
+### createDestination
+This function is simply for create and saving a new destination. When the information is given for the destination a new destination with the same information is saved and added to the database.
+
+### listDestinations
+This function simply going through the databases and returns all the destinations that are currently in it.
+
