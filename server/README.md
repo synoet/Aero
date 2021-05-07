@@ -105,7 +105,7 @@ This functions is for finding all the tickets that belong a specific user. When 
 This function is for orienting the flights of a specifc user. The function is given an id which is uses to find the respective user and then returns all of their previous flights as well as all of their upcoming ones. 
 
 ### getUser
-This function is simply for finding and returning the specifc user when given their id. It database will be searched through to find the user with the same id and return them. 
+This function is simply for finding and returning the specifc user when given their id. The database will be searched to find the user with the same id and return them. 
 
 ### login
 This function is for logging in when you have already been register. It simply does the correct checks if the users email and password are in the database and if they are they get logged in otherwise they receive an error. 
