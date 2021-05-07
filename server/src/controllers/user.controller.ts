@@ -385,20 +385,64 @@ export class UserController {
 
         //booking agent information
 
-        const transactions = await Transaction.find({});
+        const transactions = await Transaction.find({})
 
         const btcTransactions = transactions.map((transaction: any) => {
-          if(transaction){
-            if (transaction.customer_email !== transaction.booking_agent_email){
-              return transaction;
+          if (transaction != undefined) {
+            if (transaction.customer_email !== transaction.booking_agent_email && transaction.booking_agent_email !== null) {
+              return transaction
             }
           }
         })
 
-        console.log(btcTransactions);
+        let occurAgents: any = {};
+
+        btcTransactions.map((transaction: any) => {
+          if(transaction){
+            if(transaction.booking_agent_email in occurAgents){
+              occurAgents[transaction.booking_agent_email] += 1
+            } else {
+              occurAgents[transaction.booking_agent_email] = 1
+            }
+          }
+        })
+
+        var agentItems = Object.keys(occurAgents).map(key => {
+          return [key, occurAgents[key]]
+        })
+
+        agentItems.sort((first, second) => {
+          return second[1] - first[1]
+        })
+
+        let frequentAgents: any = [];
+        
+        await Promise.all(agentItems.map(async(item: any) => {
+          const selectedAgent: any = await BookingAgent.findOne({email: item[0]})
+          if (selectedAgent){
+            const agentTransactions = await Transaction.find({booking_agent_email: item[0]});
+            let agentCommission: any = 0;
+            await Promise.all(agentTransactions.map(async(transaction: any) => {
+              if(transaction){
+                const purchase = await PurchaseInfo.findOne({transaction_id: transaction._id});
+                if(purchase){
+                  agentCommission += (purchase.sold_price * (selectedAgent.commission / 100));
+                }
+              }
+            }))
+            frequentAgents.push({
+              agent: item[0],
+              ticketsSold: item[1],
+              commission: agentCommission
+            })
+          }
+        }))
+        console.log(frequentAgents);
 
 
-        res.status(200).send(frequentCustomers)
+
+
+        res.status(200).send({frequentCustomers: frequentCustomers, frquentAgents: frequentAgents});
       }
     }
   }
