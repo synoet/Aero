@@ -82,125 +82,125 @@ This function is for going through the database and returning all the airports t
 
 
 ## Transaction Controller
-### `createTransaction`
+#### `createTransaction`
 This funcion does quite a few tasks. It will essentially create and save a transaction, purchaseinfo and a ticket. It only returns the ticket though. The function is essentially given all the information necessary for transactions, purchases and tickets and add all the information to the respective data types and saves all of them to the database to be accessed later. 
 
 
 
 ## User Controller
-### `revenue`
+#### `revenue`
 This function is for calculating the revenue of the respective individual whether it be a booking agent or airline staff. This function isnt accessible to a user who is just a customer. It is also shown as a devision over months to show where revenue was made per month. 
 
-### `frequent`
+#### `frequent`
 This function is also not available for any user who is just a customer. When the user is a booking agent it calculates the top customers based off of tickets bought as well as top customers based on the commission from tickets. When the user is a staff member it calculates customers who have flown most frequently on a particular airline. 
 
-### `tickets`
+#### `tickets`
 This functions is for finding all the tickets that belong a specific user. When given an id, the user corresponding to the id is found and all the tickets related to them are returned. 
 
-### `flights`
+#### `flights`
 This function is for orienting the flights of a specifc user. The function is given an id which is uses to find the respective user and then returns all of their previous flights as well as all of their upcoming ones. 
 
-### `getUser`
+#### `getUser`
 This function is simply for finding and returning the specifc user when given their id. The database will be searched to find the user with the same id and return them. 
 
-### `login`
+#### `login`
 This function is for logging in when you have already been register. It simply does the correct checks if the users email and password are in the database and if they are they get logged in otherwise they receive an error. 
 
-### `signup`
+#### `signup`
 This function is for allowing people to sign up as one of three types of users. They can sign up as a customer, agent or staff. Customers must fill data specific to them just as email, password, name, and address where as agent require different information such as commission and staff also require different information. After all the respective information is given the user is saved to the database with their information which will allow them to login later.
 
 
 
 ## Destination Controller
-### `createDestination`
+#### `createDestination`
 This function is simply for create and saving a new destination. When the information is given for the destination a new destination with the same information is saved and added to the database.
 
-### `listDestinations`
+#### `listDestinations`
 This function simply going through the databases and returns all the destinations that are currently in it.
 
 
 ## Flight Routes 
-### get `/flights/view`
+#### get `/flights/view`
 https://projectaero-api.herokuapp.com/#/Flights/get_flights_view
 
-### post `/flights`
+#### post `/flights`
 https://projectaero-api.herokuapp.com/#/Flights/post_flights
 
-### get `/flights`
+#### get `/flights`
 https://projectaero-api.herokuapp.com/#/Flights/get_flights
 
-### get `/flights/:id`
+#### get `/flights/:id`
 https://projectaero-api.herokuapp.com/#/Flights/getFlightById
 
-### patch `/flights/:id/status`
+#### patch `/flights/:id/status`
 https://projectaero-api.herokuapp.com/#/Flights/updateFlightStatus
 
-### get `/flights/search/:query`
+#### get `/flights/search/:query`
 https://projectaero-api.herokuapp.com/#/Flights/searchFlightByQuery
 
-### get `/flights/:id/returns`
+#### get `/flights/:id/returns`
 https://projectaero-api.herokuapp.com/#/Flights/returnFlightByID
 
-### get `/flights/search/:departure_date/:arrival_date/:depature_airport/:arrival_airport`
+#### get `/flights/search/:departure_date/:arrival_date/:depature_airport/:arrival_airport`
 https://projectaero-api.herokuapp.com/#/Flights/returnFlightByDateAirport
 
-### get `/flights/airline/:airline`
+#### get `/flights/airline/:airline`
 https://projectaero-api.herokuapp.com/#/Flights/returnFlightByAirline
 
-### get `/flights/:id/listings`
+#### get `/flights/:id/listings`
 https://projectaero-api.herokuapp.com/#/Flights/listFlightById
 
 
 ## User Routes
-### get `/user/login/:email/:password`
+#### get `/user/login/:email/:password`
 https://projectaero-api.herokuapp.com/#/User/get_user_login__email___password_
 
-### get `/user/:id`
+#### get `/user/:id`
 https://projectaero-api.herokuapp.com/#/User/get_user__id_
 
-### post `/user/signup`
+#### post `/user/signup`
 https://projectaero-api.herokuapp.com/#/User/post_user_signup
 
-### get `/user/:id/spending`
+#### get `/user/:id/spending`
 https://projectaero-api.herokuapp.com/#/User/get_user__id__spending
 
-### get `/user/:id/revenue`
+#### get `/user/:id/revenue`
 https://projectaero-api.herokuapp.com/#/User/get_user__id__revenue
 
 ### get `/user/:id/tickets`
 https://projectaero-api.herokuapp.com/#/User/get_user__id__tickets
 
-### get `/user/:id/flights`
+#### get `/user/:id/flights`
 https://projectaero-api.herokuapp.com/#/User/get_user__id__flights
 
-### get `/user/:id/frequent`
+#### get `/user/:id/frequent`
 
 
 
 ## Airport Routes
-### post `/airports`
+#### post `/airports`
 https://projectaero-api.herokuapp.com/#/Airports/post_airports
 
-### get `/airports`
+#### get `/airports`
 https://projectaero-api.herokuapp.com/#/Airports/get_airports
 
 
 
 
 ## Destinations
-### post `/destinations`
+#### post `/destinations`
 https://projectaero-api.herokuapp.com/#/Destinations/post_destinations
 
-### get `/destinations`
+#### get `/destinations`
 https://projectaero-api.herokuapp.com/#/Destinations/get_destinations
 
 
 
 ## Transactions
-### post `/transactions`
+#### post `/transactions`
 https://projectaero-api.herokuapp.com/#/Transactions/post_transaction
 
 
 ## Models
-### all models
+#### all models
 https://projectaero-api.herokuapp.com/#/
