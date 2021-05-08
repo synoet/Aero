@@ -4,8 +4,10 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import States from '../../data/states.json'
 import Countries from '../../data/states.json'
+import { useAuth } from '../../hooks/useAuth'
 
 const SignUp = () => {
+  const auth = useAuth()
   const [isWho, setIsWho] = useState(true)
   const [who, setWho] = useState(undefined)
   const [email, setEmail] = useState(undefined)
@@ -19,9 +21,9 @@ const SignUp = () => {
   const [state, setState] = useState(undefined) // Customer
   const [phoneNumber, setPhoneNumber] = useState(undefined) // Customer
   const [passportNumber, setPassportNumber] = useState(undefined) // Customer
-  const [passportExpiration, setPassportExpiriation] = useState(undefined) //Customer
+  const [passportExpiration, setPassportExpiriation] = useState('') //Customer
   const [passportCountry, setPassportCountry] = useState(undefined) //Customer
-  const [dob, setDob] = useState(undefined) //Customer
+  const [dob, setDob] = useState('') //Customer
 
   const [commision, setCommision] = useState(undefined) //agent
 
@@ -59,7 +61,7 @@ const SignUp = () => {
 
   //Customer
   const handleCityChange = (event: any) => {
-    setLastName(event.target.value)
+    setCity(event.target.value)
   }
 
   //Customer
@@ -104,6 +106,50 @@ const SignUp = () => {
 
   const handleWho = (event: any) => {
     setWho(event.target.value)
+  }
+
+  const handleSignUp = () => {
+    let userData = {}
+    if (who === 'customer') {
+      userData = {
+        email: email,
+        password: password,
+        type: 'customer',
+        Customer: {
+          name: `${firstName} ${lastName}`,
+          street: street,
+          building_number: buildingNumber,
+          city: city,
+          state: state,
+          phone_number: phoneNumber,
+          passport_number: passportNumber,
+          passport_expiration: new Date(passportExpiration),
+          passport_country: passportCountry,
+          date_of_birth: new Date(dob),
+        },
+      }
+    } else if (who === 'agent') {
+      userData = {
+        email: email,
+        password: password,
+        type: 'agent',
+        Agent: {
+          commission: commision,
+        },
+      }
+    } else if (who == 'staff') {
+      userData = {
+        email: email,
+        password: password,
+        type: 'staff',
+        Staff: {
+          airline_name: airlineName,
+        },
+      }
+    }
+    console.log(userData)
+    auth.signup(userData)
+    history.push('/home')
   }
 
   const isCompleted = (): boolean => {
@@ -174,10 +220,22 @@ const SignUp = () => {
             {who === 'customer' && (
               <HStack>
                 <InputGroup>
-                  <Input placeholder="First Name" />
+                  <Input
+                    value={firstName}
+                    onChange={(event: any) => {
+                      setFirstName(event.target.value)
+                    }}
+                    placeholder="First Name"
+                  />
                 </InputGroup>
                 <InputGroup>
-                  <Input placeholder="Last Name" />
+                  <Input
+                    value={lastName}
+                    onChange={(event: any) => {
+                      setLastName(event.target.value)
+                    }}
+                    placeholder="Last Name"
+                  />
                 </InputGroup>
               </HStack>
             )}
@@ -267,7 +325,8 @@ const SignUp = () => {
                 padding="10px 15px 10px 15px"
                 marginLeft=".5rem"
                 w="75%"
-                isDisabled={!isCompleted()}
+                // isDisabled={!isCompleted()}
+                onClick={() => handleSignUp()}
               >
                 Create My Account
               </Button>

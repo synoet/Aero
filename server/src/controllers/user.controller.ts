@@ -122,9 +122,11 @@ export class UserController {
           const purchase: any = await PurchaseInfo.findOne({
             transaction_id: transaction._id,
           })
-          const month: any = new Date(purchase.purchase_date).getMonth()
-          monthly[month].data += purchase.sold_price
-          total += purchase.sold_price
+          if (purchase) {
+            const month: any = new Date(purchase.purchase_date).getMonth()
+            monthly[month].data += purchase.sold_price
+            total += purchase.sold_price
+          }
         })
       )
     }
@@ -216,8 +218,10 @@ export class UserController {
             const purchase: any = await PurchaseInfo.findOne({
               transaction_id: transaction._id,
             })
-            const month: any = new Date(purchase.purchase_date).getMonth()
-            monthly[month].data += total += commission
+            if (purchase) {
+              const month: any = new Date(purchase.purchase_date).getMonth()
+              monthly[month].data += total += commission
+            }
           }
         })
       )
@@ -229,6 +233,9 @@ export class UserController {
 
       const transactions = await Transaction.find()
 
+      var directRevenue: number = 0
+      var indirectRevenue: any = 0
+
       await Promise.all(
         transactions.map(async (transaction: any) => {
           if (
@@ -238,20 +245,36 @@ export class UserController {
             const purchase: any = await PurchaseInfo.findOne({
               transaction_id: transaction._id,
             })
-            const month: any = new Date(purchase.purchase_date).getMonth()
-            const ticket: any = await Ticket.findOne({
-              _id: purchase.ticket_id,
-            })
-            const flight: any = await Flight.findOne({ _id: ticket.flight_id })
-            if (flight.airline_name === staff.airline_name) {
-              monthly[month].data += flight.base_price
-              total += flight.base_price
+            if (purchase) {
+              const month: any = new Date(purchase.purchase_date).getMonth()
+              const ticket: any = await Ticket.findOne({
+                _id: purchase.ticket_id,
+              })
+              if (ticket) {
+                const flight: any = await Flight.findOne({ _id: ticket.flight_id })
+                if (flight) {
+                  if (flight.airline_name === staff.airline_name) {
+                    monthly[month].data += flight.base_price
+                    if (transaction.customer_email === transaction.booking_agent_email) {
+                      indirectRevenue += flight.base_price
+                    } else if (transaction.booking_agent_email === null) {
+                      console.log(flight.base_price)
+                      directRevenue += flight.base_price
+                    }
+                    total += flight.base_price
+                  }
+                }
+              }
             }
           }
         })
       )
 
-      res.status(200).send({ totalRevenue: total, revenueByMonths: monthly })
+      res.status(200).send({
+        totalRevenue: total,
+        revenueByMonths: monthly,
+        comparison: { direct: directRevenue, indirect: indirectRevenue },
+      })
     }
   }
 
@@ -376,7 +399,70 @@ export class UserController {
           })
         )
 
-        res.status(200).send(frequentCustomers)
+        //booking agent information
+
+        const transactions = await Transaction.find({})
+
+        const btcTransactions = transactions.map((transaction: any) => {
+          if (transaction != undefined) {
+            if (
+              transaction.customer_email !== transaction.booking_agent_email &&
+              transaction.booking_agent_email !== null
+            ) {
+              return transaction
+            }
+          }
+        })
+
+        let occurAgents: any = {}
+
+        btcTransactions.map((transaction: any) => {
+          if (transaction) {
+            if (transaction.booking_agent_email in occurAgents) {
+              occurAgents[transaction.booking_agent_email] += 1
+            } else {
+              occurAgents[transaction.booking_agent_email] = 1
+            }
+          }
+        })
+
+        var agentItems = Object.keys(occurAgents).map(key => {
+          return [key, occurAgents[key]]
+        })
+
+        agentItems.sort((first, second) => {
+          return second[1] - first[1]
+        })
+
+        let frequentAgents: any = []
+
+        await Promise.all(
+          agentItems.map(async (item: any) => {
+            const selectedAgent: any = await BookingAgent.findOne({ email: item[0] })
+            if (selectedAgent) {
+              const agentTransactions = await Transaction.find({ booking_agent_email: item[0] })
+              let agentCommission: any = 0
+              await Promise.all(
+                agentTransactions.map(async (transaction: any) => {
+                  if (transaction) {
+                    const purchase = await PurchaseInfo.findOne({ transaction_id: transaction._id })
+                    if (purchase) {
+                      agentCommission += purchase.sold_price * (selectedAgent.commission / 100)
+                    }
+                  }
+                })
+              )
+              frequentAgents.push({
+                agent: item[0],
+                ticketsSold: item[1],
+                commission: agentCommission,
+              })
+            }
+          })
+        )
+        console.log(frequentAgents)
+
+        res.status(200).send({ frequentCustomers: frequentCustomers, frquentAgents: frequentAgents })
       }
     }
   }

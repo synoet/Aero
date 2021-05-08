@@ -58,7 +58,20 @@ function useProvideAuth() {
       .catch(error => console.log(error))
   }
 
-  const signup = (data: any): void => {}
+  const signup = (data: any): void => {
+    fetch(`https://projectaero-api.herokuapp.com/user/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => {
+        console.log(res)
+        signin(data.email, data.password)
+      })
+      .catch(error => console.log(error))
+  }
 
   const isSession = (): boolean => {
     const user_id = localStorage.getItem('aero-id')
