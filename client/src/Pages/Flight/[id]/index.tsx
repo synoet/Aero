@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from '../../../components/Layout'
 import { chakra, Flex, HStack, VStack, Center, Button, Divider } from '@chakra-ui/react'
 import styled from 'styled-components'
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
+import { FiArrowRight, FiArrowLeft, FiStar } from 'react-icons/fi'
 import smallcircle from '../../../images/smallcircle.svg'
 import dots from '../../../images/dots.svg'
 import { useScreenType } from '../../../hooks/useScreenType'
@@ -279,7 +279,10 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                       >
                         <h1>Customer Email: {rating.customer_email}</h1>
                         <p>Commentary: {rating.commentary}</p>
-                        <p>Ratings: {rating.ratings}*</p>
+                        <HStack>
+                          <p>Ratings: {rating.ratings}</p>
+                          <FiStar />
+                        </HStack>
                       </Option>
                     )
                   })}
