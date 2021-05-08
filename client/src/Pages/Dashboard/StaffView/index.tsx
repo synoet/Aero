@@ -261,6 +261,26 @@ const StaffView = ({ userId }: StaffViewProps) => {
                   )}
                 </Card>
               </GridItem>
+              <GridItem colSpan={6}>
+                <Card direction="column" h="100%" w="100%">
+                  <HStack>
+                    <h1>Top Destinations</h1>
+                  </HStack>
+                  <Divider marginTop="1rem" marginBottom="1rem" />
+                  <VStack>
+                    {data.destinations.map((destination: any, index: number) => {
+                      return (
+                        <UpcomingFlight padding="1rem" w="100%">
+                          <p>
+                            <Highlight>{index + 1}. </Highlight>
+                            {destination}
+                          </p>
+                        </UpcomingFlight>
+                      )
+                    })}
+                  </VStack>
+                </Card>
+              </GridItem>
             </Grid>
           </Flex>
         </>

@@ -21,8 +21,9 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
 
     this.app.patch(`/flights/:id/status`, [controller.updateFlightStatus])
 
-    this.app.get(`/flights/search/:query`, [controller.searchFlights])
+    // this.app.get(`/flights/search/:query`, [controller.searchFlights])
     this.app.get(`/flights/:id/returns`, [controller.getReturnFlightsByID])
+
     this.app.get(`/flights/search/:departure_date/:arrival_date/:depature_airport/:arrival_airport`, [
       controller.getFlightSearchWithDateRange,
     ])
@@ -30,5 +31,11 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
     this.app.get(`/flights/airline/:airline`, [controller.getFlightByAirline])
 
     this.app.get(`/flights/:id/listings`, [controller.listings])
+
+    this.app.post(`/flights/createRating`, [controller.createRating])
+
+    this.app.get(`/flights/:id/:flightID/ratings`, [controller.getAllRatingsByID])
+
+    this.app.get(`/flights/:id/:flightID/usersRatings`, [controller.getUserRatings])
   }
 }

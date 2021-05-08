@@ -1,59 +1,62 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+<a><p align="center">
+<img height=100 src="https://user-images.githubusercontent.com/10552019/114287500-3f3f7680-9a35-11eb-81a6-33eebd6a5efd.png"/>
 
-## Available Scripts
+</p></a>
+<p align="center">
+  <strong>A Simple & Clean Flight Tracker & Manager</strong>
+</p>
 
-In the project directory, you can run:
+# Aero Server - Front End
 
-### `yarn start`
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How do i run this locally?
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
 
-### `yarn test`
+### Terminal
+Open the terminal and run the following from `/`
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+```
+cd server
+yarn install
+yarn start
+```
 
-### `yarn build`
+## Documentation
+> :warning: **We have over 50 differnet services, components, and pages. Only important ones are documented.
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+### Hooks
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
+#### `useAuth`
+Once a user logs in, his id is stored securely in local storage. Whenever a page with the useAuth hook is visited, it checks wether his id, exists and then makes a get request `/user/get/:id. Then returns a object of functions that allow to check user role, and information.
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+#### `useScreenSize`
+Basic hook that checks the current width of the window and returns a corresponding 2 character code that components use to properly align and scale themselves.
 
-### `yarn eject`
+### Services
+#### `user.service` 
+Dashboard page uses this to retreive role specific data that belongs to each user. you can thing of this as a view route but on client side.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Pages
 
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
+#### `SignIn`
+Form takes only email and password, it makes an http request to `/user/signin`, which will return an id that is stored aswell as a role. On sucessful SignIn the user is redirected to the /home page.
 
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
+#### `SignUp`
+This is a dynamic form, that first asks wether you are a customer, agent or staff. It then uses the corresponding sign up function in the `user.service`. If a user is sucessfully registered, it automatically then called `SignIn` which will store the users session on the client.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
+#### `Dashboard`
+Uses the `useAuth` hook to determine the user type, then will dynamically render one of these three components: `agentView`, `staffView`, `customerView`.
+The dashboard uses the `user.service` to get the correct data to use depending on the usrrs role.
 
-## Learn More
+#### `Flights`
+Gets all the fights via http request from `/flights`. This page also has a flight search component which hits the following route `/flights/startdate/enddate/departurelocation/arrival/location`. If a user enters nothing into the search it will just return all the flights. Same goes for not entering any dates, it will then completely ignore dates.
+This page also uses the `useAuth` hook to determine the user type, if the user is a staff, then he can also create a new flight, but only one that is under his airline.
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### `Transaction`
+The transaction page is meant takes everything it needs from local storage. When a user or a agent clicks buy on a flight, it sets the flight id in local storage, now it redirects you to `/transaction` where the data is extracted from the query parameters and you are allowed to put in your credit card information. If everything about the transaction goes through you should be redirected to your dashboard. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### `Airports & Airlines & Destinations`
+These are three simple pages that use the same generic list component. Airports and Airlines are only available to staff. and there they have the option to create a new airport/airline.
+
+--------
+There are more components that arent documented.

@@ -9,6 +9,7 @@ import { MongooseService } from '../services/mongoose.service'
 import * as shortUUID from 'short-uuid'
 import Ticket from '../models/ticket.model'
 import Flight from '../models/flight.model'
+import { Key } from 'node:readline'
 
 interface UserEntity {
   email: string
@@ -462,6 +463,78 @@ export class UserController {
         console.log(frequentAgents)
 
         res.status(200).send({ frequentCustomers: frequentCustomers, frquentAgents: frequentAgents })
+      }
+    }
+  }
+  topDestinations = async (req: express.Request, res: express.Response) => {
+    const id = req.params.id
+    const user: any = await User.findOne({ _id: id })
+    var top1: any
+    var top2: any
+    var top3: any
+
+    if (user) {
+      if (user.type === 'customer' || user.type === 'agent') {
+        res.status(401).send('Sorry this feature is only available for airline staff')
+      } else {
+        var dict: any = {}
+        let allTickets: any = await Ticket.find()
+        allTickets.map((ticket: any) => {
+          if (ticket.flight_id in dict) {
+            //console.log(ticket.flight_id)
+            var value = dict[ticket.flight_id]
+            value += 1
+            dict[ticket.flight_id] = value
+          } else {
+            dict[ticket.flight_id] = 1
+          }
+        })
+
+        const allKeys: any = []
+        for (var k in dict) {
+          var value = dict[k]
+          allKeys.push(value)
+        }
+        //console.log(allKeys)
+
+        allKeys.sort((a: any, b: any) => {
+          if (a > b) return -1
+          if (a < b) return 1
+          return 0
+        })
+        //console.log(allKeys)
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[0]) {
+            top1 = k
+          }
+        }
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[1]) {
+            top2 = k
+          }
+        }
+        for (var k in dict) {
+          var value = dict[k]
+          if (value == allKeys[2]) {
+            top3 = k
+          }
+        }
+        //console.log(top1,top2,top3)
+        var firstDestination: any = await Flight.findOne({ _id: top1 })
+        var secondDestination: any = await Flight.findOne({ _id: top2 })
+        var thirdDestination: any = await Flight.findOne({ _id: top3 })
+        //console.log(firstDestination)
+
+        let topDestination: any = []
+
+        topDestination.push(firstDestination.arrival_airport_name)
+        topDestination.push(secondDestination.arrival_airport_name)
+        topDestination.push(thirdDestination.arrival_airport_name)
+
+        //console.log(topDestination)
+        res.status(200).send(topDestination)
       }
     }
   }

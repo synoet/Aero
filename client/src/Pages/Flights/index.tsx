@@ -88,9 +88,11 @@ const Flights = () => {
               <ModalCloseButton />
               <ModalBody>
                 <VStack spacing={5}>
-                  <InputGroup>
-                    <Input placeholder={auth.user.airline_name} isDisabled={true}></Input>
-                  </InputGroup>
+                  {auth.user && (
+                    <InputGroup>
+                      <Input placeholder={auth.user.airline_name} isDisabled={true}></Input>
+                    </InputGroup>
+                  )}
                   <InputGroup>
                     <Input
                       value={arrivalAirport}
@@ -150,7 +152,11 @@ const Flights = () => {
               </Add>
             )}
           </HStack>
-          <FlightSearch></FlightSearch>
+          <FlightSearch
+            callback={(flights: any) => {
+              setAllFlights(flights)
+            }}
+          ></FlightSearch>
         </Layout>
       )}
       {isLoading && (
