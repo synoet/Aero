@@ -4,6 +4,18 @@ import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { FiExternalLink } from 'react-icons/fi'
 import LineGraph from '../../../components/LineGraph'
 import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  InputGroup,
+  Input,
+  VStack,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 import styled from 'styled-components'
 import { useAuth } from '../../../hooks/useAuth'
 import * as userService from '../../../services/user.service'
@@ -16,6 +28,11 @@ type CustomerViewProps = {
 
 const CustomerView = ({ userId }: CustomerViewProps) => {
   const [data, setData] = useState<any>()
+  const [isEdit, setIsEdit] = useState<any>(false)
+
+  const [commentary, setCommentary] = useState('')
+  const [ratings, setRatings] = useState('')
+  const [flightId, setFlightId] = useState('')
   const auth = useAuth()
   const history = useHistory()
   useEffect(() => {
@@ -24,10 +41,64 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
       console.log(res)
     })
   }, [])
+
+  const createRating = () => {
+    fetch(`https://projectaero-api.herokuapp.com/flights/createRating`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        customer_email: auth.user.email,
+        commentary: commentary,
+        ratings: ratings,
+        flight_id: flightId,
+        user_id: auth.user._id,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(error => console.log(error))
+  }
   return (
     <>
       {data && (
         <>
+          <Modal onClose={() => setIsEdit(false)} isOpen={isEdit} isCentered>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Rate Flight</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <VStack spacing={5}>
+                  <Input
+                    placeholder="commentary"
+                    value={commentary}
+                    onChange={(event: any) => {
+                      setCommentary(event.target.value)
+                    }}
+                  />
+                  <Input
+                    placeholder="rating"
+                    value={ratings}
+                    onChange={(event: any) => {
+                      setRatings(event.target.value)
+                    }}
+                  />
+                </VStack>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  onClick={() => {
+                    setIsEdit(false)
+                    createRating()
+                  }}
+                >
+                  Submit
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
           <HeroText>
             Hello 👋 <Highlight>{auth.user.name}</Highlight>
           </HeroText>
@@ -118,6 +189,17 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                             }}
                           >
                             View Details
+                          </Button>
+                          <Button
+                            align="center"
+                            color="white"
+                            background="#6137FE"
+                            onClick={() => {
+                              setIsEdit(true)
+                              setFlightId(flight._id)
+                            }}
+                          >
+                            Rate
                           </Button>
                         </HStack>
                       </UpcomingFlight>
