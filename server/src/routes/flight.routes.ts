@@ -35,7 +35,5 @@ export class FlightRoutes extends BaseRoutesConfig implements configureRoutes {
     this.app.post(`/flights/createRating`, [controller.createRating])
 
     this.app.get(`/flights/:id/ratings`, [controller.getAllRatingsByID])
-
-    this.app.get(`/flights/:id/:flightID/usersRatings`, [controller.getUserRatings])
   }
 }
