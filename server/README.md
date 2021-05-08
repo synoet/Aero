@@ -118,3 +118,84 @@ This function is simply for create and saving a new destination. When the inform
 ### listDestinations
 This function simply going through the databases and returns all the destinations that are currently in it.
 
+
+## Flight Routes 
+### get /flights/view
+https://projectaero-api.herokuapp.com/#/Flights/get_flights_view
+
+### post /flights
+https://projectaero-api.herokuapp.com/#/Flights/post_flights
+
+### get /flights
+https://projectaero-api.herokuapp.com/#/Flights/get_flights
+
+### get /flights/:id
+https://projectaero-api.herokuapp.com/#/Flights/getFlightById
+
+### patch /flights/:id/status
+https://projectaero-api.herokuapp.com/#/Flights/updateFlightStatus
+
+### get /flights/search/:query
+https://projectaero-api.herokuapp.com/#/Flights/searchFlightByQuery
+
+### get /flights/:id/returns
+https://projectaero-api.herokuapp.com/#/Flights/returnFlightByID
+
+### get /flights/search/:departure_date/:arrival_date/:depature_airport/:arrival_airport
+https://projectaero-api.herokuapp.com/#/Flights/returnFlightByDateAirport
+
+### get /flights/airline/:airline
+https://projectaero-api.herokuapp.com/#/Flights/returnFlightByAirline
+
+### get /flights/:id/listings
+https://projectaero-api.herokuapp.com/#/Flights/listFlightById
+
+
+## User Routes
+### get /user/login/:email/:password
+https://projectaero-api.herokuapp.com/#/User/get_user_login__email___password_
+
+### get /user/:id
+https://projectaero-api.herokuapp.com/#/User/get_user__id_
+
+### post /user/signup
+https://projectaero-api.herokuapp.com/#/User/post_user_signup
+
+### get /user/:id/spending
+https://projectaero-api.herokuapp.com/#/User/get_user__id__spending
+
+### get /user/:id/revenue
+https://projectaero-api.herokuapp.com/#/User/get_user__id__revenue
+
+### get /user/:id/tickets
+https://projectaero-api.herokuapp.com/#/User/get_user__id__tickets
+
+### get /user/:id/flights
+https://projectaero-api.herokuapp.com/#/User/get_user__id__flights
+
+### get /user/:id/frequent
+
+
+
+## Airport Routes
+### post /airports
+https://projectaero-api.herokuapp.com/#/Airports/post_airports
+
+### get /airports
+https://projectaero-api.herokuapp.com/#/Airports/get_airports
+
+
+
+
+## Destinations
+### post /destinations
+https://projectaero-api.herokuapp.com/#/Destinations/post_destinations
+
+### get /destinations
+https://projectaero-api.herokuapp.com/#/Destinations/get_destinations
+
+
+
+## Transactions
+### post /transactions
+https://projectaero-api.herokuapp.com/#/Transactions/post_transaction
