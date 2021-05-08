@@ -82,17 +82,47 @@ export class FlightController {
     res.status(201).send(newRating)
   }
 
-  getAllRatings = async (req: express.Request, res: express.Response) => {
-    const user:any = await User.findOne({_id : req.params.id});
-    
-    if(user.type == "staff"){
-      const allRatings: any = await Ratings.find()
-      res.status(200).send(allRatings)
-    }else{
-      res.status(401).send("Only staff can see all the ratings")
-    }
+  getAllRatingsByID = async (req: express.Request, res: express.Response) => {
+    const user: any = await User.findOne({ _id: req.params.id })
+    const flightID: any = req.params.flightID
+    const allRatings: any = await Ratings.find()
+    const ratings: any = []
 
+    if (user.type == 'staff') {
+      allRatings.map((rating: any) => {
+        if (rating.flight_id == flightID ){
+          ratings.push(rating)
+        }
+      })
+      //const allRatings: any = await Ratings.find()
+      res.status(200).send(ratings)
+    } else {
+      res.status(401).send('Only staff can see all the ratings')
+    }
   }
+
+
+  getUserRatings = async (req: express.Request, res: express.Response) => {
+    const user: any = await User.findOne({ _id: req.params.id })
+    const flightID: any = req.params.flightID
+    const allRatings: any = await Ratings.find()
+    const userRatings: any = []
+    if (user){
+      if (user.type == 'customer') {
+        allRatings.map((rating: any) => {
+          if (rating.user_id == user._id && rating.flight_id == flightID ){
+            userRatings.push(rating)
+          }
+        })
+        res.status(200).send(userRatings)
+      }
+
+    } else {
+      res.status(401).send('Only customers can see all their ratings')
+    }
+  }
+
+  
 
   getFlightSearchWithDateRange = async (req: express.Request, res: express.Response) => {
     const properFlights: any = []
