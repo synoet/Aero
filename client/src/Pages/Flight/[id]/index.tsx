@@ -7,8 +7,9 @@ import smallcircle from '../../../images/smallcircle.svg'
 import dots from '../../../images/dots.svg'
 import { useScreenType } from '../../../hooks/useScreenType'
 import { useHistory } from 'react-router-dom'
-import Transaction from '../transaction'
+import Transaction from '../../Transaction'
 import { IFlight, mockFlight } from '../../../utils/types'
+import { useAuth } from '../../../hooks/useAuth'
 
 const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const {
@@ -18,6 +19,8 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const [flight, setFlight] = useState<IFlight>(mockFlight)
   const [returns, setReturns] = useState([])
   const [listings, setListings] = useState([])
+  const [ratings, setRatings] = useState([])
+  const auth = useAuth()
 
   const screenType = useScreenType()
 
@@ -59,6 +62,18 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
       .then(res => {
         setListings(res)
         console.log(res)
+      })
+      .catch(err => console.log(err))
+
+    fetch(`https://projectaero-api.herokuapp.com/flights/${flightId}/ratings`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setRatings(res)
       })
       .catch(err => console.log(err))
   }, [])
@@ -149,12 +164,12 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
 
           <Divider marginTop="1rem" />
 
-          <Flex w="100%" marginTop="1rem">
+          <Flex w="100%" marginTop="1rem" marginBottom="2rem">
             <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Booking Options</h1>
           </Flex>
 
           {listings && (
-            <BookingOptions direction="column" w="100%">
+            <BookingOptions marginTop="1rem" direction="column" w="100%">
               {listings.map((listing: any) => {
                 return (
                   <Option
@@ -195,7 +210,7 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
           )}
           <Divider marginTop="1rem" />
 
-          <Flex w="100%" marginTop="1rem">
+          <Flex w="100%" marginTop="1rem" marginBottom="1rem">
             <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Returning Flights</h1>
           </Flex>
           {returns && (
@@ -240,6 +255,36 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                   )
                 })}
               </ReturningFlights>
+              <Divider marginTop="1rem" />
+
+              <Flex w="100%" marginTop="1rem">
+                <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
+              </Flex>
+              {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
+                <BookingOptions direction="column" w="100%">
+                  {Object.keys(ratings).length === 0 && (
+                    <Center>
+                      <p>No Ratings</p>
+                    </Center>
+                  )}
+                  {ratings.map((rating: any) => {
+                    return (
+                      <Option
+                        marginTop="1rem"
+                        align="center"
+                        w="100%"
+                        justify="space-between"
+                        direction="row"
+                        padding="1rem"
+                      >
+                        <h1>Customer Email: {rating.customer_email}</h1>
+                        <p>Commentary: {rating.commentary}</p>
+                        <p>Ratings: {rating.ratings}*</p>
+                      </Option>
+                    )
+                  })}
+                </BookingOptions>
+              )}
             </>
           )}
         </Layout>
