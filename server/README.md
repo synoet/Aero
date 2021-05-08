@@ -150,13 +150,13 @@ https://projectaero-api.herokuapp.com/#/Flights/returnFlightByAirline
 #### get `/flights/:id/listings`
 https://projectaero-api.herokuapp.com/#/Flights/listFlightById
 
-#### post /flights/createRating
+#### post `/flights/createRating`
 https://projectaero-api.herokuapp.com/#/Flights/createRating
 
-#### get /flights/:id/ratings
+#### get `/flights/:id/ratings`
 https://projectaero-api.herokuapp.com/#/Flights/ratings
 
-#### get /flights/:id/:flightID/usersRatings
+#### get `/flights/:id/:flightID/usersRatings`
 https://projectaero-api.herokuapp.com/#/Flights/userRatings
 
 
