@@ -202,5 +202,5 @@ https://projectaero-api.herokuapp.com/#/Transactions/post_transaction
 
 
 ## Models
-#### all models
+#### `all models`
 https://projectaero-api.herokuapp.com/#/
