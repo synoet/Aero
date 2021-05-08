@@ -101,14 +101,14 @@ const AgentView = ({ userId }: AgentViewProps) => {
                             marginTop="1rem"
                           >
                             <HStack>
-                              <p style={{ fontSize: '1.2rem' }}>{flight.departure_airport_name}</p>
+                              <p style={{ fontSize: '1.2rem' }}>{flight.flight.departure_airport_name}</p>
                               <FiArrowRight />
-                              <p style={{ fontSize: '1.2rem' }}>{flight.arrival_airport_name}</p>
+                              <p style={{ fontSize: '1.2rem' }}>{flight.flight.arrival_airport_name}</p>
                             </HStack>
                             <HStack>
                               <p>
-                                Base Price: <Highlight>${flight.base_price}</Highlight> - Your Commission:{' '}
-                                <Highlight>${data.userData.commission}</Highlight>{' '}
+                                Base Price: <Highlight>${flight.flight.base_price}</Highlight> - Your Commission:{' '}
+                                <Highlight>${flight.flight.base_price * (data.userData.commission / 100)}</Highlight>{' '}
                               </p>
                             </HStack>
                             <HStack>
@@ -155,14 +155,14 @@ const AgentView = ({ userId }: AgentViewProps) => {
                             marginTop="1rem"
                           >
                             <HStack w="30%">
-                              <p style={{ fontSize: '1.2rem' }}>{flight.departure_airport_name}</p>
+                              <p style={{ fontSize: '1.2rem' }}>{flight.flight.departure_airport_name}</p>
                               <FiArrowRight />
-                              <p style={{ fontSize: '1.2rem' }}>{flight.arrival_airport_name}</p>
+                              <p style={{ fontSize: '1.2rem' }}>{flight.flight.arrival_airport_name}</p>
                             </HStack>
                             <HStack>
                               <p>
-                                Base Price: <Highlight>${flight.base_price}</Highlight> - Your Commission:{' '}
-                                <Highlight>${data.userData.commission}</Highlight>{' '}
+                                Base Price: <Highlight>${flight.flight.base_price}</Highlight> - Your Commission:{' '}
+                                <Highlight>${flight.flight.base_price * (data.userData.commission / 100)}</Highlight>{' '}
                               </p>
                             </HStack>
                             <HStack>

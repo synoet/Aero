@@ -38,7 +38,7 @@ function useProvideAuth() {
   const [user, setUser] = useState(undefined)
   const [role, setRole] = useState<string | undefined>(undefined)
 
-  const signin = (email: string, password: string, callback?: () => void): void => {
+  const signin = (email: string, password: string, callback?: (error?: any) => void): void => {
     fetch(`https://projectaero-api.herokuapp.com/user/login/${email}/${password}`, {
       method: 'GET',
       headers: {
@@ -47,15 +47,23 @@ function useProvideAuth() {
     })
       .then(res => res.json())
       .then(res => {
-        if ((res['_id'], res['type'])) {
-          setSession(res['_id'], res['type'])
-          refresh()
-          if (callback) {
-            callback()
+        console.log(res.status);
+        if(res._id){
+          if ((res['_id'], res['type'])) {
+            setSession(res['_id'], res['type'])
+            refresh()
+            if (callback) {
+              callback()
+            }
           }
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+        if (callback)
+        callback(true);
+      }
+      )
   }
 
   const signup = (data: any): void => {

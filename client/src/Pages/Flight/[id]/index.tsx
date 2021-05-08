@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import Transaction from '../../Transaction'
 import { IFlight, mockFlight } from '../../../utils/types'
 import { useAuth } from '../../../hooks/useAuth'
+import ReactStarRatingComponent from 'react-star-rating-component';
 
 const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const {
@@ -197,7 +198,12 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                               price: listing.price,
                             })
                           )
-                          history.push(`/transaction`)
+                          if(auth.user){
+                            history.push(`/transaction`)
+                          }else {
+                            history.push(`/signin`)
+                          }
+                          
                         }}
                       >
                         Buy
@@ -219,9 +225,9 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                 <p>{returns.length === 0 ? 'No Flights' : ''}</p>
               </Center>
               <ReturningFlights direction="column" w="100%">
-                {returns.map((flight: any) => {
-                  const departureDate = new Date(flight.departure_date)
-                  const arrivalDate = new Date(flight.arrival_date)
+                {returns.map((flightR: any) => {
+                  const departureDate = new Date(flightR.departure_date)
+                  const arrivalDate = new Date(flightR.arrival_date)
                   return (
                     <ReturnFlight
                       marginTop="1rem"
@@ -232,9 +238,9 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                       padding="1rem"
                     >
                       <HStack align="center">
-                        <p>{flight.departure_airport_name} </p>
+                        <p>{flightR.departure_airport_name} </p>
                         <ArrowIcon size={15} />
-                        <p>{flight.arrival_airport_name}</p>
+                        <p>{flightR.arrival_airport_name}</p>
                       </HStack>
                       <p>{`${arrivalDate.getHours() < 10 ? '0' : ''}${arrivalDate.getHours()}:${
                         arrivalDate.getMinutes() < 10 ? '0' : ''
@@ -246,7 +252,7 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                         bg="#6137FE"
                         color="white"
                         onClick={() => {
-                          history.push(`/flight/${flightId}`)
+                          history.push(`/flight/${flightR._id}`)
                         }}
                       >
                         View Flight
@@ -256,10 +262,13 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                 })}
               </ReturningFlights>
               <Divider marginTop="1rem" />
+              {(auth.role === 'staff' && auth.user.airline_name === flight.airline_name) && 
+                  <Flex w="100%" marginTop="1rem">
+                    <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
+                  </Flex>
+              
+              }
 
-              <Flex w="100%" marginTop="1rem">
-                <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
-              </Flex>
               {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
                 <BookingOptions direction="column" w="100%">
                   {Object.keys(ratings).length === 0 && (
@@ -277,11 +286,11 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                         direction="row"
                         padding="1rem"
                       >
-                        <h1>Customer Email: {rating.customer_email}</h1>
-                        <p>Commentary: {rating.commentary}</p>
+                        <p>Customer Email: <Highlight>{rating.customer_email}</Highlight></p>
+                        <p>Comments: <Highlight>{rating.commentary}</Highlight></p>
                         <HStack>
-                          <p>Ratings: {rating.ratings}</p>
-                          <FiStar />
+                          <p>Rating: </p>
+                        <ReactStarRatingComponent name = "ratings" starCount = {5} editing = {false} value = {rating.ratings} starColor = "#6137FE"/>
                         </HStack>
                       </Option>
                     )
@@ -298,6 +307,10 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
 
 export default Flight
 
+
+const Highlight = styled.span`
+color: #6137FE
+`
 const MainText = styled.p`
   font-size: 2rem;
   font-weight: 500;

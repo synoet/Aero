@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Flex, HStack, InputGroup, Input, Select, Button, SliderFilledTrack, Image } from '@chakra-ui/react'
 import { useAuth } from '../../hooks/useAuth'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import Success from '../../images/success.svg'
 const Transaction = () => {
   const [data, setData] = useState<any>()
@@ -60,6 +60,10 @@ const Transaction = () => {
     <>
       {data && (
         <TransactionFlex w="100%" direction="column" justify="center" align="center" h="100vh">
+          {!auth.user &&
+            <Redirect to = "/home" />
+          }
+          {auth.user && 
           <Flex minW="500px" maxW="900px" direction="column">
             {!isDone && (
               <>
@@ -128,6 +132,7 @@ const Transaction = () => {
               </Flex>
             )}
           </Flex>
+          }
         </TransactionFlex>
       )}
     </>

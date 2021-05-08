@@ -4,9 +4,18 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton
+} from "@chakra-ui/react"
+
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isError, setIsError] = useState(false);
 
   const history = useHistory()
   const auth = useAuth()
@@ -37,6 +46,14 @@ const SignIn = () => {
             placeholder="Password"
           />
         </InputGroup>
+        {isError && 
+          <Alert status="error" marginTop = '1rem'>
+            <AlertIcon />
+            <AlertTitle mr={2}>Login Failed!</AlertTitle>
+            <AlertDescription>Invalid Email/Password</AlertDescription>
+            <CloseButton onClick = {() => setIsError(false)}position="absolute" right="8px" top="8px" />
+          </Alert>
+        }
         <Flex align="center" direction="row" w="100%" marginTop="2rem" justify="space-between">
           <Checkbox>Keep Me Signed In</Checkbox>
           <Button
@@ -47,8 +64,12 @@ const SignIn = () => {
             marginLeft="1rem"
             isDisabled={email == '' && password == ''}
             onClick={() => {
-              auth.signin(email, password, () => {
-                history.push('/home')
+              auth.signin(email, password, (error?: any) => {
+                if(error){
+                  setIsError(true);
+                }else {
+                  history.push('/home')
+                }
               })
             }}
           >

@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth'
 import CustomerView from './CustomerView'
 import AgentView from './AgentView'
 import StaffView from './StaffView'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 
 const Dashboard = () => {
   const auth = useAuth()
@@ -19,6 +19,9 @@ const Dashboard = () => {
           {auth.role === 'agent' && <AgentView userId={auth.user._id} />}
         </>
       )}
+      {!auth.user &&
+            <Redirect to = "/home" />
+      }
     </Layout>
   )
 }

@@ -559,11 +559,11 @@ export class UserController {
     await Promise.all(
       tickets.map(async (ticket: any) => {
         const flight: any = await Flight.findOne({ _id: ticket.flight_id })
-        const rating: any = await Ratings.findOne({user_id: user._id, flight_id: ticket.flight_id});
+        const rating: any = await Ratings.findOne({ user_id: user._id, flight_id: ticket.flight_id })
         if (flight.departure_date < currDate) {
-          previousFlights.push({flight: flight, ratings: rating})
+          previousFlights.push({ flight: flight, ratings: rating })
         } else {
-          upcomingFlights.push({flight: flight, ratings: rating})
+          upcomingFlights.push({ flight: flight, ratings: rating })
         }
       })
     )
