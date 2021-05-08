@@ -5,3 +5,11 @@
 <p align="center">
   <strong>A Simple & Clean Flight Tracker & Manager</strong>
 </p>
+
+
+#### Group Members
+` Teo Nys` : Front-End, Design, Back-End, Documentation
+
+` Soji Adenusi` : Back-End, Database Design
+
+`Omar Hammami`: Database Design, Front End
