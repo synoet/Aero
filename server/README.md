@@ -67,10 +67,6 @@ This function is for getting all the return flights from a specific location bas
 #### updateFlightStatus
 This function is used for changing the specific status of an individual flight. It will go through all the flights and when it finds the specific flight that corresponds to the given id it will change the status to what the user determines.
 
-#### searchFlights
-
-#### getFlightsView
-
 #### getFlightByAirline
 This function is meant to simply return all the flights that are coming from a specific airline. It will simply query through the database of flights and return all the flights whose airline name corresponds to the one given to the function.
 
