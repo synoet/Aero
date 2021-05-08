@@ -156,9 +156,6 @@ https://projectaero-api.herokuapp.com/#/Flights/createRating
 #### get `/flights/:id/ratings`
 https://projectaero-api.herokuapp.com/#/Flights/ratings
 
-#### get `/flights/:id/:flightID/usersRatings`
-https://projectaero-api.herokuapp.com/#/Flights/userRatings
-
 
 ## User Routes
 #### get `/user/login/:email/:password`
