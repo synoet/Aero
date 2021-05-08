@@ -150,7 +150,7 @@ const Flights = () => {
               </Add>
             )}
           </HStack>
-          <FlightSearch></FlightSearch>
+          <FlightSearch callback = {(flights) => {setAllFlights(flights)}}></FlightSearch>
         </Layout>
       )}
       {isLoading && (
