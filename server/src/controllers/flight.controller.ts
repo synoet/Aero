@@ -83,23 +83,16 @@ export class FlightController {
   }
 
   getAllRatingsByID = async (req: express.Request, res: express.Response) => {
-    const user: any = await User.findOne({ _id: req.params.id })
-    const flightID: any = req.params.flightID
+    const flightID: any = req.params.id
     const allRatings: any = await Ratings.find()
     const ratings: any = []
-    if (user) {
-      if (user.type == 'staff') {
-        allRatings.map((rating: any) => {
-          if (rating.flight_id == flightID) {
-            ratings.push(rating)
-          }
-        })
-        //const allRatings: any = await Ratings.find()
-        res.status(200).send(ratings)
+    allRatings.map((rating: any) => {
+      if (rating.flight_id == flightID) {
+        ratings.push(rating)
       }
-    } else {
-      res.status(401).send('Only staff can see all the ratings')
-    }
+    })
+    //const allRatings: any = await Ratings.find()
+    res.status(200).send(ratings)
   }
 
   getUserRatings = async (req: express.Request, res: express.Response) => {

@@ -7,8 +7,9 @@ import smallcircle from '../../../images/smallcircle.svg'
 import dots from '../../../images/dots.svg'
 import { useScreenType } from '../../../hooks/useScreenType'
 import { useHistory } from 'react-router-dom'
-import Transaction from '../transaction'
+import Transaction from '../../Transaction'
 import { IFlight, mockFlight } from '../../../utils/types'
+import { useAuth } from '../../../hooks/useAuth'
 
 const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const {
@@ -18,6 +19,8 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const [flight, setFlight] = useState<IFlight>(mockFlight)
   const [returns, setReturns] = useState([])
   const [listings, setListings] = useState([])
+  const [ratings, setRatings] = useState([])
+  const auth = useAuth()
 
   const screenType = useScreenType()
 
@@ -58,6 +61,19 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
       .then(res => res.json())
       .then(res => {
         setListings(res)
+        console.log(res)
+      })
+      .catch(err => console.log(err))
+
+    fetch(`https://projectaero-api.herokuapp.com/flights/${auth.user._id}/${flightId}/ratings`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setRatings(res)
         console.log(res)
       })
       .catch(err => console.log(err))
@@ -240,6 +256,47 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                   )
                 })}
               </ReturningFlights>
+              {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
+                <BookingOptions direction="column" w="100%">
+                  {listings.map((listing: any) => {
+                    return (
+                      <Option
+                        marginTop="1rem"
+                        align="center"
+                        w="100%"
+                        justify="space-between"
+                        direction="row"
+                        padding="1rem"
+                      >
+                        <h1>
+                          <span>{listing.seller_type === 'agent' ? 'Booking Agent: ' : 'Airline: '}</span>{' '}
+                          {listing.seller}
+                        </h1>
+                        <HStack align="center">
+                          <h1 style={{ marginRight: '1rem' }}>{listing.price}$</h1>
+                          <Button
+                            bg="#6137FE"
+                            color="white"
+                            onClick={() => {
+                              localStorage.setItem(
+                                'transaction',
+                                JSON.stringify({
+                                  flight: flight,
+                                  seller: listing.seller,
+                                  price: listing.price,
+                                })
+                              )
+                              history.push(`/transaction`)
+                            }}
+                          >
+                            Buy
+                          </Button>
+                        </HStack>
+                      </Option>
+                    )
+                  })}
+                </BookingOptions>
+              )}
             </>
           )}
         </Layout>
