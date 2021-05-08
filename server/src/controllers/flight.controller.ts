@@ -1,10 +1,12 @@
 import Flight from '../models/flight.model'
 import express, { request } from 'express'
 import { MongooseService } from '../services/mongoose.service'
+import Rating from '../models/ratings.model'
 import * as shortUUID from 'short-uuid'
 import Ticket from '../models/ticket.model'
 import User from '../models/user.model'
 import BookingAgent from '../models/booking_agent.model'
+import Ratings from '../models/ratings.model'
 
 type FlightData = {
   flight_number: string
@@ -16,6 +18,13 @@ type FlightData = {
   base_price: number
   airplane_id: string
   status: string
+}
+type RatingData = {
+  customer_email: string
+  commentary: string
+  ratings: number
+  flight_id: string
+  user_id: string
 }
 
 const searchableKeys = ['flight_number', 'airline_name', 'departure_airport_name', 'arrival_airport_name']
@@ -57,6 +66,32 @@ export class FlightController {
     // _id is generated automatically
     const flight = await Flight.findOne({ _id: req.params.id })
     res.status(200).send(flight)
+  }
+
+  createRating = async (req: express.Request, res: express.Response) => {
+    const ratingData: RatingData = {
+      customer_email: req.body.customer_email,
+      commentary: req.body.commentary,
+      ratings: req.body.ratings,
+      flight_id: req.body.flight_id,
+      user_id: req.body.user_id,
+    }
+
+    const rating: any = new Rating(ratingData)
+    const newRating = await rating.save(rating)
+    res.status(201).send(newRating)
+  }
+
+  getAllRatings = async (req: express.Request, res: express.Response) => {
+    const user:any = await User.findOne({_id : req.params.id});
+    
+    if(user.type == "staff"){
+      const allRatings: any = await Ratings.find()
+      res.status(200).send(allRatings)
+    }else{
+      res.status(401).send("Only staff can see all the ratings")
+    }
+
   }
 
   getFlightSearchWithDateRange = async (req: express.Request, res: express.Response) => {
