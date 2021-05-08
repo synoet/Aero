@@ -199,3 +199,8 @@ https://projectaero-api.herokuapp.com/#/Destinations/get_destinations
 ## Transactions
 ### post /transactions
 https://projectaero-api.herokuapp.com/#/Transactions/post_transaction
+
+
+## Models
+### all models
+https://projectaero-api.herokuapp.com/#/
