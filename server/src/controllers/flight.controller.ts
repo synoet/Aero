@@ -87,15 +87,17 @@ export class FlightController {
     const flightID: any = req.params.flightID
     const allRatings: any = await Ratings.find()
     const ratings: any = []
-
-    if (user.type == 'staff') {
-      allRatings.map((rating: any) => {
-        if (rating.flight_id == flightID) {
-          ratings.push(rating)
-        }
-      })
-      //const allRatings: any = await Ratings.find()
-      res.status(200).send(ratings)
+    if (user){
+      if (user.type == 'staff') {
+        allRatings.map((rating: any) => {
+          if (rating.flight_id == flightID) {
+            ratings.push(rating)
+          }
+        })
+        //const allRatings: any = await Ratings.find()
+        res.status(200).send(ratings)
+      }
+      
     } else {
       res.status(401).send('Only staff can see all the ratings')
     }
