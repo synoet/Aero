@@ -126,7 +126,7 @@ const StaffView = ({ userId }: StaffViewProps) => {
                   <Divider marginTop="1rem" marginBottom="1rem" />
                   {data.frequent.frquentAgents.map((agent: any) => {
                     return (
-                      <Agent marginTop = '1rem' justify="space-between" padding="1rem">
+                      <Agent marginTop="1rem" justify="space-between" padding="1rem">
                         <p>{agent.agent}</p>
                         <p>
                           Tickets Sold: <Highlight>{agent.ticketsSold}</Highlight>
@@ -270,7 +270,7 @@ const StaffView = ({ userId }: StaffViewProps) => {
                   <VStack>
                     {data.destinations.map((destination: any, index: number) => {
                       return (
-                        <UpcomingFlight marginTop = '1rem' padding="1rem" w="100%">
+                        <UpcomingFlight marginTop="1rem" padding="1rem" w="100%">
                           <p>
                             <Highlight>{index + 1}. </Highlight>
                             {destination}

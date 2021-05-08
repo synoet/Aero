@@ -60,79 +60,77 @@ const Transaction = () => {
     <>
       {data && (
         <TransactionFlex w="100%" direction="column" justify="center" align="center" h="100vh">
-          {!auth.user &&
-            <Redirect to = "/home" />
-          }
-          {auth.user && 
-          <Flex minW="500px" maxW="900px" direction="column">
-            {!isDone && (
-              <>
-                <HStack w="100%" marginBottom="1rem" align="center" justify="center">
-                  <HeroText>Ticket Checkout</HeroText>
-                </HStack>
-                <PurchaseItemWrapper direction="column" padding="1rem" align="center" justify="center">
-                  <HStack w="100%">
-                    <h1>
-                      Flight Id: <Highlight>{data.flight._id}</Highlight>
-                    </h1>
+          {!auth.user && <Redirect to="/home" />}
+          {auth.user && (
+            <Flex minW="500px" maxW="900px" direction="column">
+              {!isDone && (
+                <>
+                  <HStack w="100%" marginBottom="1rem" align="center" justify="center">
+                    <HeroText>Ticket Checkout</HeroText>
                   </HStack>
-                  <HStack w="100%">
-                    <h1>
-                      {' '}
-                      Seller: <Highlight>{data.seller}</Highlight>
-                    </h1>
-                    <h1>
-                      Price: <Highlight>${data.price}</Highlight>
-                    </h1>
-                  </HStack>
-                </PurchaseItemWrapper>
-                <FormWrapper marginTop="1rem" direction="column" padding="1rem" align="center">
-                  <InputGroup marginTop="1rem">
-                    <Select onChange={handleCardTypeChange} placeholder="Visa">
-                      <option value="American Express">American Express</option>
-                      <option value="Discover">Discover</option>
-                      <option value="MasterCard">MasterCard</option>
-                    </Select>
-                  </InputGroup>
-                  <InputGroup marginTop="1rem">
-                    <Input
-                      value={cardNumber}
-                      onChange={handleCardNumberChange}
-                      placeholder="Card Number (Ex. 4242 4242 4242 4242)"
-                    />
-                  </InputGroup>
-                  <InputGroup marginTop="1rem">
-                    <Input
-                      value={cardExpiration}
-                      onChange={handleCardExpirationChange}
-                      placeholder="Card Expiration (yyyy-mm)"
-                    />
-                  </InputGroup>
-                  <Button
-                    w="100%"
-                    bg="#6137FE"
-                    color="white"
-                    borderRadius="10px"
-                    padding="10px 15px 10px 15px"
-                    marginTop="1rem"
-                    onClick={() => {
-                      handleCheckout()
-                    }}
-                  >
-                    Checkout
-                  </Button>
-                </FormWrapper>
-              </>
-            )}
-            {isDone && (
-              <Flex h="100%" w="100%" align="center" direction="column" justify="center">
-                <Image src={Success} w="150px" h="150px" />
-                <HeroText>Purchase Sucessful!</HeroText>
-                <Link onClick={() => history.push('/home')}>Go Back Home</Link>
-              </Flex>
-            )}
-          </Flex>
-          }
+                  <PurchaseItemWrapper direction="column" padding="1rem" align="center" justify="center">
+                    <HStack w="100%">
+                      <h1>
+                        Flight Id: <Highlight>{data.flight._id}</Highlight>
+                      </h1>
+                    </HStack>
+                    <HStack w="100%">
+                      <h1>
+                        {' '}
+                        Seller: <Highlight>{data.seller}</Highlight>
+                      </h1>
+                      <h1>
+                        Price: <Highlight>${data.price}</Highlight>
+                      </h1>
+                    </HStack>
+                  </PurchaseItemWrapper>
+                  <FormWrapper marginTop="1rem" direction="column" padding="1rem" align="center">
+                    <InputGroup marginTop="1rem">
+                      <Select onChange={handleCardTypeChange} placeholder="Visa">
+                        <option value="American Express">American Express</option>
+                        <option value="Discover">Discover</option>
+                        <option value="MasterCard">MasterCard</option>
+                      </Select>
+                    </InputGroup>
+                    <InputGroup marginTop="1rem">
+                      <Input
+                        value={cardNumber}
+                        onChange={handleCardNumberChange}
+                        placeholder="Card Number (Ex. 4242 4242 4242 4242)"
+                      />
+                    </InputGroup>
+                    <InputGroup marginTop="1rem">
+                      <Input
+                        value={cardExpiration}
+                        onChange={handleCardExpirationChange}
+                        placeholder="Card Expiration (yyyy-mm)"
+                      />
+                    </InputGroup>
+                    <Button
+                      w="100%"
+                      bg="#6137FE"
+                      color="white"
+                      borderRadius="10px"
+                      padding="10px 15px 10px 15px"
+                      marginTop="1rem"
+                      onClick={() => {
+                        handleCheckout()
+                      }}
+                    >
+                      Checkout
+                    </Button>
+                  </FormWrapper>
+                </>
+              )}
+              {isDone && (
+                <Flex h="100%" w="100%" align="center" direction="column" justify="center">
+                  <Image src={Success} w="150px" h="150px" />
+                  <HeroText>Purchase Sucessful!</HeroText>
+                  <Link onClick={() => history.push('/home')}>Go Back Home</Link>
+                </Flex>
+              )}
+            </Flex>
+          )}
         </TransactionFlex>
       )}
     </>

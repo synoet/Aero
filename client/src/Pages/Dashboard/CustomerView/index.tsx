@@ -4,7 +4,7 @@ import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { FiExternalLink } from 'react-icons/fi'
 import LineGraph from '../../../components/LineGraph'
 import { Flex, Divider, Grid, GridItem, HStack, Button } from '@chakra-ui/react'
-import ReactStarRatingComponent from 'react-star-rating-component';
+import ReactStarRatingComponent from 'react-star-rating-component'
 
 import {
   Modal,
@@ -31,7 +31,7 @@ type CustomerViewProps = {
 const CustomerView = ({ userId }: CustomerViewProps) => {
   const [data, setData] = useState<any>()
   const [isEdit, setIsEdit] = useState<any>(false)
-  const [increment, setIncrement] = useState(0);
+  const [increment, setIncrement] = useState(0)
   const [commentary, setCommentary] = useState('')
   const [ratings, setRatings] = useState(0)
   const [flightId, setFlightId] = useState('')
@@ -61,10 +61,9 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
       .then(res => res.json())
       .then(res => {
         console.log(res)
-        setIncrement(increment + 1);
+        setIncrement(increment + 1)
       })
       .catch(error => console.log(error))
-      
   }
   return (
     <>
@@ -77,14 +76,20 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
               <ModalCloseButton />
               <ModalBody>
                 <VStack spacing={5}>
-                <HStack w = '100%'>
-                  <p>Rating: </p>
-                  <ReactStarRatingComponent name = "ratings"  onStarClick = {(nextValue, prevValue, name) => {
-                    setRatings(nextValue)
-                    
-                    }}starCount = {5} editing = {true} value = {ratings} starColor = "#6137FE"/>
-                </HStack>
-                <Input
+                  <HStack w="100%">
+                    <p>Rating: </p>
+                    <ReactStarRatingComponent
+                      name="ratings"
+                      onStarClick={(nextValue, prevValue, name) => {
+                        setRatings(nextValue)
+                      }}
+                      starCount={5}
+                      editing={true}
+                      value={ratings}
+                      starColor="#6137FE"
+                    />
+                  </HStack>
+                  <Input
                     placeholder="Comments"
                     value={commentary}
                     onChange={(event: any) => {
@@ -152,7 +157,7 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                   })}
                 </Card>
               </GridItem>
-              <GridItem colSpan={3} minHeight = "300px">
+              <GridItem colSpan={3} minHeight="300px">
                 <Card direction="column" w="100%" h="100%">
                   <HStack justify="space-between">
                     <h1>Spending History</h1>
@@ -184,22 +189,28 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                           <p style={{ fontSize: '1.2rem' }}>{flight.flight.arrival_airport_name}</p>
                         </HStack>
                         <HStack>
-                        {flight.ratings !== null &&
-                          <ReactStarRatingComponent name = "ratings" starCount = {5} editing = {false} value = {flight.ratings.ratings} starColor = "#6137FE"/>
-                          }
-                          {flight.ratings === null &&
-                          <Button
-                            align="center"
-                            color="white"
-                            background="#6137FE"
-                            onClick={() => {
-                              setIsEdit(true)
-                              setFlightId(flight.flight._id)
-                            }}
-                          >
-                            Rate
-                          </Button>
-                          }
+                          {flight.ratings !== null && (
+                            <ReactStarRatingComponent
+                              name="ratings"
+                              starCount={5}
+                              editing={false}
+                              value={flight.ratings.ratings}
+                              starColor="#6137FE"
+                            />
+                          )}
+                          {flight.ratings === null && (
+                            <Button
+                              align="center"
+                              color="white"
+                              background="#6137FE"
+                              onClick={() => {
+                                setIsEdit(true)
+                                setFlightId(flight.flight._id)
+                              }}
+                            >
+                              Rate
+                            </Button>
+                          )}
                           <Button
                             align="center"
                             border="1px solid #6137FE"
@@ -212,7 +223,6 @@ const CustomerView = ({ userId }: CustomerViewProps) => {
                           >
                             View Details
                           </Button>
-
                         </HStack>
                       </UpcomingFlight>
                     )

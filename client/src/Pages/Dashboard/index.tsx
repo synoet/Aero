@@ -19,9 +19,7 @@ const Dashboard = () => {
           {auth.role === 'agent' && <AgentView userId={auth.user._id} />}
         </>
       )}
-      {!auth.user &&
-            <Redirect to = "/home" />
-      }
+      {!auth.user && <Redirect to="/home" />}
     </Layout>
   )
 }

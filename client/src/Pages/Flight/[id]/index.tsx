@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import Transaction from '../../Transaction'
 import { IFlight, mockFlight } from '../../../utils/types'
 import { useAuth } from '../../../hooks/useAuth'
-import ReactStarRatingComponent from 'react-star-rating-component';
+import ReactStarRatingComponent from 'react-star-rating-component'
 
 const Flight: React.FC<any> = ({ match }: { match: any }) => {
   const {
@@ -198,12 +198,11 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                               price: listing.price,
                             })
                           )
-                          if(auth.user){
+                          if (auth.user) {
                             history.push(`/transaction`)
-                          }else {
+                          } else {
                             history.push(`/signin`)
                           }
-                          
                         }}
                       >
                         Buy
@@ -262,12 +261,11 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                 })}
               </ReturningFlights>
               <Divider marginTop="1rem" />
-              {(auth.role === 'staff' && auth.user.airline_name === flight.airline_name) && 
-                  <Flex w="100%" marginTop="1rem">
-                    <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
-                  </Flex>
-              
-              }
+              {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
+                <Flex w="100%" marginTop="1rem">
+                  <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
+                </Flex>
+              )}
 
               {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
                 <BookingOptions direction="column" w="100%">
@@ -286,11 +284,21 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                         direction="row"
                         padding="1rem"
                       >
-                        <p>Customer Email: <Highlight>{rating.customer_email}</Highlight></p>
-                        <p>Comments: <Highlight>{rating.commentary}</Highlight></p>
+                        <p>
+                          Customer Email: <Highlight>{rating.customer_email}</Highlight>
+                        </p>
+                        <p>
+                          Comments: <Highlight>{rating.commentary}</Highlight>
+                        </p>
                         <HStack>
                           <p>Rating: </p>
-                        <ReactStarRatingComponent name = "ratings" starCount = {5} editing = {false} value = {rating.ratings} starColor = "#6137FE"/>
+                          <ReactStarRatingComponent
+                            name="ratings"
+                            starCount={5}
+                            editing={false}
+                            value={rating.ratings}
+                            starColor="#6137FE"
+                          />
                         </HStack>
                       </Option>
                     )
@@ -307,9 +315,8 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
 
 export default Flight
 
-
 const Highlight = styled.span`
-color: #6137FE
+  color: #6137fe;
 `
 const MainText = styled.p`
   font-size: 2rem;

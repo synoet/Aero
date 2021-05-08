@@ -47,8 +47,8 @@ function useProvideAuth() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res.status);
-        if(res._id){
+        console.log(res.status)
+        if (res._id) {
           if ((res['_id'], res['type'])) {
             setSession(res['_id'], res['type'])
             refresh()
@@ -60,10 +60,8 @@ function useProvideAuth() {
       })
       .catch(error => {
         console.log(error)
-        if (callback)
-        callback(true);
-      }
-      )
+        if (callback) callback(true)
+      })
   }
 
   const signup = (data: any): void => {

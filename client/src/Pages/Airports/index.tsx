@@ -17,7 +17,7 @@ import {
 import { FiPlusSquare } from 'react-icons/fi'
 import GenericList from '../../components/GenericList'
 import { useAuth } from '../../hooks/useAuth'
-import { Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
 const Airports = () => {
   const [airports, setAirports] = useState<any>()
@@ -120,9 +120,7 @@ const Airports = () => {
           <GenericList items={airports}></GenericList>
         </Layout>
       )}
-      {(!auth.user || auth.role != 'staff') &&
-            <Redirect to = "/home" />
-      }
+      {(!auth.user || auth.role != 'staff') && <Redirect to="/home" />}
     </>
   )
 }

@@ -4,7 +4,7 @@ import Layout from '../../components/Layout'
 import GenericList from '../../components/GenericList'
 import { FiPlusSquare } from 'react-icons/fi'
 import { useAuth } from '../../hooks/useAuth'
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 import {
   HStack,
   Modal,
@@ -125,9 +125,7 @@ const Airplanes = () => {
           )}
         </>
       )}
-      {(!auth.user || auth.role != 'staff') &&
-            <Redirect to = "/home" />
-      }
+      {(!auth.user || auth.role != 'staff') && <Redirect to="/home" />}
     </>
   )
 }
