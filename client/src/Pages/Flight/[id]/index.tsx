@@ -65,7 +65,7 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
       })
       .catch(err => console.log(err))
 
-    fetch(`https://projectaero-api.herokuapp.com/flights/${auth.user._id}/${flightId}/ratings`, {
+    fetch(`https://projectaero-api.herokuapp.com/flights/${flightId}/ratings`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,6 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
       .then(res => res.json())
       .then(res => {
         setRatings(res)
-        console.log(res)
       })
       .catch(err => console.log(err))
   }, [])
@@ -165,12 +164,12 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
 
           <Divider marginTop="1rem" />
 
-          <Flex w="100%" marginTop="1rem">
+          <Flex w="100%" marginTop="1rem" marginBottom="2rem">
             <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Booking Options</h1>
           </Flex>
 
           {listings && (
-            <BookingOptions direction="column" w="100%">
+            <BookingOptions marginTop="1rem" direction="column" w="100%">
               {listings.map((listing: any) => {
                 return (
                   <Option
@@ -211,7 +210,7 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
           )}
           <Divider marginTop="1rem" />
 
-          <Flex w="100%" marginTop="1rem">
+          <Flex w="100%" marginTop="1rem" marginBottom="1rem">
             <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Returning Flights</h1>
           </Flex>
           {returns && (
@@ -256,9 +255,19 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                   )
                 })}
               </ReturningFlights>
+              <Divider marginTop="1rem" />
+
+              <Flex w="100%" marginTop="1rem">
+                <h1 style={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>Ratings</h1>
+              </Flex>
               {auth.role === 'staff' && auth.user.airline_name === flight.airline_name && (
                 <BookingOptions direction="column" w="100%">
-                  {listings.map((listing: any) => {
+                  {Object.keys(ratings).length === 0 && (
+                    <Center>
+                      <p>No Ratings</p>
+                    </Center>
+                  )}
+                  {ratings.map((rating: any) => {
                     return (
                       <Option
                         marginTop="1rem"
@@ -268,30 +277,9 @@ const Flight: React.FC<any> = ({ match }: { match: any }) => {
                         direction="row"
                         padding="1rem"
                       >
-                        <h1>
-                          <span>{listing.seller_type === 'agent' ? 'Booking Agent: ' : 'Airline: '}</span>{' '}
-                          {listing.seller}
-                        </h1>
-                        <HStack align="center">
-                          <h1 style={{ marginRight: '1rem' }}>{listing.price}$</h1>
-                          <Button
-                            bg="#6137FE"
-                            color="white"
-                            onClick={() => {
-                              localStorage.setItem(
-                                'transaction',
-                                JSON.stringify({
-                                  flight: flight,
-                                  seller: listing.seller,
-                                  price: listing.price,
-                                })
-                              )
-                              history.push(`/transaction`)
-                            }}
-                          >
-                            Buy
-                          </Button>
-                        </HStack>
+                        <h1>Customer Email: {rating.customer_email}</h1>
+                        <p>Commentary: {rating.commentary}</p>
+                        <p>Ratings: {rating.ratings}*</p>
                       </Option>
                     )
                   })}
