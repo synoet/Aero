@@ -15,26 +15,36 @@ import { useScreenType } from '../../../hooks/useScreenType'
 
 import styled from 'styled-components'
 
-const FlightSearch = ({callback}: {callback?: (flights: any) => {} | void}) => {
+const FlightSearch = ({ callback }: { callback?: (flights: any) => {} | void }) => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [depLocation, setDepLocation] = useState('');
-  const [arrivalLocation, setArrivalLocation] = useState('');
+  const [depLocation, setDepLocation] = useState('')
+  const [arrivalLocation, setArrivalLocation] = useState('')
 
   const screenType = useScreenType()
 
   const handleStartDate = () => {}
 
   const searchFlight = () => {
-    console.log(startDate, endDate, depLocation, arrivalLocation);
-    fetch(`https://projectaero-api.herokuapp.com/flights/search/${(startDate === '' || startDate === 'none') ? 'none' : startDate}/${(endDate === '' || endDate === 'none') ? 'none' : endDate}/${depLocation === '' || depLocation === 'none' ? 'none' : depLocation}/${arrivalLocation === '' || arrivalLocation === 'none' ? 'none' : arrivalLocation}`, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json'
+    console.log(startDate, endDate, depLocation, arrivalLocation)
+    fetch(
+      `https://projectaero-api.herokuapp.com/flights/search/${
+        startDate === '' || startDate === 'none' ? 'none' : startDate
+      }/${endDate === '' || endDate === 'none' ? 'none' : endDate}/${
+        depLocation === '' || depLocation === 'none' ? 'none' : depLocation
+      }/${arrivalLocation === '' || arrivalLocation === 'none' ? 'none' : arrivalLocation}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
       }
-    }).then((res) => res.json()).then((res) => {
-      if (callback) callback(res)
-    }).catch(error => console.log(error));
+    )
+      .then(res => res.json())
+      .then(res => {
+        if (callback) callback(res)
+      })
+      .catch(error => console.log(error))
   }
 
   const handleEndDate = () => {}
@@ -52,22 +62,50 @@ const FlightSearch = ({callback}: {callback?: (flights: any) => {} | void}) => {
         >
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiHome />} />
-            <Input value = {depLocation} onChange = {(event: any) => {setDepLocation(event.target.value)}} size="md" placeholder="From?" />
+            <Input
+              value={depLocation}
+              onChange={(event: any) => {
+                setDepLocation(event.target.value)
+              }}
+              size="md"
+              placeholder="From?"
+            />
           </InputGroup>
 
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiMapPin />} />
-            <Input size="md" value = {arrivalLocation} onChange = {(event: any) => {setArrivalLocation(event.target.value)}} placeholder="Where To?" />
+            <Input
+              size="md"
+              value={arrivalLocation}
+              onChange={(event: any) => {
+                setArrivalLocation(event.target.value)
+              }}
+              placeholder="Where To?"
+            />
           </InputGroup>
         </Location>
         <DateWrapper w={screenType === 's' || screenType === 'xs' ? '100%' : '49%'}>
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiCalendar />} />
-            <Input size="md" value = {endDate} onChange = {(event) => {setStartDate(event.target.value)}}placeholder="Start Date? (dd/mm/yy)" />
+            <Input
+              size="md"
+              value={startDate}
+              onChange={event => {
+                setStartDate(event.target.value)
+              }}
+              placeholder="Start Date? (dd/mm/yy)"
+            />
           </InputGroup>
           <InputGroup>
             <InputLeftAddon pointerEvents="none" children={<FiCalendar />} />
-            <Input value = {endDate} onChange = {(event) => {setEndDate(event.target.value)}}size="md" placeholder="End Date? (dd/mm/yy)" />
+            <Input
+              value={endDate}
+              onChange={event => {
+                setEndDate(event.target.value)
+              }}
+              size="md"
+              placeholder="End Date? (dd/mm/yy)"
+            />
           </InputGroup>
         </DateWrapper>
       </FormWrapper>
@@ -79,7 +117,7 @@ const FlightSearch = ({callback}: {callback?: (flights: any) => {} | void}) => {
           padding="10px 15px 10px 15px"
           position="absolute"
           bottom="-1rem"
-          onClick = {() => {
+          onClick={() => {
             searchFlight()
           }}
         >
