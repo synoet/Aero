@@ -62,27 +62,36 @@ export class FlightController {
   getFlightSearchWithDateRange = async (req: express.Request, res: express.Response) => {
     const properFlights: any = []
     const tempDepDate = req.params.departure_date
-    
-    const departureDate = (tempDepDate === 'none' ? new Date(new Date().setFullYear(new Date().getFullYear() - 10)): new Date(tempDepDate));
+
+    const departureDate =
+      tempDepDate === 'none' ? new Date(new Date().setFullYear(new Date().getFullYear() - 10)) : new Date(tempDepDate)
     const tempArrivalDate = req.params.arrival_date
-    const arrivalDate = (tempArrivalDate === 'none' ? new Date(new Date().setFullYear(new Date().getFullYear() + 10)): new Date(tempArrivalDate));
-    console.log(departureDate, arrivalDate);
+    const arrivalDate =
+      tempArrivalDate === 'none'
+        ? new Date(new Date().setFullYear(new Date().getFullYear() + 10))
+        : new Date(tempArrivalDate)
+    console.log(departureDate, arrivalDate)
     const departurePlace = req.params.depature_airport
     const arrivalPlace = req.params.arrival_airport
 
-    const allFlights = await Flight.find()
-    allFlights.map((flight: any) => {
-      if (flight.departure_airport_name == departurePlace) {
-        if (flight.arrival_airport_name == arrivalPlace) {
-          if (flight.departure_date >= departureDate) {
-            if (flight.departure_date <= arrivalDate) {
-              properFlights.push(flight)
+    if (departurePlace == 'none' && arrivalPlace == 'none') {
+      const flights = await Flight.find({})
+      res.status(200).send(flights)
+    } else {
+      const allFlights = await Flight.find()
+      allFlights.map((flight: any) => {
+        if (flight.departure_airport_name == departurePlace) {
+          if (flight.arrival_airport_name == arrivalPlace) {
+            if (flight.departure_date >= departureDate) {
+              if (flight.departure_date <= arrivalDate) {
+                properFlights.push(flight)
+              }
             }
           }
         }
-      }
-    })
-    res.status(200).send(properFlights)
+      })
+      res.status(200).send(properFlights)
+    }
   }
 
   listings = async (req: express.Request, res: express.Response) => {
