@@ -62,9 +62,11 @@ export class FlightController {
   getFlightSearchWithDateRange = async (req: express.Request, res: express.Response) => {
     const properFlights: any = []
     const tempDepDate = req.params.departure_date
-    const departureDate = new Date(tempDepDate)
+    
+    const departureDate = (tempDepDate === 'none' ? new Date(new Date().setFullYear(new Date().getFullYear() - 10)): new Date(tempDepDate));
     const tempArrivalDate = req.params.arrival_date
-    const arrivalDate = new Date(tempArrivalDate)
+    const arrivalDate = (tempArrivalDate === 'none' ? new Date(new Date().setFullYear(new Date().getFullYear() + 10)): new Date(tempArrivalDate));
+    console.log(departureDate, arrivalDate);
     const departurePlace = req.params.depature_airport
     const arrivalPlace = req.params.arrival_airport
 
