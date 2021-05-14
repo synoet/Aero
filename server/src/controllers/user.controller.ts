@@ -235,7 +235,7 @@ export class UserController {
       const transactions = await Transaction.find()
 
       var directRevenue: number = 0
-      var indirectRevenue: any = 0
+      var indirectRevenue: number = 0
 
       await Promise.all(
         transactions.map(async (transaction: any) => {
@@ -256,18 +256,39 @@ export class UserController {
                 if (flight) {
                   if (flight.airline_name === staff.airline_name) {
                     monthly[month].data += flight.base_price
-                    if (transaction.customer_email === transaction.booking_agent_email) {
-                      indirectRevenue += flight.base_price
-                    } else if (transaction.booking_agent_email === null) {
-                      console.log(flight.base_price)
-                      directRevenue += flight.base_price
-                    }
                     total += flight.base_price
                   }
                 }
               }
             }
           }
+        })
+      )
+
+      await Promise.all(
+        transactions.map(async (transaction: any) => {
+            const purchase: any = await PurchaseInfo.findOne({
+              transaction_id: transaction._id,
+            })
+            if (purchase) {
+              const month: any = new Date(purchase.purchase_date).getMonth()
+              const ticket: any = await Ticket.findOne({
+                _id: purchase.ticket_id,
+              })
+              if (ticket) {
+                const flight: any = await Flight.findOne({ _id: ticket.flight_id })
+                if (flight) {
+                  if (flight.airline_name === staff.airline_name) {
+                    monthly[month].data += flight.base_price
+                    if (transaction.booking_agent_email === null) {
+                      directRevenue += flight.base_price
+                    }else if (transaction.customer_email !== transaction.booking_agent_email){
+                      indirectRevenue += flight.base_price;
+                    }
+                  }
+                }
+              }
+            }
         })
       )
 

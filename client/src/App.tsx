@@ -12,12 +12,12 @@ import Dashboard from './pages/Dashboard'
 import Transaction from './pages/Transaction'
 import Airplanes from './pages/Airplanes'
 import Airports from './pages/Airports'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>Aero</title>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Aero</title>
     </Helmet>
     <AuthProvider>
       <Router>
@@ -26,7 +26,7 @@ export const App = () => (
         <Route path="/signup" component={SignUp} />
         <Route path="/flights" component={Flights} />
         <Route path="/flight/:flightId" component={Flight} />
-        <Route path="/destinations" component={Destinations} />
+        {/* <Route path="/destinations" component={Destinations} /> */}
         <Route path="/airlines" />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/transaction" component={Transaction} />

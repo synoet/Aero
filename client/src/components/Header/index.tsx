@@ -50,10 +50,10 @@ const Header = (props: any) => {
               {' '}
               Flights{' '}
             </NavItem>
-            <NavItem to="/destinations" active={location.pathname === '/destinations' ? true : false}>
+            {/* <NavItem to="/destinations" active={location.pathname === '/destinations' ? true : false}>
               {' '}
               Destinations{' '}
-            </NavItem>
+            </NavItem> */}
             {auth.user && (
               <NavItem to="/dashboard" active={location.pathname === '/dashboard' ? true : false}>
                 {' '}
