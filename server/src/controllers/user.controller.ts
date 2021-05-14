@@ -221,7 +221,8 @@ export class UserController {
             })
             if (purchase) {
               const month: any = new Date(purchase.purchase_date).getMonth()
-              monthly[month].data += total += commission
+              monthly[month].data += purchase.sold_price * (commission / 100);
+              total += purchase.sold_price * (commission / 100);
             }
           }
         })
@@ -267,28 +268,28 @@ export class UserController {
 
       await Promise.all(
         transactions.map(async (transaction: any) => {
-            const purchase: any = await PurchaseInfo.findOne({
-              transaction_id: transaction._id,
+          const purchase: any = await PurchaseInfo.findOne({
+            transaction_id: transaction._id,
+          })
+          if (purchase) {
+            const month: any = new Date(purchase.purchase_date).getMonth()
+            const ticket: any = await Ticket.findOne({
+              _id: purchase.ticket_id,
             })
-            if (purchase) {
-              const month: any = new Date(purchase.purchase_date).getMonth()
-              const ticket: any = await Ticket.findOne({
-                _id: purchase.ticket_id,
-              })
-              if (ticket) {
-                const flight: any = await Flight.findOne({ _id: ticket.flight_id })
-                if (flight) {
-                  if (flight.airline_name === staff.airline_name) {
-                    monthly[month].data += flight.base_price
-                    if (transaction.booking_agent_email === null) {
-                      directRevenue += flight.base_price
-                    }else if (transaction.customer_email !== transaction.booking_agent_email){
-                      indirectRevenue += flight.base_price;
-                    }
+            if (ticket) {
+              const flight: any = await Flight.findOne({ _id: ticket.flight_id })
+              if (flight) {
+                if (flight.airline_name === staff.airline_name) {
+                  monthly[month].data += flight.base_price
+                  if (transaction.booking_agent_email === null) {
+                    directRevenue += flight.base_price
+                  } else if (transaction.customer_email !== transaction.booking_agent_email) {
+                    indirectRevenue += flight.base_price
                   }
                 }
               }
             }
+          }
         })
       )
 
