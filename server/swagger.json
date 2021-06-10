@@ -109,7 +109,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of Flight to return",
+            "description": "ID of user",
             "required": true,
             "type": "string",
             "format": "string"
@@ -140,7 +140,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of Flight to update",
+            "description": "ID of user",
             "required": true,
             "type": "string",
             "format": "string"
@@ -208,7 +208,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of Flight to return",
+            "description": "ID of user",
             "required": true,
             "type": "string",
             "format": "string"
@@ -325,7 +325,98 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Airline of flight",
+            "description": "ID of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/createRating": {
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Create rating",
+        "description": "List flight rating",
+        "operationId": "createRating",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}/ratings": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Get Ratings",
+        "description": "Get ratings by Id",
+        "operationId": "getRatings",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          }
+        }
+      }
+    },
+    "/flights/{id}/{flightID}/ratings": {
+      "get": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Get ratings per flight",
+        "description": "Get ratings for flightID by Id",
+        "operationId": "getRatingsperflight",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "flightID",
+            "in": "path",
+            "description": "id of flight",
             "required": true,
             "type": "string",
             "format": "string"
@@ -555,6 +646,36 @@
         ],
         "summary": "Get User Flights",
         "description": "Get User Flights from iD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "iD of user",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Flights"
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}/frequent": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get top Users",
+        "description": "Get top users from iD",
         "produces": [
           "application/json"
         ],
